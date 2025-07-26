@@ -12,9 +12,12 @@ content: [
           '50%': { transform: 'translateY(-20px)' },
         },
       },
-      animation: {
+       animation: {
         float: 'float 3s ease-in-out infinite',
+        'spin-slow': 'spin 8s linear infinite',
       },
+    // he
+    
     },
   },
   plugins: [ require('daisyui'),],
