@@ -49,11 +49,11 @@ const foods = [
 
 const Slider = () => {
   return (
-   <div className='relative mt-24'>
+   <div className='bg-[#f5f2eb] relative pt-24 pb-10'>
      <h5 className='text-[#fa812a] text-lg text-center'>BEST FOOD</h5>
                 <h1 className='text-[36px] font-bold text-center'>Popular Food Items</h1>
                 <img src="/public/images/pizza slice.png" className='absolute top-20 right-0 animate-float' alt="" />
-             <img src="/public/images/bestFoodItemsShape1_1.png" className='absolute left-0 bottom-0 animate-float' alt="" />
+             <img src="/public/images/bestFoodItemsShape1_1.png" className='absolute left-0 bottom-0 animate-float mb-20' alt="" />
      <div className="max-w-6xl mx-auto my-10 ">
        
       <Swiper
@@ -73,12 +73,12 @@ const Slider = () => {
           <SwiperSlide key={idx}>
             <div className="bg-white shadow-xl rounded-lg text-center p-5 my-10">
                 
-              <div className="relative mx-auto w-32 h-32 mb-4">
+              <div className="relative mx-auto w-32 h-32 pb-4">
                 <div className="absolute inset-0 border-4 border-dotted border-red-500  rounded-full animate-spin-slow"></div>
                 <img
                   src={food.img}
                   alt={food.title}
-                  className="w-full h-full object-cover rounded-full z-10 relative p-2"
+                  className="w-[200px] h-[130px] object-cover rounded-full z-10 relative p-2"
                 />
               </div>
               <h2 className="text-lg font-bold">{food.title}</h2>
