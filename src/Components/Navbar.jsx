@@ -10,6 +10,7 @@ import {
   FaArrowRight,
 } from "react-icons/fa";
 import { MdOutlineAccessTime } from "react-icons/md";
+import { NavLink } from "react-router-dom";
 
 const Navbar = () => {
   return (
@@ -79,6 +80,7 @@ const Navbar = () => {
             <span className="hover:text-red-500 cursor-pointer">Pages +</span>
             <span className="hover:text-red-500 cursor-pointer">Blog +</span>
             <span className="hover:text-red-500 cursor-pointer">Contact Us +</span>
+            <NavLink to={'/login'}>Login</NavLink>
           </div>
 
           {/* Icons + Order Now */}

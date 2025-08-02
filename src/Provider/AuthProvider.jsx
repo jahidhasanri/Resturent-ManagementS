@@ -1,0 +1,49 @@
+import { onAuthStateChanged } from 'firebase/auth';
+import React, { createContext, useEffect, useState } from 'react';
+import { auth } from '../firebase.config';
+const AuthContext= createContext(null)
+const AuthProvider = () => {
+    const [user,SetUser]=useState(null);
+    const [loader,SetLoader]=useState(true);
+
+    const handelWithRegister = (email, password)=>{
+        SetLoader(true)
+        return createUserWithEmailAndPassword(auth, email, password)
+    }
+
+
+
+
+    const authInfo={
+        user,
+        SetUser,
+        loader,
+        SetLoader,
+        handelWithRegister,
+    }
+
+
+    // observer
+   useEffect(()=>{
+       const unsubscribe =onAuthStateChanged(auth, (user) =>{
+           if(user){
+            SetUser(user)
+               SetLoader(false)
+           }
+           else{
+            SetUser(null)
+            // SetLoader(true)
+           }
+       })
+        return () => {
+            unsubscribe();
+        };
+   },[])
+    return (
+        <AuthContext.Provider value={authInfo}>
+            
+        </AuthContext.Provider>
+    );
+};
+
+export default AuthProvider;
