@@ -6,11 +6,10 @@ import { RouterProvider } from 'react-router-dom'
 import router from './Router/Router.jsx'
 import AuthProvider from './Provider/AuthProvider.jsx'
 
-
 createRoot(document.getElementById('root')).render(
-  <AuthProvider>
-    <StrictMode>
-<RouterProvider router={router} />
-  </StrictMode>,
-  </AuthProvider>
-)
+  <StrictMode>
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
+  </StrictMode>
+); // ✅ semicolon added

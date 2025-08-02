@@ -81,6 +81,7 @@ const Navbar = () => {
             <span className="hover:text-red-500 cursor-pointer">Blog +</span>
             <span className="hover:text-red-500 cursor-pointer">Contact Us +</span>
             <NavLink to={'/login'}>Login</NavLink>
+            
           </div>
 
           {/* Icons + Order Now */}
