@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { CiTimer } from "react-icons/ci";
 import {
   FaFacebookF,
@@ -11,8 +11,11 @@ import {
 } from "react-icons/fa";
 import { MdOutlineAccessTime } from "react-icons/md";
 import { NavLink } from "react-router-dom";
+import { AuthContext } from "../Provider/AuthProvider";
 
 const Navbar = () => {
+  const {user}=useContext(AuthContext)
+  console.log(user);
   return (
     <div className="flex flex-col md:flex-row h-full">
 
@@ -80,22 +83,30 @@ const Navbar = () => {
             <span className="hover:text-red-500 cursor-pointer">Pages +</span>
             <span className="hover:text-red-500 cursor-pointer">Blog +</span>
             <span className="hover:text-red-500 cursor-pointer">Contact Us +</span>
-            <NavLink to={'/login'}>Login</NavLink>
+            
             
           </div>
 
           {/* Icons + Order Now */}
           <div className="flex items-center gap-7 mt-4 md:mt-0 text-white mr-[150px]">
-            <FaSearch className="cursor-pointer" />
+           
             <div className="relative">
               <FaShoppingCart className="text-xl cursor-pointer" />
               <span className="absolute -top-2 -right-2 text-xs bg-orange-500 text-white rounded-full w-5 h-5 flex items-center justify-center">
                 3
               </span>
+             
             </div>
-            <button className="bg-red-600 text-white px-4 py-2 text-sm flex items-center gap-1 hover:bg-red-700 transition">
-              ORDER NOW <FaArrowRight />
-            </button>
+            {
+              user?
+            <NavLink  className="bg-red-600 text-white px-4 py-2 text-sm flex items-center gap-1 hover:bg-red-700 transition">
+              LogOut <FaArrowRight />
+            </NavLink>
+            :
+            <NavLink to={'/login'} className="bg-red-600 text-white px-4 py-2 text-sm flex items-center gap-1 hover:bg-red-700 transition">
+               Login<FaArrowRight />
+            </NavLink>
+            }
             {/* Optional Hamburger Icon */}
             <div className="md:hidden text-2xl cursor-pointer">☰</div>
           </div>

@@ -1,11 +1,11 @@
-import { onAuthStateChanged } from 'firebase/auth';
+import { createUserWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
 import React, { createContext, useEffect, useState } from 'react';
 import { auth } from '../firebase.config';
-const AuthContext= createContext(null)
+export const AuthContext= createContext(null)
 const AuthProvider = ({children}) => {
     const [user,SetUser]=useState(null);
     const [loader,SetLoader]=useState(true);
-
+console.log(user);
     const handelWithRegister = (email, password)=>{
         SetLoader(true)
         return createUserWithEmailAndPassword(auth, email, password)
