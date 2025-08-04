@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
+import { createUserWithEmailAndPassword, onAuthStateChanged, signOut } from 'firebase/auth';
 import React, { createContext, useEffect, useState } from 'react';
 import { auth } from '../firebase.config';
 export const AuthContext= createContext(null)
@@ -10,7 +10,10 @@ console.log(user);
         SetLoader(true)
         return createUserWithEmailAndPassword(auth, email, password)
     }
-
+    const handelLogout = ()=>{
+        SetLoader(true)
+        return signOut(auth);
+    }
 
 
 
@@ -20,6 +23,7 @@ console.log(user);
         loader,
         SetLoader,
         handelWithRegister,
+        handelLogout
     }
 
 

@@ -10,12 +10,24 @@ import {
   FaArrowRight,
 } from "react-icons/fa";
 import { MdOutlineAccessTime } from "react-icons/md";
-import { NavLink } from "react-router-dom";
+import { Navigate, NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../Provider/AuthProvider";
+import { toast } from "react-toastify";
 
 const Navbar = () => {
-  const {user}=useContext(AuthContext)
-  console.log(user);
+  const {user,handelLogout}=useContext(AuthContext)
+  const navigate = useNavigate();
+  const handelSignOut = async(e)=>{
+   e.preventDefault();
+    try {
+      await handelLogout();
+      toast.success('Logout successful!');
+      setTimeout(() => navigate('/login'), 2000);
+    } catch (error) {
+      toast.error(`Logout failed: ${error.message}`);
+    }
+  }
+  console.log(user?.photoURL);
   return (
     <div className="flex flex-col md:flex-row h-full">
 
@@ -99,9 +111,26 @@ const Navbar = () => {
             </div>
             {
               user?
-            <NavLink  className="bg-red-600 text-white px-4 py-2 text-sm flex items-center gap-1 hover:bg-red-700 transition">
+              <>
+
+              <div className="relative group inline-block">
+  <img
+    src={user?.photoURL || "/default-avatar.png"}
+    className="w-[30px] h-[30px] rounded-full"
+    alt="User"
+  />
+  <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 hidden group-hover:block bg-black text-white text-sm px-2 py-1 rounded shadow-md z-10 whitespace-nowrap">
+    {user?.displayName || "User"}
+  </div>
+</div>
+
+          <li onClick={handelSignOut} className="list-none">
+              <button  className="bg-red-600 text-white px-4 py-2 text-sm flex items-center gap-1 hover:bg-red-700 transition">
               LogOut <FaArrowRight />
-            </NavLink>
+            </button>
+          </li>
+              
+              </>
             :
             <NavLink to={'/login'} className="bg-red-600 text-white px-4 py-2 text-sm flex items-center gap-1 hover:bg-red-700 transition">
                Login<FaArrowRight />
