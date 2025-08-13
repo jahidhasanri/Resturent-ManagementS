@@ -17,17 +17,17 @@ import { toast } from "react-toastify";
 const Navbar = () => {
   const {user,handelLogout}=useContext(AuthContext)
   const navigate = useNavigate();
+  console.log(user?.photoURL);
   const handelSignOut = async(e)=>{
    e.preventDefault();
     try {
       await handelLogout();
       toast.success('Logout successful!');
-      setTimeout(() => navigate('/login'), 2000);
+      setTimeout(() => navigate('/login'), 1000);
     } catch (error) {
       toast.error(`Logout failed: ${error.message}`);
     }
   }
-  console.log(user?.photoURL);
   return (
     <div className="flex flex-col md:flex-row h-full">
 
@@ -89,7 +89,7 @@ const Navbar = () => {
 
           {/* Navigation Menu */}
           <div className="flex gap-6 items-center font-semibold text-sm flex-wrap">
-            <span className="hover:text-red-500 cursor-pointer">Home +</span>
+            <NavLink to={'/'} className="hover:text-red-500 cursor-pointer">Home</NavLink>
             <span className="hover:text-red-500 cursor-pointer">About Us +</span>
             <span className="hover:text-red-500 cursor-pointer">Shop +</span>
             <span className="hover:text-red-500 cursor-pointer">Pages +</span>
@@ -115,10 +115,10 @@ const Navbar = () => {
 
               <div className="relative group inline-block">
   <img
-    src={user?.photoURL || "/default-avatar.png"}
-    className="w-[30px] h-[30px] rounded-full"
-    alt="User"
-  />
+  src={user?.photoURL ? user.photoURL : "/default-avatar.png"}
+  className="w-[30px] h-[30px] rounded-full object-cover"
+  alt="User"
+/>
   <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 hidden group-hover:block bg-black text-white text-sm px-2 py-1 rounded shadow-md z-10 whitespace-nowrap">
     {user?.displayName || "User"}
   </div>

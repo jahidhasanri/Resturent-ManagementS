@@ -1,11 +1,12 @@
-import { createUserWithEmailAndPassword, onAuthStateChanged, signOut } from 'firebase/auth';
+import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut } from 'firebase/auth';
 import React, { createContext, useEffect, useState } from 'react';
 import { auth } from '../firebase.config';
 export const AuthContext= createContext(null)
 const AuthProvider = ({children}) => {
     const [user,SetUser]=useState(null);
     const [loader,SetLoader]=useState(true);
-console.log(user);
+
+    const provider = new GoogleAuthProvider();
     const handelWithRegister = (email, password)=>{
         SetLoader(true)
         return createUserWithEmailAndPassword(auth, email, password)
@@ -15,6 +16,15 @@ console.log(user);
         return signOut(auth);
     }
 
+    const handleLoginwithEmail = (email,password)=>{
+        SetLoader(true);
+        return signInWithEmailAndPassword(auth, email, password)
+    }
+
+    const handleLoginWithGoogle = ()=>{
+        SetLoader(true);
+        return signInWithPopup(auth, provider);
+    }
 
 
     const authInfo={
@@ -23,7 +33,9 @@ console.log(user);
         loader,
         SetLoader,
         handelWithRegister,
-        handelLogout
+        handelLogout,
+        handleLoginwithEmail,
+        handleLoginWithGoogle
     }
 
 
@@ -31,12 +43,12 @@ console.log(user);
    useEffect(()=>{
        const unsubscribe =onAuthStateChanged(auth, (currentUser) =>{
            if(currentUser){
-            SetUser(currentUser)
-               SetLoader(false)
+             SetUser(currentUser || null);
+            SetLoader(false);
            }
            else{
             SetUser(null)
-            // SetLoader(true)
+           
            }
        })
         return () => {

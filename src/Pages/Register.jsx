@@ -4,7 +4,7 @@ import { AuthContext } from '../Provider/AuthProvider';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { updateProfile } from 'firebase/auth'; // ✅ Needed for name & photo
+import { updateProfile } from 'firebase/auth';
 
 const Register = () => {
   const [preview, setPreview] = useState(null);
@@ -68,8 +68,7 @@ const Register = () => {
       toast.success("Registration successful!");
       form.reset();
       setPreview(null);
-      navigate('/');
-
+      setTimeout(() => navigate('/'), 1000);
     } catch (err) {
       console.error(err);
       toast.error("Registration failed. Please try again.");
