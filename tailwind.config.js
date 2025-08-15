@@ -21,6 +21,9 @@ export default {
         'spin-slow': 'spin 8s linear infinite',
         'left-right': 'left-right 2s ease-in-out infinite',
       },
+      animation: {
+        'Aspin-slow': 'spin 10s linear infinite',
+      },
     },
   },
   plugins: [require('daisyui')],
