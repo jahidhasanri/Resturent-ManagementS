@@ -5,6 +5,8 @@ import { div } from 'framer-motion/client';
 import BestFood from '../Components/BestFood';
 import { AuthContext } from '../Provider/AuthProvider';
 import AboutUs from '../Components/AboutUs';
+import BestSellingDesh from '../Components/BestSellingDesh';
+import TodaySepcialFood from '../Components/TodaySepcialFood';
 
 
 
@@ -19,6 +21,8 @@ const Home = () => {
     <BestFood></BestFood>
     <Display></Display>
     <AboutUs></AboutUs>
+    <BestSellingDesh></BestSellingDesh>
+    <TodaySepcialFood></TodaySepcialFood>
      </div>
      
     );

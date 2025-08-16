@@ -36,9 +36,9 @@ const AddProduct = () => {
     if (type === "file") {
       const file = files[0];
       if (file) {
-        const imageUrl = URL.createObjectURL(file);
-        setFormData({ ...formData, image: imageUrl });
-        setPreview(imageUrl);
+        setPreview(URL.createObjectURL(file));
+        // এখানে আমরা এখনই imgbb তে পাঠাচ্ছি না, submit এর সময় পাঠাবো
+        setFormData({ ...formData, image: file });
       }
     } else {
       setFormData({
@@ -58,25 +58,40 @@ const AddProduct = () => {
 
     // Validation
     if (reviewValue < 1 || reviewValue > 5) {
-      alert("Review stars must be between 1 and 5 ⭐");
+      toast.error("Review stars must be between 1 and 5 ⭐");
       return;
     }
     if (quantityValue < 1) {
-      alert("Quantity must be at least 1");
+      toast.error("Quantity must be at least 1");
       return;
     }
     if (priceValue < 1) {
-      alert("Price must be at least 1");
+      toast.error("Price must be at least 1");
       return;
     }
 
     try {
+      // -------- Upload image to imgbb --------
+      const imgData = new FormData();
+      imgData.append("image", formData.image);
+
+      const imgRes = await axios.post(
+        `https://api.imgbb.com/1/upload?key=8be0cdd4b85b2bb02d8b738407647b48`,
+        imgData
+      );
+
+      const imageUrl = imgRes.data.data.url;
+
       await axios.post("http://localhost:5000/alldishes", {
         ...formData,
+        image: imageUrl,
         customerReview: [],
       });
 
-      toast.success("Dish added successfully!");
+      setTimeout(()=>{
+
+          toast.success("Dish added successfully!");
+      },1000)
 
       // Reset form
       setFormData({
@@ -90,7 +105,7 @@ const AddProduct = () => {
       });
       setPreview(null);
 
-      // navigate("/"); // Uncomment if you want redirect after add
+      // navigate("/"); 
     } catch (err) {
       console.error(err);
       toast.error("Dish registration failed. Please try again.");
