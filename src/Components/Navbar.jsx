@@ -93,7 +93,7 @@ const Navbar = () => {
             <span className="hover:text-red-500 cursor-pointer">About Us +</span>
             <span className="hover:text-red-500 cursor-pointer">Shop +</span>
             <span className="hover:text-red-500 cursor-pointer">Pages +</span>
-            <span className="hover:text-red-500 cursor-pointer">Blog +</span>
+            <NavLink to={'/addDish'} className="hover:text-red-500 cursor-pointer">Add Dishes</NavLink>
             <span className="hover:text-red-500 cursor-pointer">Contact Us +</span>
             
             
