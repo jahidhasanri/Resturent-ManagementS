@@ -115,7 +115,7 @@ const AddProduct = () => {
   return (
     <div className="bg-gray-400 min-h-screen">
       <div className="pt-[100px] pb-[100px]">
-        <div className="container lg:w-[1000px] pt-[50px] pb-[100px] mx-auto p-6 bg-white shadow-lg rounded-xl">
+        <div className="container lg:w-[1000px] pt-[50px] px-[100px] pb-[100px] mx-auto p-6 bg-white shadow-lg rounded-xl">
           <h2 className="text-2xl font-bold mb-10 text-center">
             Add New Dish
           </h2>

@@ -7,6 +7,7 @@ import Home from "../Pages/Home";
 import Login from "../Pages/Login";
 import Register from "../Pages/Register";
 import AddProduct from "../Admin/AddProduct";
+import ContactUs from "../Pages/ContactUs";
 
 const router = createBrowserRouter([
   {
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
        {
         path:'/addDish',
         element:<AddProduct></AddProduct>
+       },
+       {
+        path:'/contactus',
+        element:<ContactUs></ContactUs>
        }
 
     ]
