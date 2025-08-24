@@ -17,7 +17,6 @@ import { toast } from "react-toastify";
 const Navbar = () => {
   const {user,handelLogout}=useContext(AuthContext)
   const navigate = useNavigate();
-  console.log(user?.photoURL);
   const handelSignOut = async(e)=>{
    e.preventDefault();
     try {
@@ -90,7 +89,7 @@ const Navbar = () => {
           {/* Navigation Menu */}
           <div className="flex gap-6 items-center font-semibold text-sm flex-wrap">
             <NavLink to={'/'} className="hover:text-red-500 cursor-pointer">Home</NavLink>
-            <span className="hover:text-red-500 cursor-pointer">About Us +</span>
+            <NavLink to={'/aboutus'} className="hover:text-red-500 cursor-pointer">About Us +</NavLink>
             <span className="hover:text-red-500 cursor-pointer">Shop +</span>
             <span className="hover:text-red-500 cursor-pointer">Pages +</span>
             <NavLink to={'/addDish'} className="hover:text-red-500 cursor-pointer">Add Dishes</NavLink>
@@ -115,12 +114,12 @@ const Navbar = () => {
 
               <div className="relative group inline-block">
   <img
-  src={user?.photoURL ? user.photoURL : "/default-avatar.png"}
+  src={user?.image ? user.image : "/default-avatar.png"}
   className="w-[30px] h-[30px] rounded-full object-cover"
   alt="User"
 />
   <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 hidden group-hover:block bg-black text-white text-sm px-2 py-1 rounded shadow-md z-10 whitespace-nowrap">
-    {user?.displayName || "User"}
+    {user?.name || "User"}
   </div>
 </div>
 

@@ -48,7 +48,7 @@ const Login = () => {
 
         axios.post("http://localhost:5000/users", userInfo)
           .then(res => {
-            console.log("User saved to DB:", res.data);
+            console.log("User saved to DB:");
           })
           .catch(err => {
             console.error("DB Save Error:", err);

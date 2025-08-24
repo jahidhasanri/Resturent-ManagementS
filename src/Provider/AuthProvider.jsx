@@ -1,10 +1,26 @@
 import { createUserWithEmailAndPassword, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut } from 'firebase/auth';
 import React, { createContext, useEffect, useState } from 'react';
 import { auth } from '../firebase.config';
+import axios from 'axios';
 export const AuthContext= createContext(null)
 const AuthProvider = ({children}) => {
     const [user,SetUser]=useState(null);
     const [loader,SetLoader]=useState(true);
+ useEffect(() => {
+  if (user?.email) {   
+    const fetchUser = async () => {
+      try {
+        const response = await axios.get(`http://localhost:5000/users?email=${user.email}`);
+        SetUser(response.data);   
+      } catch (error) {
+        console.error("Error fetching user:", error);
+      }
+    };
+    fetchUser();
+  }
+}, [user?.email]);  
+
+console.log(user);
 
     const provider = new GoogleAuthProvider();
     const handelWithRegister = (email, password)=>{
@@ -25,6 +41,10 @@ const AuthProvider = ({children}) => {
         SetLoader(true);
         return signInWithPopup(auth, provider);
     }
+
+   
+    
+
 
 
     const authInfo={
