@@ -9,6 +9,7 @@ import Register from "../Pages/Register";
 import AddProduct from "../Admin/AddProduct";
 import ContactUs from "../Pages/ContactUs";
 import AboutUs from "../Pages/AboutUs";
+import WishList from "../Pages/WishList";
 
 const router = createBrowserRouter([
   {
@@ -39,6 +40,10 @@ const router = createBrowserRouter([
        {
         path:'/aboutus',
         element:<AboutUs></AboutUs>
+       },
+       {
+        path:'wishlist',
+        element:<WishList></WishList>
        }
 
     ]

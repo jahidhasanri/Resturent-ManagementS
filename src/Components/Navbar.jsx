@@ -91,7 +91,7 @@ const Navbar = () => {
             <NavLink to={'/'} className="hover:text-red-500 cursor-pointer">Home</NavLink>
             <NavLink to={'/aboutus'} className="hover:text-red-500 cursor-pointer">About Us +</NavLink>
             <span className="hover:text-red-500 cursor-pointer">Shop +</span>
-            <span className="hover:text-red-500 cursor-pointer">Pages +</span>
+            <NavLink to={'/wishlist'} className="hover:text-red-500 cursor-pointer">wishList</NavLink>
             <NavLink to={'/addDish'} className="hover:text-red-500 cursor-pointer">Add Dishes</NavLink>
             <NavLink to={'/contactus'} className="hover:text-red-500 cursor-pointer">Contact Us +</NavLink>
             
