@@ -16,6 +16,7 @@ import { toast } from "react-toastify";
 
 const Navbar = () => {
   const {user,handelLogout}=useContext(AuthContext)
+  console.log(user);
   const navigate = useNavigate();
   const handelSignOut = async(e)=>{
    e.preventDefault();
@@ -94,6 +95,7 @@ const Navbar = () => {
             <NavLink to={'/wishlist'} className="hover:text-red-500 cursor-pointer">wishList</NavLink>
             <NavLink to={'/addDish'} className="hover:text-red-500 cursor-pointer">Add Dishes</NavLink>
             <NavLink to={'/contactus'} className="hover:text-red-500 cursor-pointer">Contact Us +</NavLink>
+            <NavLink to={'/manageDishes'} className="hover:text-red-500 cursor-pointer">manageDishes</NavLink>
             
             
           </div>
@@ -114,7 +116,7 @@ const Navbar = () => {
 
               <div className="relative group inline-block">
   <img
-  src={user?.image ? user.image : "/default-avatar.png"}
+  src={user?.image || user?.photoURL ? user?.image : "/default-avatar.png"}
   className="w-[30px] h-[30px] rounded-full object-cover"
   alt="User"
 />

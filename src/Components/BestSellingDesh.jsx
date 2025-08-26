@@ -7,7 +7,7 @@ import { AuthContext } from "../Provider/AuthProvider";
 
 const BestSellingDesh = () => {
   const [dishes, setDishes] = useState([]);
-  const [wishlist, setWishlist] = useState([]); // 🔹 track wishlist itemIds
+  const [wishlist, setWishlist] = useState([]); 
   const { user } = useContext(AuthContext);
 
   // 🔹 Fetch all best selling dishes

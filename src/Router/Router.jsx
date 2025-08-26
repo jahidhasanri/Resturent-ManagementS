@@ -10,6 +10,7 @@ import AddProduct from "../Admin/AddProduct";
 import ContactUs from "../Pages/ContactUs";
 import AboutUs from "../Pages/AboutUs";
 import WishList from "../Pages/WishList";
+import ManageDishes from "../Pages/ManageDishes";
 
 const router = createBrowserRouter([
   {
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
        {
         path:'wishlist',
         element:<WishList></WishList>
+       },
+       {
+        path:'/manageDishes',
+        element:<ManageDishes></ManageDishes>
        }
 
     ]
