@@ -36,7 +36,7 @@ const Analytic = () => {
           <div className="grid  gap-4">
             <div className="bg-[#1c1c2e] rounded-xl p-6 flex justify-between h-[165px]">
               <div>
-                <h4 className="text-gray-400 text-sm mb-3">Users</h4>
+                <h4 className="text-gray-400 text-sm mb-3">Orders</h4>
               <p className="text-white text-3xl font-bold mb-3">201</p>
               <p className="text-green-400 text-xs">
                 ↑ 8.2% since last month
@@ -91,9 +91,9 @@ const Analytic = () => {
             <p className="text-white text-3xl font-bold">4,890</p>
            <DonutChart></DonutChart>
             <div className="flex gap-4 mt-3 text-gray-300 text-xs">
-              <p><span className="text-yellow-400">●</span> 62% Done </p>
+              <p><span className="text-yellow-400">●</span> 62% Completed </p>
               <p><span className="text-orange-400">●</span> 30% Pending</p>
-              <p><span className="text-yellow-200">●</span> 8% Cancel</p>
+              <p><span className="text-yellow-200">●</span> 8% Cancelled</p>
             </div>
           </div>
 

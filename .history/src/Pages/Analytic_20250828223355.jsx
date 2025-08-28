@@ -34,7 +34,7 @@ const Analytic = () => {
         {/* Dashboard Cards */}
         <div className="grid grid-cols-4 gap-6">
           <div className="grid  gap-4">
-            <div className="bg-[#1c1c2e] rounded-xl p-6 flex justify-between h-[165px]">
+            <div className="bg-[#1f2937] rounded-xl p-6 flex justify-between h-[165px]">
               <div>
                 <h4 className="text-gray-400 text-sm mb-3">Users</h4>
               <p className="text-white text-3xl font-bold mb-3">201</p>

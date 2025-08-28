@@ -1,6 +1,6 @@
 import React from "react";
 import { PieChart } from "@mui/x-charts/PieChart";
-import '../Navbar.css'
+
 const DonutChart = () => {
   const data = [
     { label: "Completed", value: 62, color: "#FACC15" },      // হলুদ

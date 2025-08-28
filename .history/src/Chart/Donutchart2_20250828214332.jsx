@@ -1,11 +1,10 @@
 import React from "react";
 import { PieChart } from "@mui/x-charts/PieChart";
-import '../Navbar.css'
-const DonutChart = () => {
+
+const DonutChart2 = () => {
   const data = [
-    { label: "Completed", value: 62, color: "#FACC15" },      // হলুদ
-    { label: "Pending", value: 30, color: "#F59E0B" }, // কমলা
-    { label: "Cancelled", value: 8, color: "#FDE68A" },  // হালকা হলুদ
+    { label: "New", value: 78, color: "#3B82F6" },      // Blue
+    { label: "Returning", value: 22, color: "#10B981" } // Green
   ];
 
   return (
@@ -24,4 +23,4 @@ const DonutChart = () => {
   );
 };
 
-export default DonutChart;
+export default DonutChart2;
