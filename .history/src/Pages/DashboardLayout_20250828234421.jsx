@@ -1,6 +1,6 @@
 import { NavLink, Outlet } from "react-router";
 import { FaBorderAll } from "react-icons/fa";
-import { MdManageHistory } from "react-icons/md";
+
 const DashboardLayout = () => {
     const role="admin";
   return (
@@ -61,16 +61,10 @@ const DashboardLayout = () => {
           {role === "admin" && (
             <>
               <li>
-                  <NavLink to={'analytic'} className="hover:text-red-500 cursor-pointer text-[20px] font-semibold"><div className="flex gap-3 items-center"><FaBorderAll /> Analytic</div></NavLink>
+                  <NavLink to={'analytic'} className="hover:text-red-500 cursor-pointer text-[24px] font-semibold"><div className="flex gap-3 items-center"><FaBorderAll /> Analytic</div></NavLink>
               </li>
               <li>
-                  <NavLink to={'manageUsers'} className="hover:text-red-500 cursor-pointer text-[20px] font-semibold"><div className="flex gap-3 items-center"><MdManageHistory />ManageUsers</div></NavLink>
-              </li>
-              <li>
-                  <NavLink to={'addDish'} className="hover:text-red-500 cursor-pointer text-[20px] font-semibold"><div className="flex gap-3 items-center"><MdManageHistory /> AddDishes</div></NavLink>
-              </li>
-              <li>
-                  <NavLink to={'manageDishes'} className="hover:text-red-500 cursor-pointer text-[20px] font-semibold"><div className="flex gap-3 items-center"><MdManageHistory /> ManageDishes</div></NavLink>
+                  <NavLink to={'manageDishes'} className="hover:text-red-500 cursor-pointer text-[24px] font-semibold"><div><MdManageHistory /> manageDishes</div></NavLink>
               </li>
               <li>
                 <NavLink

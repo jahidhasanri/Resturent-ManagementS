@@ -61,10 +61,10 @@ const DashboardLayout = () => {
           {role === "admin" && (
             <>
               <li>
-                  <NavLink to={'analytic'} className="hover:text-red-500 cursor-pointer text-[20px] font-semibold"><div className="flex gap-3 items-center"><FaBorderAll /> Analytic</div></NavLink>
+                  <NavLink to={'manageUsers'} className="hover:text-red-500 cursor-pointer text-[20px] font-semibold"><div className="flex gap-3 items-center"><MdManageHistory />ManageUsers</div></NavLink>
               </li>
               <li>
-                  <NavLink to={'manageUsers'} className="hover:text-red-500 cursor-pointer text-[20px] font-semibold"><div className="flex gap-3 items-center"><MdManageHistory />ManageUsers</div></NavLink>
+                  <NavLink to={'analytic'} className="hover:text-red-500 cursor-pointer text-[20px] font-semibold"><div className="flex gap-3 items-center"><FaBorderAll /> Analytic</div></NavLink>
               </li>
               <li>
                   <NavLink to={'addDish'} className="hover:text-red-500 cursor-pointer text-[20px] font-semibold"><div className="flex gap-3 items-center"><MdManageHistory /> AddDishes</div></NavLink>

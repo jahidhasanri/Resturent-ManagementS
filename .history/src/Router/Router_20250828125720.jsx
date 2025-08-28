@@ -14,7 +14,6 @@ import WishList from "../Pages/WishList";
 import ManageDishes from "../Pages/ManageDishes";
 import DashboardLayout from "../Pages/DashboardLayout";
 import Analytic from "../Pages/Analytic";
-import ManageUsers from "../Pages/ManageUsers";
 
 const router = createBrowserRouter([
   {
@@ -34,7 +33,10 @@ const router = createBrowserRouter([
         path:'/register',
         element:<Register></Register>
        },
-       
+       {
+        path:'/addDish',
+        element:<AddProduct></AddProduct>
+       },
        {
         path:'/contactus',
         element:<ContactUs></ContactUs>
@@ -66,14 +68,6 @@ const router = createBrowserRouter([
           ,{
         path:'manageDishes',
         element:<ManageDishes></ManageDishes>
-       },
-       {
-        path:'addDish',
-        element:<AddProduct></AddProduct>
-       },
-       {
-        path:'manageUsers',
-        element:<ManageUsers></ManageUsers>
        },
         ]
   }
