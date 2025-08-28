@@ -112,9 +112,9 @@ const ManageDishes = () => {
                 <td className="p-2 border">{dish.name}</td>
                 <td className="p-2 border">${dish.price}</td>
                 <td className="p-2 border">{dish.quantity}</td>
-                <td className="p-2 border flex justify-center gap-2">
+                <td className="p-2 border  justify-center gap-2">
                   <button
-                    className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600"
+                    className="bg-blue-500 text-white px-3 py-1 mr-4 rounded hover:bg-blue-600"
                     onClick={() => handleUpdate(dish)}
                   >
                     Update

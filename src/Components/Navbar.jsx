@@ -13,6 +13,7 @@ import { MdOutlineAccessTime } from "react-icons/md";
 import { Navigate, NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../Provider/AuthProvider";
 import { toast } from "react-toastify";
+import '../Navbar.css'
 
 const Navbar = () => {
   const {user,handelLogout}=useContext(AuthContext)
@@ -95,7 +96,8 @@ const Navbar = () => {
             <NavLink to={'/wishlist'} className="hover:text-red-500 cursor-pointer">wishList</NavLink>
             <NavLink to={'/addDish'} className="hover:text-red-500 cursor-pointer">Add Dishes</NavLink>
             <NavLink to={'/contactus'} className="hover:text-red-500 cursor-pointer">Contact Us +</NavLink>
-            <NavLink to={'/manageDishes'} className="hover:text-red-500 cursor-pointer">manageDishes</NavLink>
+          
+            <NavLink to={'/dashboard'} className="hover:text-red-500 cursor-pointer">dashboard</NavLink>
             
             
           </div>

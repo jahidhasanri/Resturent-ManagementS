@@ -1,5 +1,6 @@
 import {
   createBrowserRouter,
+  Navigate,
 } from "react-router-dom";
 import Main from "../Components/Main";
 import Error from "../Pages/Error";
@@ -11,6 +12,8 @@ import ContactUs from "../Pages/ContactUs";
 import AboutUs from "../Pages/AboutUs";
 import WishList from "../Pages/WishList";
 import ManageDishes from "../Pages/ManageDishes";
+import DashboardLayout from "../Pages/DashboardLayout";
+import Analytic from "../Pages/Analytic";
 
 const router = createBrowserRouter([
   {
@@ -46,12 +49,27 @@ const router = createBrowserRouter([
         path:'wishlist',
         element:<WishList></WishList>
        },
-       {
-        path:'/manageDishes',
-        element:<ManageDishes></ManageDishes>
-       }
+       
 
     ]
   },
+  {
+        path:'/dashboard',
+        element:<DashboardLayout></DashboardLayout>,
+        children:[
+           {
+        index: true, 
+        element: <Navigate to="analytic" replace />
+      },
+      {
+        path: "analytic",
+        element: <Analytic></Analytic>
+      },
+          ,{
+        path:'manageDishes',
+        element:<ManageDishes></ManageDishes>
+       },
+        ]
+  }
 ]);
 export default router;

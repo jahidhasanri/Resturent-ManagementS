@@ -4,15 +4,4 @@
     border-radius: 5px;
     text-align: center;
 }
-.active-link-class {
-  color: #fff;
-  background-color: #d7102a;
-  padding: 8px 16px;
-  border-radius: 8px;
-}
 
-.inactive-link-class {
-  color: #000;
-  padding: 8px 16px;
-  border-radius: 8px;
-}
