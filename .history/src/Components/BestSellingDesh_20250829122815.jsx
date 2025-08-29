@@ -4,7 +4,7 @@ import { FaArrowRight, FaEye, FaHeart } from "react-icons/fa";
 import { MdShoppingBasket } from "react-icons/md";
 import Swal from "sweetalert2";
 import { AuthContext } from "../Provider/AuthProvider";
-import { toast } from "react-toastify";
+import { toast } from "react-toastify"; // ✅ import toast
 import "react-toastify/dist/ReactToastify.css";
 
 const BestSellingDesh = () => {
@@ -38,7 +38,7 @@ const BestSellingDesh = () => {
         const res = await axios.get(
           `http://localhost:5000/wishes?userId=${user._id}`
         );
-        const wishlistIds = res.data.map((wish) => wish.itemId);
+        const wishlistIds = res.data.map((wish) => wish.itemId); // only itemIds
         setWishlist(wishlistIds);
       } catch (err) {
         console.error("Error fetching wishlist:", err);
@@ -49,11 +49,6 @@ const BestSellingDesh = () => {
 
   // 🔹 Add item to wishlist
   const handelWish = (dish) => {
-    if (!user?._id) {
-      Swal.fire("Login Required", "Please login to add wishlist", "warning");
-      return;
-    }
-
     const wishlistInf = {
       itemId: dish._id,
       userId: user?._id,
@@ -70,7 +65,7 @@ const BestSellingDesh = () => {
         axios
           .post("http://localhost:5000/wishes", wishlistInf)
           .then(() => {
-            setWishlist((prev) => [...prev, dish._id]);
+            setWishlist((prev) => [...prev, dish._id]); // 🔹 update state
             Swal.fire(
               "Added!",
               "This item has been added to your wishlist.",
@@ -122,19 +117,10 @@ const BestSellingDesh = () => {
               key={dish._id}
               className="relative group bg-white rounded-2xl shadow-md overflow-hidden transition-all duration-500"
             >
-               <div
-                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-700 ease-in-out bg-cover bg-center"
-                style={{
-                  backgroundImage:
-                    "url('https://i.ibb.co.com/99mz085T/freepik-upload-50378.png')",
-                }}
-              >
-                <div className="absolute inset-0 bg-black bg-opacity-50"></div>
-              </div>
               {/* Favorite Button */}
               <button
                 onClick={() => handelWish(dish)}
-                disabled={wishlist.includes(dish._id)}
+                disabled={wishlist.includes(dish._id)} // 🔹 disable if already in wishlist
                 className={`absolute top-4 right-4 z-30 rounded-full p-2 shadow-md transition ${
                   wishlist.includes(dish._id)
                     ? "bg-gray-300 cursor-not-allowed"
@@ -246,9 +232,6 @@ const BestSellingDesh = () => {
                   {selectedDish.details ||
                     "Aliquam hendrerit a augue insu suscipit. Etiam aliquam massa quis des mauris commodo venenatis ligula commodo leez sed blandit convallis."}
                 </p>
-                <p className="mt-5">
-                  Available quantity: {selectedDish.quantity}
-                </p>
 
                 {/* 🔹 Quantity + Buttons */}
                 <QuantitySection selectedDish={selectedDish} />
@@ -258,20 +241,8 @@ const BestSellingDesh = () => {
                     <MdShoppingBasket /> Add to Cart
                   </button>
 
-                  {/* ✅ Wishlist button (fixed) */}
-                  <button
-                    onClick={() => handelWish(selectedDish)}
-                    disabled={wishlist.includes(selectedDish._id)}
-                    className={`px-5 py-2 rounded flex items-center gap-2 ${
-                      wishlist.includes(selectedDish._id)
-                        ? "bg-gray-300 cursor-not-allowed text-gray-600"
-                        : "bg-[#fc7819] text-white hover:bg-orange-600"
-                    }`}
-                  >
-                    <FaHeart />{" "}
-                    {wishlist.includes(selectedDish._id)
-                      ? "In Wishlist"
-                      : "Add to Wishlist"}
+                  <button className="bg-[#fc7819] text-white px-5 py-2 rounded hover:bg-orange-600 flex items-center gap-2">
+                    <FaHeart /> Add to Wishlist
                   </button>
                 </div>
               </div>
@@ -283,7 +254,7 @@ const BestSellingDesh = () => {
   );
 };
 
-// ✅ Quantity Section Component
+// ✅ Move QuantitySection OUTSIDE main component
 const QuantitySection = ({ selectedDish }) => {
   const [quantity, setQuantity] = useState(1);
 

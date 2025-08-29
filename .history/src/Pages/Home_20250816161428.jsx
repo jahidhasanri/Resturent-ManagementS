@@ -7,7 +7,6 @@ import { AuthContext } from '../Provider/AuthProvider';
 import AboutUs from '../Components/AboutUs';
 import BestSellingDesh from '../Components/BestSellingDesh';
 import TodaySepcialFood from '../Components/TodaySepcialFood';
-import OurShfe from '../Components/OurShfe';
 
 
 
@@ -24,7 +23,6 @@ const Home = () => {
     <AboutUs></AboutUs>
     <BestSellingDesh></BestSellingDesh>
     <TodaySepcialFood></TodaySepcialFood>
-    <OurShfe></OurShfe>
      </div>
      
     );

@@ -122,15 +122,6 @@ const BestSellingDesh = () => {
               key={dish._id}
               className="relative group bg-white rounded-2xl shadow-md overflow-hidden transition-all duration-500"
             >
-               <div
-                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-700 ease-in-out bg-cover bg-center"
-                style={{
-                  backgroundImage:
-                    "url('https://i.ibb.co.com/99mz085T/freepik-upload-50378.png')",
-                }}
-              >
-                <div className="absolute inset-0 bg-black bg-opacity-50"></div>
-              </div>
               {/* Favorite Button */}
               <button
                 onClick={() => handelWish(dish)}

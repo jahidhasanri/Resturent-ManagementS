@@ -4,14 +4,12 @@ import { FaArrowRight, FaEye, FaHeart } from "react-icons/fa";
 import { MdShoppingBasket } from "react-icons/md";
 import Swal from "sweetalert2";
 import { AuthContext } from "../Provider/AuthProvider";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 const BestSellingDesh = () => {
   const [dishes, setDishes] = useState([]);
   const [wishlist, setWishlist] = useState([]);
   const { user } = useContext(AuthContext);
-
+console.log(dishes);
   // Modal State
   const [selectedDish, setSelectedDish] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -38,7 +36,7 @@ const BestSellingDesh = () => {
         const res = await axios.get(
           `http://localhost:5000/wishes?userId=${user._id}`
         );
-        const wishlistIds = res.data.map((wish) => wish.itemId);
+        const wishlistIds = res.data.map((wish) => wish.itemId); // only itemIds
         setWishlist(wishlistIds);
       } catch (err) {
         console.error("Error fetching wishlist:", err);
@@ -49,11 +47,6 @@ const BestSellingDesh = () => {
 
   // 🔹 Add item to wishlist
   const handelWish = (dish) => {
-    if (!user?._id) {
-      Swal.fire("Login Required", "Please login to add wishlist", "warning");
-      return;
-    }
-
     const wishlistInf = {
       itemId: dish._id,
       userId: user?._id,
@@ -70,7 +63,7 @@ const BestSellingDesh = () => {
         axios
           .post("http://localhost:5000/wishes", wishlistInf)
           .then(() => {
-            setWishlist((prev) => [...prev, dish._id]);
+            setWishlist((prev) => [...prev, dish._id]); // 🔹 update state
             Swal.fire(
               "Added!",
               "This item has been added to your wishlist.",
@@ -109,6 +102,17 @@ const BestSellingDesh = () => {
   return (
     <div className="bg-[#f5f2eb]">
       <div className="container mx-auto pt-[127px] pb-[117px]">
+        <img
+          src="/public/images/popularDishesShape1_1.png"
+          className="absolute left-0 lg:mt-[565px]"
+          alt=""
+        />
+        <img
+          src="/public/images/popularDishesShape1_2.png"
+          className="absolute right-5 mt-[-50px] animate-float"
+          alt=""
+        />
+
         <h2 className="text-xl font-semibold mb-4 text-center text-[#fc7819]">
           POPULAR DISHES
         </h2>
@@ -122,7 +126,8 @@ const BestSellingDesh = () => {
               key={dish._id}
               className="relative group bg-white rounded-2xl shadow-md overflow-hidden transition-all duration-500"
             >
-               <div
+              {/* Hover Background */}
+              <div
                 className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-700 ease-in-out bg-cover bg-center"
                 style={{
                   backgroundImage:
@@ -131,10 +136,11 @@ const BestSellingDesh = () => {
               >
                 <div className="absolute inset-0 bg-black bg-opacity-50"></div>
               </div>
+
               {/* Favorite Button */}
               <button
                 onClick={() => handelWish(dish)}
-                disabled={wishlist.includes(dish._id)}
+                disabled={wishlist.includes(dish._id)} // 🔹 disable if already in wishlist
                 className={`absolute top-4 right-4 z-30 rounded-full p-2 shadow-md transition ${
                   wishlist.includes(dish._id)
                     ? "bg-gray-300 cursor-not-allowed"
@@ -197,131 +203,45 @@ const BestSellingDesh = () => {
       {/* 🔹 Modal */}
       {isModalOpen && selectedDish && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-          <div className="bg-white rounded-lg shadow-lg p-6 lg:w-[900px] relative">
+          <div className="bg-white rounded-lg shadow-lg p-6 lg:w-[1000px] relative">
             {/* Close Button */}
             <button
               onClick={handleClose}
-              className="absolute top-3 right-3 text-gray-500 hover:text-gray-700"
+              className="absolute top-3  text-gray-500 hover:text-gray-700"
             >
               ✖
             </button>
-
-            {/* Content Wrapper */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-              {/* Left: Image */}
-              <div className="flex justify-center items-center bg-[#fefaf6] rounded-lg p-6">
-                <div className="relative mx-auto w-[330px] h-[330px] pb-4">
-                  <div className="absolute inset-0 border-4 border-dotted border-red-500 rounded-full animate-spin-slow"></div>
-                  <img
-                    src={selectedDish.image}
-                    alt={selectedDish.name}
-                    className="w-[310px] h-[310px] object-cover rounded-full mt-[10px] ml-[10px]"
-                  />
-                </div>
-              </div>
-
-              {/* Right: Info */}
-              <div className="flex flex-col justify-start">
-                {/* Title + Price */}
-                <div className="flex items-center justify-between">
-                  <h2 className="text-2xl font-bold">{selectedDish.name}</h2>
-                  <p className="text-2xl font-bold text-[#fc7819]">
-                    ${selectedDish.price}
-                  </p>
-                </div>
-
-                {/* 🔹 Reviews */}
-                <div className="mt-2">
-                  <span className="text-yellow-500">
-                    {"★".repeat(selectedDish.review || 0)}
-                    {"☆".repeat(5 - (selectedDish.review || 0))}
-                  </span>
-                  <p className="text-sm text-gray-500 mt-2">
-                    ({selectedDish.customerReview?.length || 0} customer reviews)
-                  </p>
-                </div>
-
-                {/* Description */}
-                <p className="text-gray-600 mt-4">
-                  {selectedDish.details ||
-                    "Aliquam hendrerit a augue insu suscipit. Etiam aliquam massa quis des mauris commodo venenatis ligula commodo leez sed blandit convallis."}
-                </p>
-                <p className="mt-5">
-                  Available quantity: {selectedDish.quantity}
-                </p>
-
-                {/* 🔹 Quantity + Buttons */}
-                <QuantitySection selectedDish={selectedDish} />
-
-                <div className="flex items-center gap-4 mt-10">
-                  <button className="bg-red-600 text-white px-5 py-2 rounded hover:bg-red-700 flex items-center gap-2">
-                    <MdShoppingBasket /> Add to Cart
-                  </button>
-
-                  {/* ✅ Wishlist button (fixed) */}
-                  <button
-                    onClick={() => handelWish(selectedDish)}
-                    disabled={wishlist.includes(selectedDish._id)}
-                    className={`px-5 py-2 rounded flex items-center gap-2 ${
-                      wishlist.includes(selectedDish._id)
-                        ? "bg-gray-300 cursor-not-allowed text-gray-600"
-                        : "bg-[#fc7819] text-white hover:bg-orange-600"
-                    }`}
-                  >
-                    <FaHeart />{" "}
-                    {wishlist.includes(selectedDish._id)
-                      ? "In Wishlist"
-                      : "Add to Wishlist"}
-                  </button>
-                </div>
-              </div>
+              <div className="flex items-center justify-between">
+                
+                  <div className="flex justify-center mb-4">
+              <img
+                src={selectedDish.image}
+                alt={selectedDish.name}
+                className="w-[200px] h-[200px] object-cover rounded-full"
+              />
             </div>
+
+            {/* Dish Info */}
+           <div>
+             <h2 className="text-xl font-bold mb-2 text-center">
+              {selectedDish.name}
+            </h2>
+            <p className="text-gray-600 text-center mb-3">
+              {selectedDish.description || "No description available"}
+            </p>
+            <p className="text-lg font-bold text-center text-[#fc7819]">
+              ${selectedDish.price}
+            </p>
+           </div>
+
+
+
+              </div>
+            {/* Dish Image */}
+            
           </div>
         </div>
       )}
-    </div>
-  );
-};
-
-// ✅ Quantity Section Component
-const QuantitySection = ({ selectedDish }) => {
-  const [quantity, setQuantity] = useState(1);
-
-  const increase = () => {
-    if (quantity < selectedDish.quantity) {
-      setQuantity(quantity + 1);
-    } else {
-      toast.error(`Only ${selectedDish.quantity} items available!`);
-    }
-  };
-
-  const decrease = () => {
-    if (quantity > 1) {
-      setQuantity(quantity - 1);
-    } else {
-      toast.warning("Quantity cannot be less than 1!");
-    }
-  };
-
-  return (
-    <div className="flex gap-10 items-center mt-8">
-      <div>
-        <h3>Quantity</h3>
-      </div>
-      <div className="flex items-center border rounded">
-        <button onClick={decrease} className="px-3 py-1">
-          -
-        </button>
-        <input
-          type="text"
-          value={quantity}
-          readOnly
-          className="w-12 text-center border-x bg-white"
-        />
-        <button onClick={increase} className="px-3 py-1">
-          +
-        </button>
-      </div>
     </div>
   );
 };
