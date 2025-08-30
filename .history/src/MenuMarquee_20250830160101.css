@@ -1,0 +1,36 @@
+.marquee-container {
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+}
+
+.marquee-content {
+  display: inline-block;
+  /* continuous right-to-left scroll */
+  animation: marquee 15s linear infinite;
+}
+
+.marquee-item {
+  display: inline-block;
+  margin: 0 3rem;
+  font-size: 4rem; /* টেক্সট বড় */
+  font-weight: 900;
+  text-transform: uppercase;
+  color: #555;
+  cursor: pointer;
+  transition: color 0.3s, border-bottom 0.3s;
+}
+
+.marquee-item:hover {
+  color: red;
+  border-bottom: 3px solid red;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0%);
+  }
+  to {
+    transform: translateX(-50%); /* repeat করা হয়েছে বলে jump হবে না */
+  }
+}

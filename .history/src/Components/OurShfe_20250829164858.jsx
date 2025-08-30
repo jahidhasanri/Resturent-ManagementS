@@ -37,7 +37,7 @@ const OurShfe = () => {
           OUR CHEFE
         </h4>
         <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold pt-2 md:pt-4 lg:pb-20">
-          Meet Our Expert Chefs
+          Meet Our Expert Chefe
         </h2>
       </div>
 
@@ -56,7 +56,7 @@ const OurShfe = () => {
                 className={`w-full h-[220px] sm:h-[250px] md:h-[290px] object-cover rounded-r-[70px] md:rounded-r-[100px] rounded-t-[70px] md:rounded-t-[100px] border-b-4 sm:border-b-6 md:border-b-8 ${chef.borderColor}`}
               />
               {/* Share Button */}
-              <button  onClick={() => window.open('https://youtu.be/U5k3yzGaVME?si=2fcNnKy0kagsL2nD', '_blank')}
+              <button onClick={'https://youtu.be/U5k3yzGaVME?si=2fcNnKy0kagsL2nD'}
                 className={`absolute bottom-[-18px] sm:bottom-[-20px] left-1/2 transform -translate-x-1/2 ${chef.buttonColor} text-white p-2 sm:p-3 rounded-full shadow-md hover:scale-110 transition`}
               >
                 <FaShareAlt size={16} className="sm:w-5 sm:h-5" />

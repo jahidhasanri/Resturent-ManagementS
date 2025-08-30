@@ -37,7 +37,7 @@ const OurShfe = () => {
           OUR CHEFE
         </h4>
         <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold pt-2 md:pt-4 lg:pb-20">
-          Meet Our Expert Chefs
+          Meet Our Expert Chefe
         </h2>
       </div>
 
