@@ -13,7 +13,7 @@ const testimonials = [
     img: "https://randomuser.me/api/portraits/men/32.jpg",
     rating: 4,
     review:
-      "Penatibus magnis dis point parturient montes nascetur ridiculus mus Ut id lorem ac enim the vestibulum blandit nec sit amet felis.Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Donec velit neque, auctor sit amet aliquam vel.",
+      "Penatibus magnis dis point parturient montes nascetur ridiculus mus Ut id lorem ac enim the vestibulum blandit nec sit amet felis.",
   },
   {
     id: 2,
@@ -22,7 +22,7 @@ const testimonials = [
     img: "https://randomuser.me/api/portraits/women/44.jpg",
     rating: 5,
     review:
-      "Lorem ipsum dolor sit amet consectetur adipiscing elit Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Donec velit neque, auctor sit amet aliquam vel.",
+      "Lorem ipsum dolor sit amet consectetur adipiscing elit Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
   },
   {
     id: 3,
@@ -31,7 +31,7 @@ const testimonials = [
     img: "https://randomuser.me/api/portraits/men/76.jpg",
     rating: 4,
     review:
-      "Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Donec velit neque, auctor sit amet aliquam vel.Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Donec velit neque, auctor sit amet aliquam vel.",
+      "Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Donec velit neque, auctor sit amet aliquam vel.",
   },
 ];
 
@@ -39,7 +39,7 @@ const testimonials = [
 const PrevArrow = ({ onClick }) => (
   <button
     onClick={onClick}
-    className="absolute top-1/2 -translate-y-1/2 left-[calc(50%-500px)] z-10 bg-white text-gray-800 rounded-full w-8 h-8 flex items-center justify-center shadow hover:bg-gray-200 transition"
+    className="absolute top-1/2 -translate-y-1/2 left-[calc(50%-366px)] z-10 bg-white text-gray-800 rounded-full w-8 h-8 flex items-center justify-center shadow hover:bg-gray-200 transition"
     style={{ marginLeft: "-2px" }}
   >
     <FaChevronLeft />
@@ -49,7 +49,7 @@ const PrevArrow = ({ onClick }) => (
 const NextArrow = ({ onClick }) => (
   <button
     onClick={onClick}
-    className="absolute top-1/2 -translate-y-1/2 right-[calc(50%-300px)] z-10 bg-white text-gray-800 rounded-full w-8 h-8 flex items-center justify-center shadow hover:bg-gray-200 transition"
+    className="absolute top-1/2 -translate-y-1/2 right-[calc(856px)] z-10 bg-white text-gray-800 rounded-full w-8 h-8 flex items-center justify-center shadow hover:bg-gray-200 transition"
     style={{ marginRight: "-2px" }}
   >
     <FaChevronRight />
@@ -87,7 +87,7 @@ const Testimonial = () => {
           <div className="absolute inset-0 flex items-center justify-center">
             <button
               onClick={() =>
-                window.open("https://youtu.be/o9rLEx-DCcA?si=5m4kbB3oNj5q-W68", "_blank")
+                window.open("https://youtu.be/U5k3yzGaVME?si=2fcNnKy0kagsL2nD", "_blank")
               }
               className="w-[200px] h-[200px] animate-spin-slow flex items-center justify-center text-white text-2xl relative group"
             >

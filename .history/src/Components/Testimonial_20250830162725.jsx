@@ -87,7 +87,7 @@ const Testimonial = () => {
           <div className="absolute inset-0 flex items-center justify-center">
             <button
               onClick={() =>
-                window.open("https://youtu.be/o9rLEx-DCcA?si=5m4kbB3oNj5q-W68", "_blank")
+                window.open("https://youtu.be/U5k3yzGaVME?si=2fcNnKy0kagsL2nD", "_blank")
               }
               className="w-[200px] h-[200px] animate-spin-slow flex items-center justify-center text-white text-2xl relative group"
             >

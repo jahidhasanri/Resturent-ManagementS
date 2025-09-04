@@ -17,7 +17,7 @@ import '../Navbar.css'
 
 const Navbar = () => {
   const {user,handelLogout}=useContext(AuthContext)
-  console.log(user?.image);
+  console.log(user);
   const navigate = useNavigate();
   const handelSignOut = async(e)=>{
    e.preventDefault();
@@ -112,11 +112,9 @@ const Navbar = () => {
 
               <div className="relative group inline-block">
   <img
-  key={user?.image} 
-  src={user?.image || "/default-avatar.png"}
+  src={user?.image ? user.image : (user?.photoURL ? user.photoURL : "/default-avatar.png")}
   className="w-[30px] h-[30px] rounded-full object-cover"
-  alt={user?.name || "User"}
-  referrerPolicy="no-referrer"   // google / external auth image হলে দরকার হতে পারে
+  alt="User"
 />
   <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 hidden group-hover:block bg-black text-white text-sm px-2 py-1 rounded shadow-md z-10 whitespace-nowrap">
     {user?.name || "User"}

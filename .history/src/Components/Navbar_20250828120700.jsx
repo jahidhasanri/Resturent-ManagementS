@@ -17,7 +17,7 @@ import '../Navbar.css'
 
 const Navbar = () => {
   const {user,handelLogout}=useContext(AuthContext)
-  console.log(user?.image);
+  console.log(user);
   const navigate = useNavigate();
   const handelSignOut = async(e)=>{
    e.preventDefault();
@@ -44,6 +44,12 @@ const Navbar = () => {
           />
         </div>
       </div>
+
+
+
+
+
+
 
 
       {/* Right: Content Area with clipped left edge */}
@@ -88,7 +94,7 @@ const Navbar = () => {
             <NavLink to={'/aboutus'} className="hover:text-red-500 cursor-pointer">About Us +</NavLink>
             <span className="hover:text-red-500 cursor-pointer">Shop +</span>
             <NavLink to={'/wishlist'} className="hover:text-red-500 cursor-pointer">wishList</NavLink>
-            <NavLink to={'/menu'} className="hover:text-red-500 cursor-pointer">Menus</NavLink>
+            <NavLink to={'/addDish'} className="hover:text-red-500 cursor-pointer">Add Dishes</NavLink>
             <NavLink to={'/contactus'} className="hover:text-red-500 cursor-pointer">Contact Us +</NavLink>
           
             <NavLink to={'/dashboard'} className="hover:text-red-500 cursor-pointer">dashboard</NavLink>
@@ -112,11 +118,9 @@ const Navbar = () => {
 
               <div className="relative group inline-block">
   <img
-  key={user?.image} 
-  src={user?.image || "/default-avatar.png"}
+  src={user?.image || user?.photoURL ? user?.image : "/default-avatar.png"}
   className="w-[30px] h-[30px] rounded-full object-cover"
-  alt={user?.name || "User"}
-  referrerPolicy="no-referrer"   // google / external auth image হলে দরকার হতে পারে
+  alt="User"
 />
   <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 hidden group-hover:block bg-black text-white text-sm px-2 py-1 rounded shadow-md z-10 whitespace-nowrap">
     {user?.name || "User"}

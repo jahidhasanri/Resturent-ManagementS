@@ -1,5 +1,4 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
 
 const AboutUs = () => {
     return (
@@ -16,7 +15,7 @@ const AboutUs = () => {
                 <h5 className='text-[#fc7819] text-[14px] font-bold'>ABOUT US</h5>
                 <h2 className='font-bold text-[40px]'>Variety of flavours from american cuisine</h2>
                 <h4 className='text-[18px] mt-2 font-normal mb-10'>It is a long established fact that a reader will be distracted the readable content of a page when looking at layout the point established fact that</h4>
-                <NavLink to={'/aboutus'} className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 mt-4 uppercase rounded shadow">Read More</NavLink>
+                <button className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 mt-4 uppercase rounded shadow">Read More</button>
             </div>
 
             <div>
