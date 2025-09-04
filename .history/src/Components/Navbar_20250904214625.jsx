@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { CiTimer } from "react-icons/ci";
 import {
   FaFacebookF,
@@ -14,52 +14,11 @@ import { Navigate, NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../Provider/AuthProvider";
 import { toast } from "react-toastify";
 import '../Navbar.css'
-import axios from "axios";
-
 
 const Navbar = () => {
   const {user,handelLogout}=useContext(AuthContext)
-   const [cardItems, setCardItems] = useState([]);
-     console.log(cardItems);
+  console.log(user?.image);
   const navigate = useNavigate();
-
- console.log(cardItems);
- const fetchCartItems = async () => {
-    if (!user?._id) return;
-    try {
-      const response = await axios.get("http://localhost:5000/cardItems", {
-        params: { userId: user._id },
-      });
-      if (response.data.success && Array.isArray(response.data.data)) {
-        setCardItems(response.data.data);
-      } else {
-        setCardItems([]);
-      }
-    } catch (error) {
-      console.error("Error fetching cart items:", error);
-      setCardItems([]);
-    }
-  };
-
-  // 🟢 useEffect: Initial Fetch
-  useEffect(() => {
-    fetchCartItems();
-  }, [user]);
-
-  // 🟢 Listen for custom "cart-updated" event → refresh data instantly
-  useEffect(() => {
-    const handleCartUpdated = () => {
-      fetchCartItems();
-    };
-    window.addEventListener("cart-updated", handleCartUpdated);
-
-    return () => {
-      window.removeEventListener("cart-updated", handleCartUpdated);
-    };
-  }, [user]);
-
-
-
   const handelSignOut = async(e)=>{
    e.preventDefault();
     try {
@@ -69,8 +28,7 @@ const Navbar = () => {
     } catch (error) {
       toast.error(`Logout failed: ${error.message}`);
     }
-
-};
+  }
   return (
     <div className="flex flex-col md:flex-row h-full">
 
@@ -134,7 +92,6 @@ const Navbar = () => {
             <NavLink to={'/contactus'} className="hover:text-red-500 cursor-pointer">Contact Us +</NavLink>
           
             <NavLink to={'/dashboard'} className="hover:text-red-500 cursor-pointer">dashboard</NavLink>
-           
             
             
           </div>
@@ -142,13 +99,13 @@ const Navbar = () => {
           {/* Icons + Order Now */}
           <div className="flex items-center gap-7 mt-4 md:mt-0 text-white mr-[150px]">
            
-            <button  onClick={() => navigate('/card')} className="relative">
-             <FaShoppingCart className="text-xl cursor-pointer" />
+            <div className="relative">
+              <FaShoppingCart className="text-xl cursor-pointer" />
               <span className="absolute -top-2 -right-2 text-xs bg-orange-500 text-white rounded-full w-5 h-5 flex items-center justify-center">
-                {cardItems.length}
+                3
               </span>
              
-            </button>
+            </div>
             {
               user?
               <>

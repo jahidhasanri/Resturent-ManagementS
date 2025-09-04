@@ -15,47 +15,35 @@ import { AuthContext } from "../Provider/AuthProvider";
 import { toast } from "react-toastify";
 import '../Navbar.css'
 import axios from "axios";
-
+import { CartContext } from "./CartContext";
 
 const Navbar = () => {
   const {user,handelLogout}=useContext(AuthContext)
    const [cardItems, setCardItems] = useState([]);
      console.log(cardItems);
   const navigate = useNavigate();
-
+ const { cartItems } = useContext(CartContext);
  console.log(cardItems);
- const fetchCartItems = async () => {
+useEffect(() => {
     if (!user?._id) return;
-    try {
-      const response = await axios.get("http://localhost:5000/cardItems", {
-        params: { userId: user._id },
-      });
-      if (response.data.success && Array.isArray(response.data.data)) {
-        setCardItems(response.data.data);
-      } else {
+
+    const fetchCartItems = async () => {
+      try {
+        const response = await axios.get("http://localhost:5000/cardItems", {
+          params: { userId: user._id },
+        });
+        if (response.data.success && Array.isArray(response.data.data)) {
+          setCardItems(response.data.data);
+        } else {
+          setCardItems([]);
+        }
+      } catch (error) {
+        console.error("Error fetching cart items:", error);
         setCardItems([]);
       }
-    } catch (error) {
-      console.error("Error fetching cart items:", error);
-      setCardItems([]);
-    }
-  };
+    };
 
-  // 🟢 useEffect: Initial Fetch
-  useEffect(() => {
     fetchCartItems();
-  }, [user]);
-
-  // 🟢 Listen for custom "cart-updated" event → refresh data instantly
-  useEffect(() => {
-    const handleCartUpdated = () => {
-      fetchCartItems();
-    };
-    window.addEventListener("cart-updated", handleCartUpdated);
-
-    return () => {
-      window.removeEventListener("cart-updated", handleCartUpdated);
-    };
   }, [user]);
 
 

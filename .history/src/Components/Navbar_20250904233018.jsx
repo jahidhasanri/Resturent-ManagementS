@@ -16,50 +16,10 @@ import { toast } from "react-toastify";
 import '../Navbar.css'
 import axios from "axios";
 
-
 const Navbar = () => {
   const {user,handelLogout}=useContext(AuthContext)
-   const [cardItems, setCardItems] = useState([]);
-     console.log(cardItems);
+  console.log(user?.image);
   const navigate = useNavigate();
-
- console.log(cardItems);
- const fetchCartItems = async () => {
-    if (!user?._id) return;
-    try {
-      const response = await axios.get("http://localhost:5000/cardItems", {
-        params: { userId: user._id },
-      });
-      if (response.data.success && Array.isArray(response.data.data)) {
-        setCardItems(response.data.data);
-      } else {
-        setCardItems([]);
-      }
-    } catch (error) {
-      console.error("Error fetching cart items:", error);
-      setCardItems([]);
-    }
-  };
-
-  // 🟢 useEffect: Initial Fetch
-  useEffect(() => {
-    fetchCartItems();
-  }, [user]);
-
-  // 🟢 Listen for custom "cart-updated" event → refresh data instantly
-  useEffect(() => {
-    const handleCartUpdated = () => {
-      fetchCartItems();
-    };
-    window.addEventListener("cart-updated", handleCartUpdated);
-
-    return () => {
-      window.removeEventListener("cart-updated", handleCartUpdated);
-    };
-  }, [user]);
-
-
-
   const handelSignOut = async(e)=>{
    e.preventDefault();
     try {
@@ -70,7 +30,33 @@ const Navbar = () => {
       toast.error(`Logout failed: ${error.message}`);
     }
 
-};
+
+    // carditem
+
+    const [cardItems, setCardItems] = useState([]);
+
+
+  useEffect(() => {
+    if (!user?._id) return;
+
+    const fetchCartItems = async () => {
+      try {
+        const response = await axios.get(`http://localhost:5000/cardItems`, {
+          params: { userId: user._id },
+        });
+        if (response.data.success) {
+          setCardItems(response.data.data);
+        } else {
+          setCardItems([]);
+        }
+      } catch (error) {
+        console.error("Error fetching cart items:", error);
+      }
+    };
+
+    fetchCartItems();
+  }, [user]);
+  }
   return (
     <div className="flex flex-col md:flex-row h-full">
 
@@ -145,7 +131,7 @@ const Navbar = () => {
             <button  onClick={() => navigate('/card')} className="relative">
              <FaShoppingCart className="text-xl cursor-pointer" />
               <span className="absolute -top-2 -right-2 text-xs bg-orange-500 text-white rounded-full w-5 h-5 flex items-center justify-center">
-                {cardItems.length}
+                3
               </span>
              
             </button>
