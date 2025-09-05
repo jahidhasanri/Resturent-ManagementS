@@ -20,8 +20,6 @@ import Card from "../Pages/Card";
 import ShippingAddress from "../Pages/ShippingAddress";
 import ShippingBilling from "../Pages/ShippingBilling";
 import PaymentSuccess from "../Pages/PaymentSuccess";
-import PaymentFail from "../Pages/PaymentFail";
-import PaymentCancel from "../Pages/PaymentCancel";
 
 
 const router = createBrowserRouter([
@@ -73,14 +71,6 @@ const router = createBrowserRouter([
        {
     path: "/payment/success/:tranId",
     element: <PaymentSuccess />,
-  },
-  {
-    path: "/payment/fail/:tranId",
-    element: <PaymentFail />,
-  },
-  {
-    path: "/payment/cancel/:tranId",
-    element: <PaymentCancel />,
   },
        
 

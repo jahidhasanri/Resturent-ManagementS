@@ -7,7 +7,6 @@ import { Navigate, useNavigate } from "react-router-dom";
 
 const Card = () => {
   const [cardItems, setCardItems] = useState([]);
-  console.log(cardItems.length);
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
   useEffect(() => {
@@ -115,7 +114,6 @@ const Card = () => {
               </tr>
             </thead>
             <tbody>
-             
               {cardItems.map((item) => (
                 <tr key={item.itemId} className="text-center">
                   <td className="px-4 py-2">
@@ -176,12 +174,11 @@ const Card = () => {
                   </button>
                   <button
                     onClick={() => {
-                    //   if (cardItems?.length >= 1) {
-                    //     navigate("/shippingAddr");
-                    //   } else {
-                    //     navigate("/menu");
-                    //   }
-                    navigate('/shippingAddr')
+                      if (item.length >= 1) {
+                        navigate("/shippingAddr");
+                      } else {
+                        navigate("/menu");
+                      }
                     }}
                     className="px-4 py-2 border rounded bg-green-500 text-white hover:bg-green-600"
                   >

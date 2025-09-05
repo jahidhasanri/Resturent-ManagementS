@@ -3,46 +3,33 @@ import axios from "axios";
 
 import { AuthContext } from "../Provider/AuthProvider";
 import { toast } from "react-toastify";
-import { Navigate } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+
 
 const ShippingAddress = () => {
-    const navigate = useNavigate();
 const [cardItems, setCardItems] = useState([]);
-const [cartLoaded, setCartLoaded] = useState(false);
-console.log(cardItems?.length);
 const {user}=useContext(AuthContext);
       useEffect(() => {
-  if (!user?._id) return;
+        if (!user?._id) return;
+    
+        const fetchCartItems = async () => {
+          try {
+            const response = await axios.get(`http://localhost:5000/cardItems`, {
+              params: { userId: user._id },
+            });
+            if (response.data.success) {
+              setCardItems(response.data.data);
+            } else {
+              setCardItems([]);
+            }
+          } catch (error) {
+            console.error("Error fetching cart items:", error);
+          }
+        };
+    
+        fetchCartItems();
+      }, [user]);
 
-  const fetchCartItems = async () => {
-    try {
-      const response = await axios.get(`http://localhost:5000/cardItems`, {
-        params: { userId: user._id },
-      });
-      if (response.data.success) {
-        setCardItems(response.data.data);
-      } else {
-        setCardItems([]);
-      }
-    } catch (error) {
-      console.error("Error fetching cart items:", error);
-      setCardItems([]); // safe fallback
-    } finally {
-      setCartLoaded(true); // 🔹 now we know data load done
-    }
-  };
-
-  fetchCartItems();
-}, [user]);
-
-// redirect effect
-useEffect(() => {
-  if (cartLoaded && cardItems.length < 1) {
-    toast.warn("Your cart is empty, redirecting to menu...");
-    navigate("/menu");
-  }
-}, [cartLoaded, cardItems, navigate]);
+console.log(cardItems);
 
 
   const [formData, setFormData] = useState({
@@ -83,8 +70,7 @@ useEffect(() => {
     });
     window.dispatchEvent(new Event("cart-updated"));
 
-    toast.success("All information saved successfully!");
-    navigate('/shippingBilling')
+        toast.success("All information saved successfully!");
    
     } else {
       toast.error("Failed to save All information!");

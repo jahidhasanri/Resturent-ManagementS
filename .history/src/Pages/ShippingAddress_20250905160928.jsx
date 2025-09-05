@@ -9,40 +9,29 @@ import { useNavigate } from "react-router-dom";
 const ShippingAddress = () => {
     const navigate = useNavigate();
 const [cardItems, setCardItems] = useState([]);
-const [cartLoaded, setCartLoaded] = useState(false);
-console.log(cardItems?.length);
 const {user}=useContext(AuthContext);
       useEffect(() => {
-  if (!user?._id) return;
+        if (!user?._id) return;
+    
+        const fetchCartItems = async () => {
+          try {
+            const response = await axios.get(`http://localhost:5000/cardItems`, {
+              params: { userId: user._id },
+            });
+            if (response.data.success) {
+              setCardItems(response.data.data);
+            } else {
+              setCardItems([]);
+            }
+          } catch (error) {
+            console.error("Error fetching cart items:", error);
+          }
+        };
+    
+        fetchCartItems();
+      }, [user]);
 
-  const fetchCartItems = async () => {
-    try {
-      const response = await axios.get(`http://localhost:5000/cardItems`, {
-        params: { userId: user._id },
-      });
-      if (response.data.success) {
-        setCardItems(response.data.data);
-      } else {
-        setCardItems([]);
-      }
-    } catch (error) {
-      console.error("Error fetching cart items:", error);
-      setCardItems([]); // safe fallback
-    } finally {
-      setCartLoaded(true); // 🔹 now we know data load done
-    }
-  };
-
-  fetchCartItems();
-}, [user]);
-
-// redirect effect
-useEffect(() => {
-  if (cartLoaded && cardItems.length < 1) {
-    toast.warn("Your cart is empty, redirecting to menu...");
-    navigate("/menu");
-  }
-}, [cartLoaded, cardItems, navigate]);
+console.log(cardItems);
 
 
   const [formData, setFormData] = useState({
@@ -95,8 +84,11 @@ useEffect(() => {
   }
 };
 
-
-  return (
+{
+    if(cardItems?.length >1){
+    navigate('/menu')
+}else{
+      return (
     <div>
     <div className="max-w-3xl mx-auto mt-10 shadow-lg border rounded-lg p-6 bg-white">
       <h2 className="text-2xl font-bold mb-6">Add New Shipping Address</h2>
@@ -229,6 +221,9 @@ useEffect(() => {
 
     </div>
   );
+}
+}
+
 };
 
 export default ShippingAddress;
