@@ -19,7 +19,6 @@ import Menu from "../Pages/Menu";
 import Card from "../Pages/Card";
 import ShippingAddress from "../Pages/ShippingAddress";
 
-
 const router = createBrowserRouter([
   {
     path: "/",

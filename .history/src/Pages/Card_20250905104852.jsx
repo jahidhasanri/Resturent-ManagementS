@@ -3,12 +3,11 @@ import React, { useEffect, useState, useContext } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
 import { FaTrashAlt } from "react-icons/fa";
 import { toast } from "react-toastify";
-import { Navigate, useNavigate } from "react-router-dom";
 
 const Card = () => {
 const [cardItems, setCardItems] = useState([]);
   const { user } = useContext(AuthContext);
-const navigate = useNavigate();
+
   useEffect(() => {
     if (!user?._id) return;
 
@@ -41,34 +40,15 @@ const navigate = useNavigate();
     }
   };
 
-  const handleQuantityChange = async (itemId, delta) => {
-  setCardItems((prev) =>
-    prev.map((item) => {
-      if (item.itemId === itemId) {
-        const newQuantity = Math.max(1, (item.quantity || 1) + delta);
-        if (newQuantity !== (item.quantity || 1)) {
-          axios
-            .patch(`http://localhost:5000/cardItems/${item._id}`, {
-              quantity: newQuantity,
-            })
-            .then((res) => {
-              if (res.data.success) {
-                console.log("Quantity updated in DB");
-              } else {
-                console.log("Failed to update quantity in DB");
-              }
-            })
-            .catch((err) => {
-              console.error("Error updating quantity:", err);
-            });
-        }
-
-        return { ...item, quantity: newQuantity };
-      }
-      return item;
-    })
-  );
-};
+  const handleQuantityChange = (itemId, delta) => {
+    setCardItems((prev) =>
+      prev.map((item) =>
+        item.itemId === itemId
+          ? { ...item, quantity: Math.max(1, (item.quantity || 1) + delta) }
+          : item
+      )
+    );
+  };
 
   const calculateTotal = (price, quantity) => {
     return (price * quantity).toFixed(2);
@@ -159,14 +139,10 @@ const navigate = useNavigate();
     </tr>
     <tr>
       <td colSpan="6" className="text-center py-4">
-        <button onClick={()=>{
-          navigate('/menu')
-        }} className="px-4 py-2 border rounded mr-2 hover:bg-gray-200">
+        <button className="px-4 py-2 border rounded mr-2 hover:bg-gray-200">
           Continue Shopping
         </button>
-        <button onClick={()=>{
-          navigate('/shippingAddr')
-        }} className="px-4 py-2 border rounded bg-green-500 text-white hover:bg-green-600">
+        <button className="px-4 py-2 border rounded bg-green-500 text-white hover:bg-green-600">
           Proceed to Checkout
         </button>
       </td>

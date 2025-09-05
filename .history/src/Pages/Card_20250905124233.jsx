@@ -46,7 +46,10 @@ const navigate = useNavigate();
     prev.map((item) => {
       if (item.itemId === itemId) {
         const newQuantity = Math.max(1, (item.quantity || 1) + delta);
+
+        // যদি quantity আসলেই পরিবর্তন হয় (মানে ১-এর নিচে না যায়)
         if (newQuantity !== (item.quantity || 1)) {
+          // database এ update পাঠানো
           axios
             .patch(`http://localhost:5000/cardItems/${item._id}`, {
               quantity: newQuantity,

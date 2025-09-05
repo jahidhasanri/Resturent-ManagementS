@@ -41,41 +41,22 @@ const navigate = useNavigate();
     }
   };
 
-  const handleQuantityChange = async (itemId, delta) => {
-  setCardItems((prev) =>
-    prev.map((item) => {
-      if (item.itemId === itemId) {
-        const newQuantity = Math.max(1, (item.quantity || 1) + delta);
-        if (newQuantity !== (item.quantity || 1)) {
-          axios
-            .patch(`http://localhost:5000/cardItems/${item._id}`, {
-              quantity: newQuantity,
-            })
-            .then((res) => {
-              if (res.data.success) {
-                console.log("Quantity updated in DB");
-              } else {
-                console.log("Failed to update quantity in DB");
-              }
-            })
-            .catch((err) => {
-              console.error("Error updating quantity:", err);
-            });
-        }
-
-        return { ...item, quantity: newQuantity };
-      }
-      return item;
-    })
-  );
-};
+  const handleQuantityChange = (itemId, delta) => {
+    setCardItems((prev) =>
+      prev.map((item) =>
+        item.itemId === itemId
+          ? { ...item, quantity: Math.max(1, (item.quantity || 1) + delta) }
+          : item
+      )
+    );
+  };
 
   const calculateTotal = (price, quantity) => {
     return (price * quantity).toFixed(2);
   };
 
   const grandTotal = cardItems.reduce((sum, item) => {
-  return sum + (item.itemPrice * (item.quantity || 1));
+  return sum + (item.itemPrice * (item.itemQuantity || 1));
 }, 0).toFixed(2);
 
   return (
