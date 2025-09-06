@@ -1,0 +1,55 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Force all colors to use non-oklch values */
+* {
+  color: rgb(0 0 0) !important;
+  background-color: rgb(255 255 255) !important;
+  border-color: rgb(229 231 235) !important;
+}
+
+/* Override for specific elements that need different colors */
+.text-green-600 {
+  color: #16a34a !important;
+}
+
+.bg-blue-500 {
+  background-color: #3b82f6 !important;
+}
+
+.bg-green-500 {
+  background-color: #22c55e !important;
+}
+
+.bg-black {
+  background-color: #000000 !important;
+}
+
+.text-white {
+  color: #ffffff !important;
+}
+
+.bg-\[\#f7931e\] {
+  background-color: #f7931e !important;
+}
+
+.text-\[\#f7931e\] {
+  color: #f7931e !important;
+}
+
+.border-\[\#925a13\] {
+  border-color: #925a13 !important;
+}
+
+.text-green-700 {
+  color: #15803d !important;
+}
+
+.hover\:bg-blue-600:hover {
+  background-color: #2563eb !important;
+}
+
+.hover\:bg-green-600:hover {
+  background-color: #16a34a !important;
+}
