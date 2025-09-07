@@ -136,68 +136,61 @@ const PaymentSuccess = () => {
           </div>
 
           {/* Table */}
-          <div className="p-3 sm:p-4 md:p-6 bg-black bg-opacity-80 text-white text-sm sm:text-base overflow-x-auto">
-            <table className="w-full border-collapse min-w-[600px]">
-              <thead>
-                <tr className="bg-[#f7931e] text-black">
-                  <th className="px-2 sm:px-4 py-2 text-left">Item Description</th>
-                  <th className="px-2 sm:px-4 py-2 text-left">Item Image</th>
-                  <th className="px-2 sm:px-4 py-2 text-center">Price</th>
-                  <th className="px-2 sm:px-4 py-2 text-center">Qty</th>
-                  <th className="px-2 sm:px-4 py-2 text-center">Total</th>
-                </tr>
-              </thead>
-              <tbody>
-                {items?.map((item, idx) => (
-                  <tr key={idx} className="border-b border-gray-700">
-                    <td className="px-2 sm:px-4 py-2">{item?.itemName}</td>
-                    <td className="px-2 sm:px-4 py-2">
-                      <img
-                        className="w-[60px] h-[60px] sm:w-[80px] sm:h-[80px] object-cover"
-                        src={item?.itemImg}
-                        alt=""
-                      />
-                    </td>
-                    <td className="px-2 sm:px-4 py-2 text-center">
-                      {item.itemPrice} ৳
-                    </td>
-                    <td className="px-2 sm:px-4 py-2 text-center">
-                      {item?.quantity}
-                    </td>
-                    <td className="px-2 sm:px-4 py-2 text-center">
-                      {item.itemPrice * item?.quantity} ৳
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+        <div className="p-3 sm:p-4 md:p-6 bg-black bg-opacity-80 text-white text-sm sm:text-base overflow-x-auto lg:overflow-x-visible">
+  <table className="w-full border-collapse min-w-[600px] lg:min-w-0">
+    <thead>
+      <tr className="bg-[#f7931e] text-black">
+        <th className="px-2 sm:px-4 py-2 text-left">Item Description</th>
+        <th className="px-2 sm:px-4 py-2 text-center">Price</th>
+        <th className="px-2 sm:px-4 py-2 text-center">Qty</th>
+        <th className="px-2 sm:px-4 py-2 text-center">Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      {items?.map((item, idx) => (
+        <tr key={idx} className="border-b border-gray-700">
+          <td className="px-2 sm:px-4 py-2">{item?.itemName}</td>
+          <td className="px-2 sm:px-4 py-2 text-center">
+            {item.itemPrice} ৳
+          </td>
+          <td className="px-2 sm:px-4 py-2 text-center">
+            {item?.quantity}
+          </td>
+          <td className="px-2 sm:px-4 py-2 text-center">
+            {item.itemPrice * item?.quantity} ৳
+          </td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
 
-            {/* Payment status */}
-            <div className="flex flex-col sm:flex-row gap-2 mt-5 items-start sm:items-center">
-              <h3 className="text-lg sm:text-xl font-bold">Payment Status:</h3>
-              <span className="text-green-500 text-lg sm:text-xl font-semibold">
-                {data?.paidstatus}
-              </span>
-            </div>
+  {/* Payment status */}
+  <div className="flex flex-col sm:flex-row gap-2 mt-5 items-start sm:items-center">
+    <h3 className="text-lg sm:text-xl font-bold">Payment Status:</h3>
+    <span className="text-green-500 text-lg sm:text-xl font-semibold">
+      {data?.paidstatus}
+    </span>
+  </div>
 
-            {/* Totals */}
-            <div className="w-full flex justify-end mt-4">
-              <div className="w-full sm:w-2/3 md:w-1/2 lg:w-1/3">
-                <div className="flex justify-between border-b border-gray-700 py-1">
-                  <span>Sub Total</span>
-                  <span>{subTotal} ৳</span>
-                </div>
-                <div className="flex justify-between border-b border-gray-700 py-1">
-                  <span>Delivery Charge: </span>
-                  <span>70 ৳</span>
-                </div>
-                <div className="flex justify-between font-bold text-white py-2">
-                  <span>Total Price</span>
-                  <span>{data?.total} ৳</span>
-                </div>
-              </div>
-            </div>
-          </div>
+  {/* Totals */}
+  <div className="w-full flex justify-end mt-4">
+    <div className="w-full sm:w-2/3 md:w-1/2 lg:w-1/3">
+      <div className="flex justify-between border-b border-gray-700 py-1">
+        <span>Sub Total</span>
+        <span>{subTotal} ৳</span>
+      </div>
+      <div className="flex justify-between border-b border-gray-700 py-1">
+        <span>Delivery Charge: </span>
+        <span>70 ৳</span>
+      </div>
+      <div className="flex justify-between font-bold text-white py-2">
+        <span>Total Price</span>
+        <span>{data?.total} ৳</span>
+      </div>
+    </div>
+  </div>
+</div>
+
         </div>
       </div>
 

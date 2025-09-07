@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { toast } from "react-toastify";
 
 const WishList = () => {
   const { user } = useContext(AuthContext);
@@ -42,7 +41,6 @@ const WishList = () => {
 
     fetchData();
   }, [user?._id]);
-  console.log(wishlistDishes);
 
   const handleDelete = async (wishId) => {
     // Swal confirmation
@@ -71,35 +69,6 @@ const WishList = () => {
       }
     }
   };
-
-
-    const handelAddTOCard = async(food)=>{
-    console.log(food);
-const selectItem = {
-  itemId: food?._id,
-  itemImg: food?.image,
-  itemName: food?.name,
-  itemPrice: food?.price,
-  userId:user._id,
-  itemQuantity: 1
-};
-console.log(selectItem);
-try {
-    const res = await axios.post('http://localhost:5000/cardItem', selectItem);
-
-   if (res.data.success) {
-      toast.success('Item added to cart successfully! 🛒');
-       window.dispatchEvent(new Event("cart-updated"));
-    } else {
-      toast.error(res.data.message || 'Something went wrong. Please try again.');
-    }
-  } catch (error) {
-    console.error(error);
-    toast.error('Failed to add item to cart.');
-  }
-
-}
-
 
   return (
     <div className="container mx-auto py-10">
@@ -130,16 +99,16 @@ try {
                 <td className="p-3 font-semibold">{dish.name}</td>
                 <td className="p-3 text-orange-500 font-bold">${dish.price}</td>
                 <td className="p-3">
-                  {dish.quantity > 0 ? (
+                  {dish.inStock ? (
                     <span className="text-green-500">✓ In stock</span>
                   ) : (
                     <span className="text-red-500">✗ Out of Stock</span>
                   )}
                 </td>
-                <td className="p-3  gap-4">
+                <td className="p-3">
                   <button
-                    onClick={() => handelAddTOCard(dish)}
-                    className="bg-green-600 lg:mr-4 text-white p-2 rounded hover:bg-green-700 transition"
+                    onClick={() => handleDelete(dish.wishId)}
+                    className="bg-red-600 text-white p-2 rounded hover:bg-red-700 transition"
                   >
                     Add to Cart
                   </button>

@@ -6,13 +6,12 @@ import Swal from "sweetalert2";
 import { AuthContext } from "../Provider/AuthProvider";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useNavigate } from "react-router-dom";
 
 const BestSellingDesh = () => {
   const [dishes, setDishes] = useState([]);
   const [wishlist, setWishlist] = useState([]);
   const { user } = useContext(AuthContext);
-const navigate = useNavigate()
+
   // Modal State
   const [selectedDish, setSelectedDish] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -30,7 +29,7 @@ const navigate = useNavigate()
     };
     fetchDishes();
   }, []);
-
+console.log(bestSeller);
   // 🔹 Fetch user's wishlist from backend
   useEffect(() => {
     if (!user?._id) return;
@@ -47,13 +46,6 @@ const navigate = useNavigate()
     };
     fetchWishlist();
   }, [user?._id]);
-
-  const limitedDishes = dishes.reduce((acc, dish, index) => {
-  if (index < 10) {
-    acc.push(dish);
-  }
-  return acc;
-}, []);
 
   // 🔹 Add item to wishlist
   const handelWish = (dish) => {
@@ -117,7 +109,6 @@ const navigate = useNavigate()
 
 
   const handelAddTOCard = async(food)=>{
-    console.log(food);
 const selectItem = {
   itemId: food?._id,
   itemImg: food?.image,
@@ -154,7 +145,7 @@ try {
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-8">
-          {limitedDishes.map((dish) => (
+          {dishes.map((dish) => (
             <div
               key={dish._id}
               className="relative group bg-white rounded-2xl shadow-md overflow-hidden transition-all duration-500"
@@ -210,9 +201,7 @@ try {
 
               {/* Hover Icons */}
               <div className="absolute top-16 right-4 flex flex-col gap-3 opacity-0 translate-y-6 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 z-30">
-                <button onClick={()=>{
-                 handelAddTOCard(dish)
-                }} className="bg-white rounded-full p-2 shadow-md hover:bg-gray-200 transition">
+                <button onClick={alert('hoyse re')} className="bg-white rounded-full p-2 shadow-md hover:bg-gray-200 transition">
                   <MdShoppingBasket size={18} />
                 </button>
                 <button
@@ -227,7 +216,7 @@ try {
         </div>
 
         <div className="flex justify-center mt-16">
-          <button onClick={()=>{navigate('/menu')}} className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 uppercase rounded shadow flex items-center gap-2 text-center transition duration-300 ease-in-out">
+          <button className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 uppercase rounded shadow flex items-center gap-2 text-center transition duration-300 ease-in-out">
             VIEW ALL ITEM <FaArrowRight className="text-white" />
           </button>
         </div>
@@ -293,9 +282,7 @@ try {
                 <QuantitySection selectedDish={selectedDish} />
 
                 <div className="flex items-center gap-4 mt-10">
-                  <button onClick={()=>{
-                    handelAddTOCard(selectedDish)
-                  }} className="bg-red-600 text-white px-5 py-2 rounded hover:bg-red-700 flex items-center gap-2">
+                  <button className="bg-red-600 text-white px-5 py-2 rounded hover:bg-red-700 flex items-center gap-2">
                     <MdShoppingBasket /> Add to Cart
                   </button>
 

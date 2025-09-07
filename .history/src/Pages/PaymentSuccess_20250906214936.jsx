@@ -141,7 +141,7 @@ const PaymentSuccess = () => {
               <thead>
                 <tr className="bg-[#f7931e] text-black">
                   <th className="px-2 sm:px-4 py-2 text-left">Item Description</th>
-                  <th className="px-2 sm:px-4 py-2 text-left">Item Image</th>
+                  {/* <th className="px-2 sm:px-4 py-2 text-left">Item Image</th> */}
                   <th className="px-2 sm:px-4 py-2 text-center">Price</th>
                   <th className="px-2 sm:px-4 py-2 text-center">Qty</th>
                   <th className="px-2 sm:px-4 py-2 text-center">Total</th>
@@ -151,13 +151,13 @@ const PaymentSuccess = () => {
                 {items?.map((item, idx) => (
                   <tr key={idx} className="border-b border-gray-700">
                     <td className="px-2 sm:px-4 py-2">{item?.itemName}</td>
-                    <td className="px-2 sm:px-4 py-2">
+                    {/* <td className="px-2 sm:px-4 py-2">
                       <img
                         className="w-[60px] h-[60px] sm:w-[80px] sm:h-[80px] object-cover"
                         src={item?.itemImg}
                         alt=""
                       />
-                    </td>
+                    </td> */}
                     <td className="px-2 sm:px-4 py-2 text-center">
                       {item.itemPrice} ৳
                     </td>

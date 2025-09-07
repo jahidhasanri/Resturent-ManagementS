@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 
 const Display = () => {
   const navigate = useNavigate();
-  
     return (
         <div className='bg-[#f5f2eb] pb-10 pt-10'>
          
@@ -18,7 +17,7 @@ const Display = () => {
                     <h4 className='text-red-600 text-base font-bold'>ON THIS WEEK</h4>
                     <h5 className='text-white font-bold text-[30px] mt-2 mb-2'>SPICY FRIED CHICKEN</h5>
                     <h2 className='text-[#fc7819] text-base font-semibold'>limits Time Offer</h2>
-                    <button onClick={()=>{navigate('/menu')}} className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 mt-4 uppercase rounded shadow">
+                    <button onClick={} className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 mt-4 uppercase rounded shadow">
                     Order Now 
                   </button>
                 </div>
@@ -37,7 +36,7 @@ const Display = () => {
                     <h4 className='text-red-600 text-base font-bold'>WELCOME FRESHEAT</h4>
                     <h5 className='text-white font-bold text-[30px] mt-2 mb-2'>TODAY SPACIAL FOOD</h5>
                     <h2 className='text-[#fc7819] text-base font-semibold'>limits Time Offer</h2>
-                    <button onClick={()=>{navigate('/menu')}} className="bg-[#fc7819] hover:bg-[#fc781989] text-white px-6 py-3 mt-4 uppercase rounded shadow">
+                    <button className="bg-[#fc7819] hover:bg-[#fc781989] text-white px-6 py-3 mt-4 uppercase rounded shadow">
                     Order Now 
                   </button>
                 </div>
@@ -56,7 +55,7 @@ const Display = () => {
                     <h4 className='text-red-600 text-base font-bold'>ON THIS WEEK</h4>
                     <h5 className='text-white font-bold text-[30px] mt-2 mb-2 whitespace-nowrap'>SPICY CHICKEN ROLL</h5>
                     <h2 className='text-[#fc7819] text-base font-semibold'>limits Time Offer</h2>
-                    <button onClick={()=>{navigate('/menu')}} className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 mt-4 uppercase rounded shadow">
+                    <button className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 mt-4 uppercase rounded shadow">
                     Order Now 
                   </button>
                 </div>

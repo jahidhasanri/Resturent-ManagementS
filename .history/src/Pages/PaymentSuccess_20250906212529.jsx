@@ -33,12 +33,14 @@ const PaymentSuccess = () => {
   const handleDownload = () => {
     const element = invoiceRef.current;
 
-    // Force fixed width for PDF
-    const originalWidth = element.style.width;
-    const originalMaxWidth = element.style.maxWidth;
-
-    element.style.width = "800px"; // fixed A4 width
-    element.style.maxWidth = "800px";
+    element.querySelectorAll("*").forEach((el) => {
+      const styles = window.getComputedStyle(el);
+      if (styles.color.includes("oklch")) el.style.color = "#000000";
+      if (styles.backgroundColor.includes("oklch"))
+        el.style.backgroundColor = "#ffffff";
+      if (styles.borderColor.includes("oklch"))
+        el.style.borderColor = "#cccccc";
+    });
 
     html2pdf()
       .set({
@@ -49,29 +51,21 @@ const PaymentSuccess = () => {
         jsPDF: { unit: "in", format: "a4", orientation: "portrait" },
       })
       .from(element)
-      .save()
-      .then(() => {
-        // Reset to original after save
-        element.style.width = originalWidth;
-        element.style.maxWidth = originalMaxWidth;
-      });
+      .save();
   };
 
-  if (!data) return <p className="text-center mt-20">Loading...</p>;
-
   return (
-    <div className="mt-20 mb-10 px-4">
-      <h1 className="text-2xl sm:text-3xl text-center font-bold text-green-600">
+    <div className="mt-10 mb-10 px-4 sm:px-6 lg:px-8">
+      <h1 className="text-2xl text-center font-bold text-green-600">
         Payment Successful ✅
       </h1>
-      <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-center mb-6">
+      <h2 className="text-xl sm:text-2xl font-bold text-center mb-6">
         Invoice
       </h2>
 
-      {/* Invoice Box */}
       <div
         ref={invoiceRef}
-        className="invoice-container w-full max-w-[800px] h-full mx-auto rounded-2xl overflow-hidden shadow-xl relative bg-white"
+        className="w-full sm:w-10/12 lg:w-8/12 xl:w-7/12 2xl:w-6/12 mx-auto rounded-2xl overflow-hidden shadow-xl relative"
         style={{
           backgroundImage: `url('/images/freepik_assistant_1757150547738.png')`,
           backgroundSize: "cover",
@@ -79,8 +73,7 @@ const PaymentSuccess = () => {
         }}
       >
         <div className="absolute inset-0 bg-black bg-opacity-40"></div>
-
-        <div className="mx-4 sm:mx-8 md:mx-12 lg:mx-16 xl:mx-20 my-6 sm:my-10 border-[5px] sm:border-[7px] border-[#925a13] relative z-10">
+        <div className="mx-4 sm:mx-8 md:mx-12 lg:mx-16 xl:mx-20 my-6 sm:my-10 md:my-12 border-[5px] sm:border-[6px] md:border-[7px] border-[#925a13] relative z-10">
           {/* Header */}
           <div
             className="relative flex flex-col items-center justify-center p-4 sm:p-6"
@@ -91,24 +84,23 @@ const PaymentSuccess = () => {
             }}
           >
             <div className="absolute inset-0 bg-black bg-opacity-80"></div>
-
             <div className="relative w-full z-10 flex flex-col items-center justify-center">
               <img
                 src="/public/images/ChatGPT_Image_Aug_28__2025__12_17_00_PM-removebg-preview.png"
                 alt="Logo"
-                className="h-12 sm:h-14"
+                className="h-10 sm:h-12 md:h-14"
               />
               <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-center text-white mt-2">
                 CALL US - +01731847198
               </h2>
 
-              <div className="flex flex-col md:flex-row w-full items-start md:items-end justify-between mt-4 px-4 sm:px-6 md:px-8 gap-4 md:gap-[100px] lg:gap-[150px] xl:gap-[200px]">
+              <div className="flex flex-col md:flex-row w-full items-start md:items-end md:justify-between gap-6 md:gap-12 lg:gap-20 mt-4 px-2 sm:px-6 md:px-8">
+                {/* Customer Details */}
                 <div className="text-white text-start flex-1">
-                  <h3 className="text-lg sm:text-xl font-bold mb-2">
-                    Customer Details
-                  </h3>
+                  <h3 className="text-lg font-bold mb-2">Customer Details</h3>
                   <h5 className="text-sm sm:text-base font-semibold mb-1">
-                    <span className="font-bold">Name: </span> {shipping?.fullName}
+                    <span className="font-bold">Name: </span>{" "}
+                    {shipping?.fullName}
                   </h5>
                   <h5 className="text-sm sm:text-base font-semibold mb-1">
                     <span className="font-bold">Area: </span> {shipping?.area}
@@ -118,6 +110,7 @@ const PaymentSuccess = () => {
                     {shipping?.building}
                   </h5>
                 </div>
+                {/* Contact Info */}
                 <div className="text-white flex-1 text-start">
                   <h5 className="text-sm sm:text-base font-semibold mb-1">
                     <span className="font-bold">Phone:</span>{" "}
@@ -135,52 +128,56 @@ const PaymentSuccess = () => {
             </div>
           </div>
 
-          {/* Table */}
-          <div className="p-3 sm:p-4 md:p-6 bg-black bg-opacity-80 text-white text-sm sm:text-base overflow-x-auto">
-            <table className="w-full border-collapse min-w-[600px]">
-              <thead>
-                <tr className="bg-[#f7931e] text-black">
-                  <th className="px-2 sm:px-4 py-2 text-left">Item Description</th>
-                  <th className="px-2 sm:px-4 py-2 text-left">Item Image</th>
-                  <th className="px-2 sm:px-4 py-2 text-center">Price</th>
-                  <th className="px-2 sm:px-4 py-2 text-center">Qty</th>
-                  <th className="px-2 sm:px-4 py-2 text-center">Total</th>
-                </tr>
-              </thead>
-              <tbody>
-                {items?.map((item, idx) => (
-                  <tr key={idx} className="border-b border-gray-700">
-                    <td className="px-2 sm:px-4 py-2">{item?.itemName}</td>
-                    <td className="px-2 sm:px-4 py-2">
-                      <img
-                        className="w-[60px] h-[60px] sm:w-[80px] sm:h-[80px] object-cover"
-                        src={item?.itemImg}
-                        alt=""
-                      />
-                    </td>
-                    <td className="px-2 sm:px-4 py-2 text-center">
-                      {item.itemPrice} ৳
-                    </td>
-                    <td className="px-2 sm:px-4 py-2 text-center">
-                      {item?.quantity}
-                    </td>
-                    <td className="px-2 sm:px-4 py-2 text-center">
-                      {item.itemPrice * item?.quantity} ৳
-                    </td>
+          {/* Invoice Table */}
+          <div className="p-4 sm:p-6 bg-black bg-opacity-80 text-white">
+            <div className="overflow-x-auto">
+              <table className="w-full border-collapse text-sm sm:text-base">
+                <thead>
+                  <tr className="bg-[#f7931e] text-black">
+                    <th className="px-2 sm:px-4 py-2 text-left">
+                      Item Description
+                    </th>
+                    <th className="px-2 sm:px-4 py-2 text-left">Item Image</th>
+                    <th className="px-2 sm:px-4 py-2 text-center">Price</th>
+                    <th className="px-2 sm:px-4 py-2 text-center">Qty</th>
+                    <th className="px-2 sm:px-4 py-2 text-center">Total</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {items?.map((item, idx) => (
+                    <tr key={idx} className="border-b border-gray-700">
+                      <td className="px-2 sm:px-4 py-2">{item?.itemName}</td>
+                      <td className="px-2 sm:px-4 py-2">
+                        <img
+                          className="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 object-cover"
+                          src={item?.itemImg}
+                          alt=""
+                        />
+                      </td>
+                      <td className="px-2 sm:px-4 py-2 text-center">
+                        {item.itemPrice} ৳
+                      </td>
+                      <td className="px-2 sm:px-4 py-2 text-center">
+                        {item?.quantity}
+                      </td>
+                      <td className="px-2 sm:px-4 py-2 text-center">
+                        {item.itemPrice * item?.quantity} ৳
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
 
-            {/* Payment status */}
+            {/* Payment Status */}
             <div className="flex flex-col sm:flex-row gap-2 mt-5 items-start sm:items-center">
               <h3 className="text-lg sm:text-xl font-bold">Payment Status:</h3>
-              <span className="text-green-500 text-lg sm:text-xl font-semibold">
+              <span className="text-green-700 text-lg sm:text-xl font-semibold">
                 {data?.paidstatus}
               </span>
             </div>
 
-            {/* Totals */}
+            {/* Price Summary */}
             <div className="w-full flex justify-end mt-4">
               <div className="w-full sm:w-2/3 md:w-1/2 lg:w-1/3">
                 <div className="flex justify-between border-b border-gray-700 py-1">
@@ -201,17 +198,17 @@ const PaymentSuccess = () => {
         </div>
       </div>
 
-      {/* Buttons */}
+      {/* Action Buttons */}
       <div className="mt-8 flex flex-col sm:flex-row justify-center gap-4 sm:gap-6">
         <button
           onClick={() => navigate("/")}
-          className="px-5 py-3 rounded bg-blue-500 text-white hover:bg-blue-600 w-full sm:w-auto"
+          className="w-full sm:w-auto px-6 py-3 rounded bg-blue-500 text-white hover:bg-blue-600"
         >
           Back To Home
         </button>
         <button
           onClick={handleDownload}
-          className="px-5 py-3 rounded bg-green-500 text-white hover:bg-green-600 w-full sm:w-auto"
+          className="w-full sm:w-auto px-6 py-3 rounded bg-green-500 text-white hover:bg-green-600"
         >
           Download the Invoice
         </button>
@@ -221,6 +218,7 @@ const PaymentSuccess = () => {
 };
 
 export default PaymentSuccess;
+
 
 
 

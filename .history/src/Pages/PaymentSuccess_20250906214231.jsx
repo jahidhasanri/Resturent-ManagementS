@@ -68,10 +68,9 @@ const PaymentSuccess = () => {
         Invoice
       </h2>
 
-      {/* Invoice Box */}
       <div
         ref={invoiceRef}
-        className="invoice-container w-full max-w-[800px] h-full mx-auto rounded-2xl overflow-hidden shadow-xl relative bg-white"
+        className="invoice-container w-full sm:w-11/12 md:w-10/12 lg:w-[800px]  h-full mx-auto rounded-2xl overflow-hidden shadow-xl relative bg-white"
         style={{
           backgroundImage: `url('/images/freepik_assistant_1757150547738.png')`,
           backgroundSize: "cover",
@@ -80,6 +79,7 @@ const PaymentSuccess = () => {
       >
         <div className="absolute inset-0 bg-black bg-opacity-40"></div>
 
+        {/* Invoice Box */}
         <div className="mx-4 sm:mx-8 md:mx-12 lg:mx-16 xl:mx-20 my-6 sm:my-10 border-[5px] sm:border-[7px] border-[#925a13] relative z-10">
           {/* Header */}
           <div

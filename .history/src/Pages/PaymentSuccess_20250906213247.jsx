@@ -33,25 +33,31 @@ const PaymentSuccess = () => {
   const handleDownload = () => {
     const element = invoiceRef.current;
 
-    // Force fixed width for PDF
+    // Save original size
     const originalWidth = element.style.width;
     const originalMaxWidth = element.style.maxWidth;
 
-    element.style.width = "800px"; // fixed A4 width
+    // Force fixed width for A4 export
+    element.style.width = "800px";
     element.style.maxWidth = "800px";
 
     html2pdf()
       .set({
-        margin: 0.5,
+        margin: [0.2, 0.3, 0.2, 0.3], // top, left, bottom, right
         filename: `invoice_${tranId}.pdf`,
-        image: { type: "jpeg", quality: 0.98 },
-        html2canvas: { scale: 2, useCORS: true, backgroundColor: "#ffffff" },
-        jsPDF: { unit: "in", format: "a4", orientation: "portrait" },
+        image: { type: "jpeg", quality: 1 },
+        html2canvas: {
+          scale: 2,
+          useCORS: true,
+          backgroundColor: "#ffffff",
+          logging: false,
+        },
+        jsPDF: { unit: "px", format: "a4", orientation: "portrait" },
       })
       .from(element)
       .save()
       .then(() => {
-        // Reset to original after save
+        // Reset to original width
         element.style.width = originalWidth;
         element.style.maxWidth = originalMaxWidth;
       });
@@ -68,10 +74,10 @@ const PaymentSuccess = () => {
         Invoice
       </h2>
 
-      {/* Invoice Box */}
+      {/* Invoice container (only this will go in PDF) */}
       <div
         ref={invoiceRef}
-        className="invoice-container w-full max-w-[800px] h-full mx-auto rounded-2xl overflow-hidden shadow-xl relative bg-white"
+        className="invoice-container w-full sm:w-11/12 md:w-10/12 lg:w-8/12 xl:w-7/12 2xl:w-6/12 h-full mx-auto rounded-2xl overflow-hidden shadow-xl relative bg-white"
         style={{
           backgroundImage: `url('/images/freepik_assistant_1757150547738.png')`,
           backgroundSize: "cover",
@@ -80,7 +86,8 @@ const PaymentSuccess = () => {
       >
         <div className="absolute inset-0 bg-black bg-opacity-40"></div>
 
-        <div className="mx-4 sm:mx-8 md:mx-12 lg:mx-16 xl:mx-20 my-6 sm:my-10 border-[5px] sm:border-[7px] border-[#925a13] relative z-10">
+        {/* Invoice Box */}
+        <div className="mx-4 sm:mx-8 md:mx-12 lg:mx-16 xl:mx-20 my-6 sm:my-10 border-[5px] sm:border-[7px] border-[#925a13] relative z-10 bg-opacity-90">
           {/* Header */}
           <div
             className="relative flex flex-col items-center justify-center p-4 sm:p-6"
@@ -102,7 +109,8 @@ const PaymentSuccess = () => {
                 CALL US - +01731847198
               </h2>
 
-              <div className="flex flex-col md:flex-row w-full items-start md:items-end justify-between mt-4 px-4 sm:px-6 md:px-8 gap-4 md:gap-[100px] lg:gap-[150px] xl:gap-[200px]">
+              <div className="flex flex-col md:flex-row w-full items-start md:items-end justify-between mt-4 px-4 sm:px-6 md:px-8 gap-4 md:gap-12 lg:gap-20 xl:gap-28">
+                {/* Customer Details */}
                 <div className="text-white text-start flex-1">
                   <h3 className="text-lg sm:text-xl font-bold mb-2">
                     Customer Details
@@ -118,6 +126,7 @@ const PaymentSuccess = () => {
                     {shipping?.building}
                   </h5>
                 </div>
+                {/* Contact */}
                 <div className="text-white flex-1 text-start">
                   <h5 className="text-sm sm:text-base font-semibold mb-1">
                     <span className="font-bold">Phone:</span>{" "}
@@ -140,8 +149,8 @@ const PaymentSuccess = () => {
             <table className="w-full border-collapse min-w-[600px]">
               <thead>
                 <tr className="bg-[#f7931e] text-black">
-                  <th className="px-2 sm:px-4 py-2 text-left">Item Description</th>
-                  <th className="px-2 sm:px-4 py-2 text-left">Item Image</th>
+                  <th className="px-2 sm:px-4 py-2 text-left">Item</th>
+                  <th className="px-2 sm:px-4 py-2 text-left">Image</th>
                   <th className="px-2 sm:px-4 py-2 text-center">Price</th>
                   <th className="px-2 sm:px-4 py-2 text-center">Qty</th>
                   <th className="px-2 sm:px-4 py-2 text-center">Total</th>
@@ -153,7 +162,7 @@ const PaymentSuccess = () => {
                     <td className="px-2 sm:px-4 py-2">{item?.itemName}</td>
                     <td className="px-2 sm:px-4 py-2">
                       <img
-                        className="w-[60px] h-[60px] sm:w-[80px] sm:h-[80px] object-cover"
+                        className="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 object-cover"
                         src={item?.itemImg}
                         alt=""
                       />
@@ -221,6 +230,7 @@ const PaymentSuccess = () => {
 };
 
 export default PaymentSuccess;
+
 
 
 

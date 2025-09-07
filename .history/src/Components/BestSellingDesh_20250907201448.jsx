@@ -48,13 +48,6 @@ const navigate = useNavigate()
     fetchWishlist();
   }, [user?._id]);
 
-  const limitedDishes = dishes.reduce((acc, dish, index) => {
-  if (index < 10) {
-    acc.push(dish);
-  }
-  return acc;
-}, []);
-
   // 🔹 Add item to wishlist
   const handelWish = (dish) => {
     if (!user?._id) {
@@ -154,7 +147,7 @@ try {
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-8">
-          {limitedDishes.map((dish) => (
+          {dishes.map((dish) => (
             <div
               key={dish._id}
               className="relative group bg-white rounded-2xl shadow-md overflow-hidden transition-all duration-500"
@@ -227,7 +220,7 @@ try {
         </div>
 
         <div className="flex justify-center mt-16">
-          <button onClick={()=>{navigate('/menu')}} className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 uppercase rounded shadow flex items-center gap-2 text-center transition duration-300 ease-in-out">
+          <button onClick={()=>{}} className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 uppercase rounded shadow flex items-center gap-2 text-center transition duration-300 ease-in-out">
             VIEW ALL ITEM <FaArrowRight className="text-white" />
           </button>
         </div>
