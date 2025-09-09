@@ -20,13 +20,13 @@ const Home = () => {
     return (
      <div>
         <Slider></Slider>
-    <BestFood></BestFood>
+    {/* <BestFood></BestFood>
     <Display></Display>
-    {/* <AboutUs></AboutUs>
+    <AboutUs></AboutUs>
     <BestSellingDesh></BestSellingDesh>
     <TodaySepcialFood></TodaySepcialFood>
     <OurShfe></OurShfe>
-    <Testimonial></Testimonial>  */}
+    <Testimonial></Testimonial> */}
      </div>
      
     );

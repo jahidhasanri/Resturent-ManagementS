@@ -45,10 +45,9 @@ const Slider = () => {
       {slides.map((slide) => (
         <SwiperSlide key={slide.id}>
           <div
-            className="relative w-full h-full bg-contain  bg-center flex items-center justify-center text-white overflow-hidden"
-             style={{
-              backgroundImage: `url('https://i.ibb.co/zH0qXsJ9/2515bc-da2fb336df7247eb92c72bed5a08a004-mv2.jpg')`
-              
+            className="relative w-full h-full bg-cover bg-center flex items-center justify-center text-white overflow-hidden"
+            style={{
+              backgroundImage: `url('https://i.ibb.co/zH0qXsJ9/2515bc-da2fb336df7247eb92c72bed5a08a004-mv2.jpg')`,
             }}
           >
             {/* ✅ 4 Corner Images */}
@@ -74,7 +73,7 @@ const Slider = () => {
             />
 
             {/* ✅ Main Content */}
-            <div className="container mx-auto mt-[100px] relative z-20 lg:px-10 xl:px-0">
+            <div className="container mx-auto mt-[80px] relative z-20">
               {/* lg+ এ flex row, sm/md এ column */}
               <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
                 {/* Text Section */}
@@ -95,7 +94,7 @@ const Slider = () => {
                   <img
                     src={slide.image}
                     alt="food"
-                    className="w-[250px] md:w-[400px] lg:w-[700px] h-auto lg:h-[400px]"
+                    className="w-[250px] md:w-[400px] lg:w-[700px] h-auto"
                   />
                 </div>
               </div>

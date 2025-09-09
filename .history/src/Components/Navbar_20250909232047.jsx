@@ -262,7 +262,7 @@ const Navbar = () => {
       </div>
 
       {/* Spacer div to prevent content overlap */}
-      <div className="h-[65px] lg:h-[66px] xl:h-[128px]"></div>
+      <div className="h-[80px] lg:h-[128px]"></div>
     </>
   );
 };

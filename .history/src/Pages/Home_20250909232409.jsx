@@ -21,8 +21,8 @@ const Home = () => {
      <div>
         <Slider></Slider>
     <BestFood></BestFood>
-    <Display></Display>
-    {/* <AboutUs></AboutUs>
+    {/* <Display></Display>
+    <AboutUs></AboutUs>
     <BestSellingDesh></BestSellingDesh>
     <TodaySepcialFood></TodaySepcialFood>
     <OurShfe></OurShfe>

@@ -7,8 +7,8 @@ const Display = () => {
     return (
         <div className='bg-[#f5f2eb] pb-10 pt-10'>
          
-          <div className='w-11/12 mx-auto grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 gap-6'>
-            <div className='sm:w-[310px] md:w-[570px] lg:w-[450px] xl:w-[570px] md:mx-auto flex items-center  p-4 rounded-sm opacity-95'
+          <div className='w-11/12 mx-auto grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6'>
+            <div className='sm:w-[310px] md:w-[570px] lg:w-[500px] xl:w-[570px] md:mx-auto flex items-center  p-4 rounded-sm opacity-95'
             style={{
               backgroundImage: `url('/images/crop-plate-with-salad.jpg')`
               
@@ -27,7 +27,7 @@ const Display = () => {
                 </div>
 
             </div>
-            <div className='sm:w-[310px] md:w-[570px] md:mx-auto lg:w-[450px] xl:w-[570px] flex items-center  p-4 rounded-sm opacity-95'
+            <div className='sm:w-[310px] md:w-[570px] md:mx-auto flex items-center  p-4 rounded-sm opacity-95'
             style={{
               backgroundImage: `url('/images/crop-plate-with-salad.jpg')`
               
@@ -46,7 +46,7 @@ const Display = () => {
                 </div>
 
             </div>
-            <div className='sm:w-[310px] md:w-[570px] md:mx-auto lg:w-[450px] xl:w-[570px] flex items-center  p-4 rounded-sm opacity-95'
+            <div className='sm:w-[310px] md:w-[570px] md:mx-auto flex items-center  p-4 rounded-sm opacity-95'
             style={{
               backgroundImage: `url('/images/crop-plate-with-salad.jpg')`
               

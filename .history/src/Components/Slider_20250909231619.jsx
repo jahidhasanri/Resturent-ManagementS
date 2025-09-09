@@ -74,7 +74,7 @@ const Slider = () => {
             />
 
             {/* ✅ Main Content */}
-            <div className="container mx-auto mt-[100px] relative z-20 lg:px-10 xl:px-0">
+            <div className="container mx-auto mt-[100px] relative z-20 px-5">
               {/* lg+ এ flex row, sm/md এ column */}
               <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
                 {/* Text Section */}

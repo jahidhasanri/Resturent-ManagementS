@@ -46,59 +46,40 @@ const Slider = () => {
         <SwiperSlide key={slide.id}>
           <div
             className="relative w-full h-full bg-contain  bg-center flex items-center justify-center text-white overflow-hidden"
-             style={{
+            style={{
               backgroundImage: `url('https://i.ibb.co/zH0qXsJ9/2515bc-da2fb336df7247eb92c72bed5a08a004-mv2.jpg')`
               
             }}
           >
-            {/* ✅ 4 Corner Images */}
-            <img
-              src="/images/corner-1.png"
-              alt="corner-1"
-              className="absolute top-4 left-1 w-16 md:w-20 z-10"
-            />
-            <img
-              src="/images/corner-2.png"
-              alt="corner-2"
-              className="absolute top-4 right-1 w-16 md:w-20 z-10"
-            />
-            <img
-              src="/images/corner-3.png"
-              alt="corner-3"
-              className="absolute bottom-4 left-1 w-16 md:w-20 z-10"
-            />
-            <img
-              src="/images/corner-4.png"
-              alt="corner-4"
-              className="absolute bottom-4 right-1 w-16 md:w-20 z-10"
-            />
+            
+            {/* ✅ Static 4 Corner Images */}
+            <img src="/images/corner-1.png" alt="corner-1" className="absolute top-4 left-[0.5px] w-20 z-10" />
+            <img src="/images/corner-2.png" alt="corner-2" className="absolute top-4 right-[0.5px] w-20 z-10" />
+            <img src="/images/corner-3.png" alt="corner-3" className="absolute bottom-4 left-[0.5px] w-20 z-10" />
+            <img src="/images/corner-4.png" alt="corner-4" className="absolute bottom-4 right-[0.5px] w-20 z-10" />
 
             {/* ✅ Main Content */}
-            <div className="container mx-auto mt-[100px] relative z-20 lg:px-10 xl:px-0">
-              {/* lg+ এ flex row, sm/md এ column */}
-              <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
+            <div className="container mx-auto mt-[100px]  relative z-20">
+              <div className="flex  items-center justify-between">
                 {/* Text Section */}
-                <div className="text-center lg:text-left lg:w-1/2 space-y-4 order-1">
-                  <p className="text-yellow-400 text-xl md:text-2xl lg:text-[30px]">
-                    {slide.subtitle}
-                  </p>
-                  <h1 className="text-3xl md:text-5xl lg:text-7xl font-bold">
-                    {slide.title}
-                  </h1>
-                  <button className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 mt-4 uppercase rounded shadow text-sm md:text-base">
+                <div className="text-center md:text-left md:w-1/2 space-y-4">
+                  <p className="text-yellow-400 text-[30px]">{slide.subtitle}</p>
+                  <h1 className="text-4xl md:text-7xl font-bold">{slide.title}</h1>
+                  <button className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 mt-4 uppercase rounded shadow">
                     {slide.buttonText}
                   </button>
                 </div>
 
                 {/* Image Section */}
-                <div className="flex justify-center order-2 mt-6 lg:mt-0 lg:w-1/2">
+                <div className=" flex justify-center mt-6 md:mt-0">
                   <img
                     src={slide.image}
                     alt="food"
-                    className="w-[250px] md:w-[400px] lg:w-[700px] h-auto lg:h-[400px]"
+                    className="w-[700px] h-[400px]  "
                   />
                 </div>
               </div>
+             
             </div>
           </div>
         </SwiperSlide>

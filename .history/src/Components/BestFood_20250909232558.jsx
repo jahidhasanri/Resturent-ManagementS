@@ -52,9 +52,9 @@ const Slider = () => {
    <div className='bg-[#f5f2eb] relative pt-24 pb-10'>
      <h5 className='text-[#fa812a] text-lg text-center'>BEST FOOD</h5>
                 <h1 className='text-[36px] font-bold text-center'>Popular Food Items</h1>
-                <img src="/images/pizza slice.png" className=' w-[100px] lg:w-[200px] absolute top-10 lg:top-20 right-0 animate-float' alt="" />
-             <img src="/images/bestFoodItemsShape1_1.png" className='absolute w-[100px] lg:w-[150px] lg:bottom-[-100px] xl:bottom-[-1px] left-0 bottom-0 animate-float lg:mb-20' alt="" />
-     <div className="max-w-6xl mx-auto my-5 lg:my-10 ">
+                <img src="/images/pizza slice.png" className=' w-[100px] absolute lg:top-20 right-0 animate-float' alt="" />
+             <img src="/images/bestFoodItemsShape1_1.png" className='absolute left-0 bottom-0 animate-float mb-20' alt="" />
+     <div className="max-w-6xl mx-auto my-10 ">
        
       <Swiper
         modules={[Autoplay]}

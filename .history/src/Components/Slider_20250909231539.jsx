@@ -34,7 +34,7 @@ const slides = [
 const Slider = () => {
   return (
     <Swiper
-      className="w-full h-[600px]"
+      className="w-full h-[600px] lg: px-5"
       slidesPerView={1}
       autoplay={{ delay: 5000, disableOnInteraction: false }}
       loop={true}
@@ -74,7 +74,7 @@ const Slider = () => {
             />
 
             {/* ✅ Main Content */}
-            <div className="container mx-auto mt-[100px] relative z-20 lg:px-10 xl:px-0">
+            <div className="container mx-auto mt-[100px] relative z-20">
               {/* lg+ এ flex row, sm/md এ column */}
               <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
                 {/* Text Section */}

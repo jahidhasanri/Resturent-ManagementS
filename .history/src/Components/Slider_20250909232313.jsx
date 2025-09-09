@@ -44,13 +44,24 @@ const Slider = () => {
     >
       {slides.map((slide) => (
         <SwiperSlide key={slide.id}>
-          <div
-            className="relative w-full h-full bg-contain  bg-center flex items-center justify-center text-white overflow-hidden"
-             style={{
-              backgroundImage: `url('https://i.ibb.co/zH0qXsJ9/2515bc-da2fb336df7247eb92c72bed5a08a004-mv2.jpg')`
-              
-            }}
-          >
+         <div
+  className="relative w-full h-full bg-contain bg-center flex items-center justify-center text-white overflow-hidden"
+  style={{
+    backgroundImage: `url('https://i.ibb.co/zH0qXsJ9/2515bc-da2fb336df7247eb92c72bed5a08a004-mv2.jpg')`,
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+  }}
+>
+  {/* Black Overlay */}
+  <div className="absolute inset-0 bg-black opacity-50"></div>
+
+  {/* Content on top */}
+  <div className="relative z-10 text-center px-4">
+    <h1 className="text-3xl md:text-5xl font-bold">Your Title Here</h1>
+    <p className="mt-4 text-sm md:text-lg">Your subtitle or description</p>
+  </div>
+</div>
+
             {/* ✅ 4 Corner Images */}
             <img
               src="/images/corner-1.png"
