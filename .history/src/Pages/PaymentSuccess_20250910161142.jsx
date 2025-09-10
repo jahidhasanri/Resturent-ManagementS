@@ -29,7 +29,7 @@ const PaymentSuccess = () => {
   const subTotal = items?.reduce(
     (acc, item) => acc + item.itemPrice * item.quantity,
     0
-);
+  );
 
   const handleDownload = () => {
     const element = invoiceRef.current;

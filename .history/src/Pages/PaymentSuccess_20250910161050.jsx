@@ -6,7 +6,6 @@ import html2pdf from "html2pdf.js";
 const PaymentSuccess = () => {
   const { tranId } = useParams();
   const [data, setData] = useState(null);
-  console.log(data);
   const order = data?.orders?.[0];
   const shipping = order?.shipping;
   const items = order?.items;
@@ -29,7 +28,7 @@ const PaymentSuccess = () => {
   const subTotal = items?.reduce(
     (acc, item) => acc + item.itemPrice * item.quantity,
     0
-);
+  );
 
   const handleDownload = () => {
     const element = invoiceRef.current;

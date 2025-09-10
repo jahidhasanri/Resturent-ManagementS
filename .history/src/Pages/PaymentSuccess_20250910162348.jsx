@@ -27,9 +27,10 @@ const PaymentSuccess = () => {
   }, [tranId]);
 
   const subTotal = items?.reduce(
-    (acc, item) => acc + item.itemPrice * item.quantity,
+    (acc, item) => acc + item.
+itemPrice * item.itemQuantity,
     0
-);
+  );
 
   const handleDownload = () => {
     const element = invoiceRef.current;
