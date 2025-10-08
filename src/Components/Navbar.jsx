@@ -26,7 +26,7 @@ const Navbar = () => {
     if (!user?._id) return;
     try {
       const response = await axios.get(
-        "https://resturent-management-server-three.vercel.app/cardItems",
+        "http://localhost:5000/cardItems",
         { params: { userId: user._id } }
       );
       if (response.data.success && Array.isArray(response.data.data)) {
@@ -112,7 +112,7 @@ const Navbar = () => {
               {/* Nav Menu */}
               <div className="flex gap-6 items-center font-semibold text-sm flex-wrap">
                 <NavLink to={"/"} className="hover:text-red-500">
-                  Home
+                  Homes
                 </NavLink>
                 <NavLink to={"/wishlist"} className="hover:text-red-500">
                   wishList

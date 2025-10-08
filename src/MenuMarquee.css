@@ -2,8 +2,8 @@
   overflow: hidden;
   white-space: nowrap;
   position: relative;
-  height: 250px;          /* ফিক্সড height দাও */
-  line-height: 100px;     /* vertically center */
+  height: 250px;         
+  line-height: 100px;     
 }
 
 
