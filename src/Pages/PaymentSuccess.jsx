@@ -6,10 +6,11 @@ import html2pdf from "html2pdf.js";
 const PaymentSuccess = () => {
   const { tranId } = useParams();
   const [data, setData] = useState(null);
-  console.log(data);
   const order = data?.orders?.[0];
   const shipping = order?.shipping;
   const items = order?.items;
+  console.log(order);
+  console.log(items);
   const navigate = useNavigate();
 
   const invoiceRef = useRef(null);
@@ -27,7 +28,8 @@ const PaymentSuccess = () => {
   }, [tranId]);
 
   const subTotal = items?.reduce(
-    (acc, item) => acc + item.itemPrice * item.quantity,
+    (acc, item) => acc + item.itemPrice * item?.quantity || item?.itemQuantity
+,
     0
 );
 
@@ -163,10 +165,12 @@ const PaymentSuccess = () => {
                       {item.itemPrice} ৳
                     </td>
                     <td className="px-2 sm:px-4 py-2 text-center">
-                      {item?.quantity}
+                      {item?.quantity || item?.itemQuantity
+}
                     </td>
                     <td className="px-2 sm:px-4 py-2 text-center">
-                      {item.itemPrice * item?.quantity} ৳
+                      {item?.itemPrice * `${item?.quantity || item?.itemQuantity}`
+} ৳
                     </td>
                   </tr>
                 ))}

@@ -22,6 +22,7 @@ import ShippingBilling from "../Pages/ShippingBilling";
 import PaymentSuccess from "../Pages/PaymentSuccess";
 import PaymentFail from "../Pages/PaymentFail";
 import PaymentCancel from "../Pages/PaymentCancel";
+import ManageOrder from "../Pages/ManageOrder";
 
 
 const router = createBrowserRouter([
@@ -109,6 +110,10 @@ const router = createBrowserRouter([
        {
         path:'manageUsers',
         element:<ManageUsers></ManageUsers>
+       },
+       {
+        path:'manageOrders',
+        element:<ManageOrder></ManageOrder>
        },
         ]
   }
