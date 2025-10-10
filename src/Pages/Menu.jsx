@@ -4,6 +4,7 @@ import { FaShoppingBasket } from "react-icons/fa";
 import { toast } from "react-toastify";
 import { AuthContext } from "../Provider/AuthProvider";
 import { IoIosArrowDown } from "react-icons/io";
+import { useNavigate } from "react-router-dom";
 
 const Menu = () => {
   const [allDishes, setDishes] = useState([]);
@@ -11,10 +12,11 @@ const Menu = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [sortType, setSortType] = useState("default");
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("All"); // 🔹 New state
+  const [selectedCategory, setSelectedCategory] = useState("All");
   const dishesPerPage = 12;
   const { user } = useContext(AuthContext);
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
 
   // Fetch data
   useEffect(() => {
@@ -30,8 +32,14 @@ const Menu = () => {
     fetchDishes();
   }, []);
 
-  // Add to Cart
+  // Add to Cart with login check
   const handelAddTOCard = async (food) => {
+    if (!user?._id) {
+      toast.warning("You must login first!");
+      navigate("/login");
+      return;
+    }
+
     const selectItem = {
       itemId: food?._id,
       itemImg: food?.image,
@@ -72,38 +80,31 @@ const Menu = () => {
     return stars;
   };
 
-  // 🔹 Handle Sorting
+  // Sorting
   const handleSort = (type) => {
     let sorted = [...filteredDishes];
     setSortType(type);
 
-    if (type === "popularity") {
-      sorted.sort((a, b) => (b.review || 0) - (a.review || 0));
-    } else if (type === "lowToHigh") {
-      sorted.sort((a, b) => a.price - b.price);
-    } else if (type === "highToLow") {
-      sorted.sort((a, b) => b.price - a.price);
-    } else {
-      sorted = [...allDishes];
-    }
+    if (type === "popularity") sorted.sort((a, b) => (b.review || 0) - (a.review || 0));
+    else if (type === "lowToHigh") sorted.sort((a, b) => a.price - b.price);
+    else if (type === "highToLow") sorted.sort((a, b) => b.price - a.price);
+    else sorted = [...allDishes];
 
     setFilteredDishes(sorted);
     setCurrentPage(1);
     setOpen(false);
   };
 
-  // 🔹 Handle Search
+  // Filter (Search + Category)
   useEffect(() => {
     filterItems(searchQuery, selectedCategory);
   }, [searchQuery, allDishes, selectedCategory]);
 
-  // 🔹 Handle Category Filter
   const handleCategoryClick = (category) => {
     setSelectedCategory(category);
     filterItems(searchQuery, category);
   };
 
-  // 🔹 Combined Filter Function (Search + Category)
   const filterItems = (search, category) => {
     let filtered = allDishes;
 
@@ -130,25 +131,18 @@ const Menu = () => {
   const totalPages = Math.ceil(filteredDishes.length / dishesPerPage);
 
   return (
-    <div className="bg-[#f4f1ea]">
+    <div className="bg-[#f4f1ea] ">
       {/* Banner */}
       <div
-        style={{
-          backgroundImage: "url('/images/breadcumb.jpg')",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          height: "50vh",
-          width: "100%",
-        }}
+        className="bg-cover bg-center w-full h-[50vh] flex items-center justify-center"
+        style={{ backgroundImage: "url('/images/breadcumb.jpg')" }}
       >
-        <h1 className="font-bold text-center pt-[150px] text-[60px] text-white">
-          Shop
-        </h1>
+        <h1 className="font-bold text-[60px] text-white text-center">Shop</h1>
       </div>
 
-      <div className="container mx-auto grid grid-cols-12 gap-4">
+      <div className="container mx-auto grid grid-cols-12 gap-4 px-2 lg:px-5">
         {/* Sidebar */}
-        <div className="col-span-3 space-y-6 p-4 lg:pt-[140px]">
+        <div className="col-span-12 lg:col-span-3 space-y-6 pt-8 lg:pt-[140px]">
           {/* Search Box */}
           <div className="bg-white shadow rounded-xl p-4">
             <h3 className="font-bold text-lg border-b-2 border-red-500 inline-block pb-1">
@@ -166,7 +160,7 @@ const Menu = () => {
             </div>
           </div>
 
-          {/* 🔹 Categories */}
+          {/* Categories */}
           <div className="bg-white shadow rounded-xl p-4">
             <h3 className="font-bold text-lg border-b-2 border-red-500 inline-block pb-1">
               Categories
@@ -192,12 +186,12 @@ const Menu = () => {
         </div>
 
         {/* Main Section */}
-        <div className="col-span-9">
+        <div className="col-span-12 lg:col-span-9 pt-8 lg:pt-[140px]">
           {/* Sorting */}
           <div className="relative flex justify-end w-full">
             <button
               onClick={() => setOpen(!open)}
-              className="px-4 py-2 bg-white flex gap-4 items-center text-black rounded-md mt-10 mb-10 border border-black"
+              className="px-4 py-2 bg-white flex gap-2 items-center text-black rounded-md mb-4 border border-black"
             >
               {sortType === "default"
                 ? "Default Sorting"
@@ -210,7 +204,7 @@ const Menu = () => {
             </button>
 
             {open && (
-              <div className="absolute right-0 mt-20 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-50">
+              <div className="absolute right-0 mt-12 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-50">
                 <ul className="py-2 text-sm text-gray-700">
                   <li
                     onClick={() => handleSort("default")}
@@ -242,19 +236,19 @@ const Menu = () => {
           </div>
 
           {/* Dishes */}
-          <div className="grid lg:grid-cols-4 gap-4 p-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-2 lg:p-4">
             {currentDishes.length > 0 ? (
               currentDishes.map((food, idx) => (
                 <div
                   key={idx}
                   className="bg-white shadow-xl rounded-2xl text-center p-5"
                 >
-                  <div className="relative mx-auto w-[200px] h-[200px] pb-4">
+                  <div className="relative mx-auto w-[180px] h-[180px] pb-4 sm:w-[200px] sm:h-[200px]">
                     <div className="absolute inset-0 border-4 border-dotted border-red-500 rounded-full animate-spin-slow"></div>
                     <img
                       src={food?.image}
                       alt={food?.name}
-                      className="w-[300px] h-[200px] object-cover rounded-full z-10 relative p-2"
+                      className="w-full h-full object-cover rounded-full z-10 relative p-2"
                     />
                   </div>
                   <h2 className="text-lg font-bold mt-2">{food?.name}</h2>
@@ -265,7 +259,7 @@ const Menu = () => {
 
                   <button
                     onClick={() => handelAddTOCard(food)}
-                    className="rounded-3xl mx-auto w-[182px] bg-[#fde5e9] text-red-600 mt-4 hover:bg-red-700 hover:text-white transition-colors duration-500 ease-in-out"
+                    className="rounded-3xl mx-auto w-[160px] sm:w-[182px] bg-[#fde5e9] text-red-600 mt-4 hover:bg-red-700 hover:text-white transition-colors duration-500 ease-in-out"
                   >
                     <div className="flex gap-2 items-center justify-center p-2">
                       Order Now <FaShoppingBasket />
@@ -274,14 +268,14 @@ const Menu = () => {
                 </div>
               ))
             ) : (
-              <p className="text-center text-gray-500 col-span-4 text-lg">
+              <p className="text-center text-gray-500 col-span-3 text-lg">
                 No items found 😔
               </p>
             )}
           </div>
 
           {/* Pagination */}
-          <div className="flex justify-center items-center gap-2 mt-6 mb-10">
+          <div className="flex justify-center items-center gap-2 mt-6 mb-10 flex-wrap">
             <button
               onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
               disabled={currentPage === 1}

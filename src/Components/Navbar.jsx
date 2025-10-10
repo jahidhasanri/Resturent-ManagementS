@@ -114,11 +114,11 @@ const Navbar = () => {
                 <NavLink to={"/"} className="hover:text-red-500">
                   Homes
                 </NavLink>
-                <NavLink to={"/wishlist"} className="hover:text-red-500">
-                  wishList
-                </NavLink>
                 <NavLink to={"/menu"} className="hover:text-red-500">
                   Menus
+                </NavLink>
+                <NavLink to={"/wishlist"} className="hover:text-red-500">
+                  wishList
                 </NavLink>
                 <NavLink to={"/aboutus"} className="hover:text-red-500">
                   About Us +
@@ -163,12 +163,12 @@ const Navbar = () => {
                     </li>
                   </>
                 ) : (
-                  <NavLink
+                  <button
                     to={"/login"}
                     className="bg-red-600 text-white px-4 py-2 text-sm flex items-center gap-1 hover:bg-red-700 transition"
                   >
                     Login <FaArrowRight />
-                  </NavLink>
+                  </button>
                 )}
               </div>
             </div>

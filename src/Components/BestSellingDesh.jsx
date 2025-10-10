@@ -12,7 +12,8 @@ const BestSellingDesh = () => {
   const [dishes, setDishes] = useState([]);
   const [wishlist, setWishlist] = useState([]);
   const { user } = useContext(AuthContext);
-const navigate = useNavigate()
+  const navigate = useNavigate();
+
   // Modal State
   const [selectedDish, setSelectedDish] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -49,16 +50,16 @@ const navigate = useNavigate()
   }, [user?._id]);
 
   const limitedDishes = dishes.reduce((acc, dish, index) => {
-  if (index < 10) {
-    acc.push(dish);
-  }
-  return acc;
-}, []);
+    if (index < 10) {
+      acc.push(dish);
+    }
+    return acc;
+  }, []);
 
   // 🔹 Add item to wishlist
   const handelWish = (dish) => {
     if (!user?._id) {
-      Swal.fire("Login Required", "Please login to add wishlist", "warning");
+      toast.warning("Login required! Please login.");
       return;
     }
 
@@ -114,34 +115,36 @@ const navigate = useNavigate()
     setIsModalOpen(false);
   };
 
-
-
-  const handelAddTOCard = async(food)=>{
-    console.log(food);
-const selectItem = {
-  itemId: food?._id,
-  itemImg: food?.image,
-  itemName: food?.name,
-  itemPrice: food?.price,
-  userId:user._id,
-  itemQuantity: 1
-};
-console.log(selectItem);
-try {
-    const res = await axios.post('http://localhost:5000/cardItem', selectItem);
-
-   if (res.data.success) {
-      toast.success('Item added to cart successfully! 🛒');
-       window.dispatchEvent(new Event("cart-updated"));
-    } else {
-      toast.error(res.data.message || 'Something went wrong. Please try again.');
+  // 🔹 Add to Cart
+  const handelAddTOCard = async (food) => {
+    if (!user?._id) {
+      toast.warning("Login required! Please login.");
+      return;
     }
-  } catch (error) {
-    console.error(error);
-    toast.error('Failed to add item to cart.');
-  }
 
-}
+    const selectItem = {
+      itemId: food?._id,
+      itemImg: food?.image,
+      itemName: food?.name,
+      itemPrice: food?.price,
+      userId: user._id,
+      itemQuantity: 1,
+    };
+
+    try {
+      const res = await axios.post("http://localhost:5000/cardItem", selectItem);
+
+      if (res.data.success) {
+        toast.success("Item added to cart successfully! 🛒");
+        window.dispatchEvent(new Event("cart-updated"));
+      } else {
+        toast.error(res.data.message || "Something went wrong. Please try again.");
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to add item to cart.");
+    }
+  };
 
   return (
     <div className="bg-[#f5f2eb]">
@@ -159,15 +162,6 @@ try {
               key={dish._id}
               className="relative group bg-white rounded-2xl shadow-md overflow-hidden transition-all duration-500"
             >
-               <div
-                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-700 ease-in-out bg-cover bg-center"
-                style={{
-                  backgroundImage:
-                    "url('https://i.ibb.co.com/99mz085T/freepik-upload-50378.png')",
-                }}
-              >
-                <div className="absolute inset-0 bg-black bg-opacity-50"></div>
-              </div>
               {/* Favorite Button */}
               <button
                 onClick={() => handelWish(dish)}
@@ -210,9 +204,10 @@ try {
 
               {/* Hover Icons */}
               <div className="absolute top-16 right-4 flex flex-col gap-3 opacity-0 translate-y-6 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 z-30">
-                <button onClick={()=>{
-                 handelAddTOCard(dish)
-                }} className="bg-white rounded-full p-2 shadow-md hover:bg-gray-200 transition">
+                <button
+                  onClick={() => handelAddTOCard(dish)}
+                  className="bg-white rounded-full p-2 shadow-md hover:bg-gray-200 transition"
+                >
                   <MdShoppingBasket size={18} />
                 </button>
                 <button
@@ -227,7 +222,12 @@ try {
         </div>
 
         <div className="flex justify-center mt-16">
-          <button onClick={()=>{navigate('/menu')}} className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 uppercase rounded shadow flex items-center gap-2 text-center transition duration-300 ease-in-out">
+          <button
+            onClick={() => {
+              navigate("/menu");
+            }}
+            className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 uppercase rounded shadow flex items-center gap-2 text-center transition duration-300 ease-in-out"
+          >
             VIEW ALL ITEM <FaArrowRight className="text-white" />
           </button>
         </div>
@@ -293,9 +293,10 @@ try {
                 <QuantitySection selectedDish={selectedDish} />
 
                 <div className="flex items-center gap-4 mt-10">
-                  <button onClick={()=>{
-                    handelAddTOCard(selectedDish)
-                  }} className="bg-red-600 text-white px-5 py-2 rounded hover:bg-red-700 flex items-center gap-2">
+                  <button
+                    onClick={() => handelAddTOCard(selectedDish)}
+                    className="bg-red-600 text-white px-5 py-2 rounded hover:bg-red-700 flex items-center gap-2"
+                  >
                     <MdShoppingBasket /> Add to Cart
                   </button>
 

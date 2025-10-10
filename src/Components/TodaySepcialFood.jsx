@@ -1,5 +1,6 @@
 import React from 'react';
 import { FaArrowRight } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 const TodaySepcialFood = () => {
   return (
@@ -13,9 +14,9 @@ const TodaySepcialFood = () => {
           <h3 className="text-[#eb0027] text-[28px] font-bold mb-3">WELCOME FRESHEAT</h3>
           <h1 className="font-bold text-[50px] text-white mb-3">TODAY SPACIAL FOOD</h1>
           <h5 className="text-[28px] text-[#fc7819] font-semibold mb-10">LIMITED TIME OFFER</h5>
-          <button className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 uppercase rounded shadow flex items-center gap-2 text-center transition duration-300 ease-in-out">
+          <Link to={'/menu'} className="bg-red-600 w-[200px] hover:bg-red-700 text-white px-6 py-3 uppercase rounded shadow flex items-center gap-2 text-center transition duration-300 ease-in-out">
             VIEW ALL ITEM <FaArrowRight className="text-white" />
-          </button>
+          </Link>
         </div>
 
         {/* Image Section */}

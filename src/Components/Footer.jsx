@@ -3,7 +3,7 @@ import { FaFacebookF, FaTwitter, FaLinkedinIn, FaYoutube, FaArrowRight } from 'r
 
 const Footer = () => {
   return (
-    <footer className="bg-[#0B1017] text-white relative">
+    <footer className="bg-[#0B1017] text-white relative md: px-6">
 
       {/* Floating images */}
       <div className="bg-orange-500/60 relative z-20">
