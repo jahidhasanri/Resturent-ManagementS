@@ -20,7 +20,7 @@ const AuthProvider = ({children}) => {
   }
 }, [user?.email]);  
 
-console.log(user);
+// console.log(user);
 
     const provider = new GoogleAuthProvider();
     const handelWithRegister = (email, password)=>{

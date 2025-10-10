@@ -1,8 +1,11 @@
 import { NavLink, Outlet } from "react-router";
 import { FaBorderAll } from "react-icons/fa";
 import { MdManageHistory } from "react-icons/md";
+import { useContext } from "react";
+import { AuthContext } from "../Provider/AuthProvider";
 const DashboardLayout = () => {
-    const role="admin";
+  const { user} = useContext(AuthContext);
+    const role=user?.role;
   return (
     <div className="drawer lg:drawer-open">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
@@ -71,6 +74,26 @@ const DashboardLayout = () => {
               </li>
               <li>
                   <NavLink to={'manageDishes'} className="hover:text-red-500 cursor-pointer text-[20px] font-semibold"><div className="flex gap-3 items-center"><MdManageHistory /> ManageDishes</div></NavLink>
+              </li>
+              <li>
+                  <NavLink to={'manageOrders'} className="hover:text-red-500 cursor-pointer text-[20px] font-semibold"><div className="flex gap-3 items-center"><MdManageHistory /> ManageOrder</div></NavLink>
+              </li>
+             
+            </>
+          )}
+          {role ==="employee" && (
+            <>
+              <li>
+                  <NavLink to={'analytic'} className="hover:text-red-500 cursor-pointer text-[20px] font-semibold"><div className="flex gap-3 items-center"><FaBorderAll /> Analytic</div></NavLink>
+              </li>
+              <li>
+                  <NavLink to={'addDish'} className="hover:text-red-500 cursor-pointer text-[20px] font-semibold"><div className="flex gap-3 items-center"><MdManageHistory /> AddDishes</div></NavLink>
+              </li>
+              <li>
+                  <NavLink to={'manageDishes'} className="hover:text-red-500 cursor-pointer text-[20px] font-semibold"><div className="flex gap-3 items-center"><MdManageHistory /> ManageDishes</div></NavLink>
+              </li>
+              <li>
+                  <NavLink to={'manageOrders'} className="hover:text-red-500 cursor-pointer text-[20px] font-semibold"><div className="flex gap-3 items-center"><MdManageHistory /> ManageOrder</div></NavLink>
               </li>
               <li>
                 <NavLink

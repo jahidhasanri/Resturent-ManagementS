@@ -10,7 +10,7 @@ const ManageOrder = () => {
 
   // Pagination states
   const [currentPage, setCurrentPage] = useState(1);
-  const ordersPerPage = 12;
+  const ordersPerPage = 11;
 
   // ✅ Fetch all orders
   useEffect(() => {

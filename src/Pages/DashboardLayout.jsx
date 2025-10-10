@@ -3,6 +3,9 @@ import { FaBorderAll } from "react-icons/fa";
 import { MdManageHistory } from "react-icons/md";
 import { useContext } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
+import { MdManageAccounts } from "react-icons/md";
+import { BiDish } from "react-icons/bi";
+import { AiOutlineBorderlessTable } from "react-icons/ai";
 const DashboardLayout = () => {
   const { user} = useContext(AuthContext);
     const role=user?.role;
@@ -61,7 +64,7 @@ const DashboardLayout = () => {
             </NavLink>
           </li>
           {/* admin menu */}
-          {role === "admin" || "employee" && (
+          {role === "admin" && (
             <>
               <li>
                   <NavLink to={'analytic'} className="hover:text-red-500 cursor-pointer text-[20px] font-semibold"><div className="flex gap-3 items-center"><FaBorderAll /> Analytic</div></NavLink>
@@ -73,41 +76,52 @@ const DashboardLayout = () => {
                   <NavLink to={'addDish'} className="hover:text-red-500 cursor-pointer text-[20px] font-semibold"><div className="flex gap-3 items-center"><MdManageHistory /> AddDishes</div></NavLink>
               </li>
               <li>
-                  <NavLink to={'manageDishes'} className="hover:text-red-500 cursor-pointer text-[20px] font-semibold"><div className="flex gap-3 items-center"><MdManageHistory /> ManageDishes</div></NavLink>
+                  <NavLink to={'manageDishes'} className="hover:text-red-500 cursor-pointer text-[20px] font-semibold"><div className="flex gap-3 items-center"><BiDish /> ManageDishes</div></NavLink>
               </li>
               <li>
-                  <NavLink to={'manageOrders'} className="hover:text-red-500 cursor-pointer text-[20px] font-semibold"><div className="flex gap-3 items-center"><MdManageHistory /> ManageOrder</div></NavLink>
+                  <NavLink to={'manageOrders'} className="hover:text-red-500 cursor-pointer text-[20px] font-semibold"><div className="flex gap-3 items-center"><AiOutlineBorderlessTable /> ManageOrder</div></NavLink>
               </li>
-              <li>
-                <NavLink
-                  className={"font-semibold"}
-                  to="/dashboard/all-review"
-                >
-                  All Review
-                </NavLink>
+               <li>
+                  <NavLink   to={"myProfile"} className="hover:text-red-500 cursor-pointer text-[20px] font-semibold"><div className="flex gap-3 items-center"><MdManageAccounts />  My Profile</div></NavLink>
               </li>
-              <li>
-                <NavLink
-                  className={"font-semibold"}
-                  to={"/dashboard/add-product"}
-                >
-                  Add Product
-                </NavLink>
-              </li>
+             
             </>
           )}
-          {role === "customer" && (
+          {role ==="employee" && (
             <>
               <li>
-                <NavLink
-                  className={"font-semibold"}
-                  to={"/dashboard/add-product"}
-                >
-                  Add Product
-                </NavLink>
+                  <NavLink to={'analytic'} className="hover:text-red-500 cursor-pointer text-[20px] font-semibold"><div className="flex gap-3 items-center"><FaBorderAll /> Analytic</div></NavLink>
               </li>
+              <li>
+                  <NavLink to={'addDish'} className="hover:text-red-500 cursor-pointer text-[20px] font-semibold"><div className="flex gap-3 items-center"><MdManageHistory /> AddDishes</div></NavLink>
+              </li>
+              <li>
+                  <NavLink to={'manageDishes'} className="hover:text-red-500 cursor-pointer text-[20px] font-semibold"><div className="flex gap-3 items-center"><BiDish /> ManageDishes</div></NavLink>
+              </li>
+              <li>
+                  <NavLink to={'manageOrders'} className="hover:text-red-500 cursor-pointer text-[20px] font-semibold"><div className="flex gap-3 items-center"><AiOutlineBorderlessTable /> ManageOrder</div></NavLink>
+              </li>
+               <li>
+                  <NavLink   to={"myProfile"} className="hover:text-red-500 cursor-pointer text-[20px] font-semibold"><div className="flex gap-3 items-center"><MdManageAccounts />  My Profile</div></NavLink>
+              </li>
+            
             </>
           )}
+
+  {role ==="employee" && (
+    <>
+    <li>
+                  <NavLink   to={"userorder"} className="hover:text-red-500 cursor-pointer text-[20px] font-semibold"><div className="flex gap-3 items-center"><MdManageAccounts />  My Order</div></NavLink>
+              </li>
+           <li>
+                  <NavLink   to={"myProfile"} className="hover:text-red-500 cursor-pointer text-[20px] font-semibold"><div className="flex gap-3 items-center"><MdManageAccounts />  My Profile</div></NavLink>
+              </li>
+    </>
+  )}
+          
+           
+             
+          
         </ul>
       </div>
     </div>
