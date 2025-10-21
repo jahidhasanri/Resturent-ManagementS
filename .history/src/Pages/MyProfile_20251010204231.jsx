@@ -17,7 +17,7 @@ const MyProfile = () => {
       if (imageFile) formData.append("image", imageFile);
 
       const response = await axios.put(
-        `http://localhost:5000/users/${user?._id}`,
+        `https://resturent-management-server-three.vercel.app/users/${user?._id}`,
         formData,
         {
           headers: { "Content-Type": "multipart/form-data" },

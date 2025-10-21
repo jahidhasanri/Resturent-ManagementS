@@ -25,6 +25,7 @@ import PaymentCancel from "../Pages/PaymentCancel";
 import ManageOrder from "../Pages/ManageOrder";
 import MyProfile from "../Pages/MyProfile";
 import UserOrder from "../Pages/UserOrder";
+import PrivateRoute from "./PrivateRoute";
 
 
 const router = createBrowserRouter([
@@ -91,7 +92,7 @@ const router = createBrowserRouter([
   },
   {
         path:'/dashboard',
-        element:<DashboardLayout></DashboardLayout>,
+        element:<PrivateRoute><DashboardLayout></DashboardLayout></PrivateRoute>,
         children:[
            {
         index: true, 

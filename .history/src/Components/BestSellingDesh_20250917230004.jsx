@@ -21,7 +21,7 @@ const navigate = useNavigate()
   useEffect(() => {
     const fetchDishes = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/allsdishes");
+        const response = await axios.get("https://resturent-management-server-three.vercel.app/allsdishes");
         const bestSeller = response.data.filter((dish) => dish.isBestSeller);
         setDishes(bestSeller);
       } catch (error) {
@@ -37,7 +37,7 @@ const navigate = useNavigate()
     const fetchWishlist = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:5000/wishes?userId=${user._id}`
+          `https://resturent-management-server-three.vercel.app/wishes?userId=${user._id}`
         );
         const wishlistIds = res.data.map((wish) => wish.itemId);
         setWishlist(wishlistIds);
@@ -76,7 +76,7 @@ const navigate = useNavigate()
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .post("http://localhost:5000/wishes", wishlistInf)
+          .post("https://resturent-management-server-three.vercel.app/wishes", wishlistInf)
           .then(() => {
             setWishlist((prev) => [...prev, dish._id]);
             Swal.fire(
@@ -128,7 +128,7 @@ const selectItem = {
 };
 console.log(selectItem);
 try {
-    const res = await axios.post('http://localhost:5000/cardItem', selectItem);
+    const res = await axios.post('https://resturent-management-server-three.vercel.app/cardItem', selectItem);
 
    if (res.data.success) {
       toast.success('Item added to cart successfully! 🛒');

@@ -7,7 +7,7 @@ const ManageOrder = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/finalorder");
+        const response = await axios.get("https://resturent-management-server-three.vercel.app/finalorder");
         setOrders(response.data);
       } catch (error) {
         console.error("Error fetching orders:", error);

@@ -46,7 +46,7 @@ const Login = () => {
           image: result?.user?.photoURL
         };
 
-        axios.post("http://localhost:5000/users", userInfo)
+        axios.post("https://resturent-management-server-three.vercel.app/users", userInfo)
           .then(res => {
             console.log("User saved to DB:");
           })
@@ -74,7 +74,7 @@ const Login = () => {
     {/* Image */}
     <div className="w-full lg:w-1/2 xl:w-1/2">
       <img
-        src="https://i.ibb.co/6RQQM2m2/pizzas-around-pasta.jpg"
+        src="../../public/images/different-asian-dishes-restaurante.jpg"
         className="w-full h-56 sm:h-72 md:h-96 lg:h-[600px] xl:h-[600px] object-cover rounded-md"
         alt="Food"
       />

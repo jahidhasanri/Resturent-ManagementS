@@ -12,7 +12,7 @@ const ShippingBilling = () => {
 
     const fetchOrders = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/orderInfo`, {
+        const response = await axios.get(`https://resturent-management-server-three.vercel.app/orderInfo`, {
           params: { userId: user._id },
         });
 
@@ -42,7 +42,7 @@ const ShippingBilling = () => {
   const handlePayment = async () => {
     setLoading(true);
     try {
-      const response = await axios.post("http://localhost:5000/finalOrder", {
+      const response = await axios.post("https://resturent-management-server-three.vercel.app/finalOrder", {
         orders,
         user,
         total,

@@ -18,7 +18,7 @@ const PaymentSuccess = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/order/${tranId}`);
+        const res = await axios.get(`https://resturent-management-server-three.vercel.app/order/${tranId}`);
         setData(res.data);
       } catch (err) {
         console.error("Error fetching order:", err);
@@ -27,11 +27,11 @@ const PaymentSuccess = () => {
     if (tranId) fetchData();
   }, [tranId]);
 
-  const subTotal = items?.reduce(
-    (acc, item) => acc + item.itemPrice * item?.quantity || item?.itemQuantity
-,
-    0
+const subTotal = items?.reduce(
+  (acc, item) => acc + item?.itemPrice * (item?.quantity || item?.itemQuantity),
+  0
 );
+
 
   const handleDownload = () => {
     const element = invoiceRef.current;
@@ -250,7 +250,7 @@ export default PaymentSuccess;
 //   useEffect(() => {
 //     if (!tranId) return;
 //     axios
-//       .get(`http://localhost:5000/order/${tranId}`)
+//       .get(`https://resturent-management-server-three.vercel.app/order/${tranId}`)
 //       .then((res) => setData(res.data))
 //       .catch((err) => console.error(err));
 //   }, [tranId]);

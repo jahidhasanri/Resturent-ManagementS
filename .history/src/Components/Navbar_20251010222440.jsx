@@ -26,7 +26,7 @@ const Navbar = () => {
     if (!user?._id) return;
     try {
       const response = await axios.get(
-        "http://localhost:5000/cardItems",
+        "https://resturent-management-server-three.vercel.app/cardItems",
         { params: { userId: user._id } }
       );
       if (response.data.success && Array.isArray(response.data.data)) {

@@ -76,7 +76,7 @@ const AddProduct = () => {
 
       const imageUrl = imgRes.data.data.url;
 
-      await axios.post("http://localhost:5000/alldishes", {
+      await axios.post("https://resturent-management-server-three.vercel.app/alldishes", {
         ...formData,
         image: imageUrl,
         customerReview: [],

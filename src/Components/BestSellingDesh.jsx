@@ -22,7 +22,7 @@ const BestSellingDesh = () => {
   useEffect(() => {
     const fetchDishes = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/allsdishes");
+        const response = await axios.get("https://resturent-management-server-three.vercel.app/allsdishes");
         const bestSeller = response.data.filter((dish) => dish.isBestSeller);
         setDishes(bestSeller);
       } catch (error) {
@@ -31,6 +31,7 @@ const BestSellingDesh = () => {
     };
     fetchDishes();
   }, []);
+  // console.log(user?.uid);
 
   // 🔹 Fetch user's wishlist from backend
   useEffect(() => {
@@ -38,7 +39,7 @@ const BestSellingDesh = () => {
     const fetchWishlist = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:5000/wishes?userId=${user._id}`
+          `https://resturent-management-server-three.vercel.app/wishes?userId=${user._id}`
         );
         const wishlistIds = res.data.map((wish) => wish.itemId);
         setWishlist(wishlistIds);
@@ -58,7 +59,7 @@ const BestSellingDesh = () => {
 
   // 🔹 Add item to wishlist
   const handelWish = (dish) => {
-    if (!user?._id) {
+    if (!user) {
       toast.warning("Login required! Please login.");
       return;
     }
@@ -77,7 +78,7 @@ const BestSellingDesh = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .post("http://localhost:5000/wishes", wishlistInf)
+          .post("https://resturent-management-server-three.vercel.app/wishes", wishlistInf)
           .then(() => {
             setWishlist((prev) => [...prev, dish._id]);
             Swal.fire(
@@ -117,7 +118,7 @@ const BestSellingDesh = () => {
 
   // 🔹 Add to Cart
   const handelAddTOCard = async (food) => {
-    if (!user?._id) {
+    if (!user) {
       toast.warning("Login required! Please login.");
       return;
     }
@@ -132,7 +133,7 @@ const BestSellingDesh = () => {
     };
 
     try {
-      const res = await axios.post("http://localhost:5000/cardItem", selectItem);
+      const res = await axios.post("https://resturent-management-server-three.vercel.app/cardItem", selectItem);
 
       if (res.data.success) {
         toast.success("Item added to cart successfully! 🛒");
@@ -156,68 +157,80 @@ const BestSellingDesh = () => {
           Best Selling Dishes
         </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-8 mx-2">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-8 mx-2"
+        >
           {limitedDishes.map((dish) => (
-            <div
-              key={dish._id}
-              className="relative group bg-white rounded-2xl shadow-md overflow-hidden transition-all duration-500"
-            >
-              {/* Favorite Button */}
-              <button
-                onClick={() => handelWish(dish)}
-                disabled={wishlist.includes(dish._id)}
-                className={`absolute top-4 right-4 z-30 rounded-full p-2 shadow-md transition ${
-                  wishlist.includes(dish._id)
-                    ? "bg-gray-300 cursor-not-allowed"
-                    : "bg-white hover:bg-red-100"
-                }`}
-              >
-                <FaHeart
-                  className={`${
-                    wishlist.includes(dish._id)
-                      ? "text-gray-400"
-                      : "text-red-500"
-                  }`}
-                  size={20}
-                />
-              </button>
+           <div
+  key={dish._id}
+  className="relative group bg-white rounded-2xl shadow-md overflow-hidden transition-all duration-500"
+>
+  {/* 🔹 Background image show on hover */}
+  <div
+    className="absolute inset-0 bg-cover bg-center opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+    style={{
+      backgroundImage:
+        "url('https://i.ibb.co.com/99mz085T/freepik-upload-50378.png')",
+    }}
+  ></div>
 
-              {/* Image */}
-              <div className="relative z-20 flex justify-center mt-10">
-                <img
-                  src={dish?.image}
-                  alt={dish?.name}
-                  className="w-[170px] h-[170px] rounded-full object-cover"
-                />
-              </div>
+  {/* 🔹 Black overlay (visible only on hover) */}
+  <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-40 transition-opacity duration-500"></div>
 
-              {/* Text */}
-              <div className="relative z-20 p-6 text-center transition-all duration-500 group-hover:text-white">
-                <h3 className="font-bold text-xl mb-2">{dish.name}</h3>
-                <p className="text-gray-500 text-[18px] mb-4 group-hover:text-white/90">
-                  The Dish price
-                </p>
-                <p className="text-lg font-bold text-[#fc7819] group-hover:text-white">
-                  ${dish.price}
-                </p>
-              </div>
+  {/* Favorite Button */}
+  <button
+    onClick={() => handelWish(dish)}
+    disabled={wishlist.includes(dish._id)}
+    className={`absolute top-4 right-4 z-30 rounded-full p-2 shadow-md transition ${
+      wishlist.includes(dish._id)
+        ? "bg-gray-300 cursor-not-allowed"
+        : "bg-white hover:bg-red-100"
+    }`}
+  >
+    <FaHeart
+      className={`${
+        wishlist.includes(dish._id) ? "text-gray-400" : "text-red-500"
+      }`}
+      size={20}
+    />
+  </button>
 
-              {/* Hover Icons */}
-              <div className="absolute top-16 right-4 flex flex-col gap-3 opacity-0 translate-y-6 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 z-30">
-                <button
-                  onClick={() => handelAddTOCard(dish)}
-                  className="bg-white rounded-full p-2 shadow-md hover:bg-gray-200 transition"
-                >
-                  <MdShoppingBasket size={18} />
-                </button>
-                <button
-                  onClick={() => handleView(dish)}
-                  className="bg-white rounded-full p-2 shadow-md hover:bg-gray-200 transition"
-                >
-                  <FaEye size={18} />
-                </button>
-              </div>
-            </div>
+  {/* Image */}
+  <div className="relative z-20 flex justify-center mt-10">
+    <img
+      src={dish?.image}
+      alt={dish?.name}
+      className="w-[170px] h-[170px] rounded-full object-cover"
+    />
+  </div>
+
+  {/* Text */}
+  <div className="relative z-20 p-6 text-center transition-all duration-500 group-hover:text-white">
+    <h3 className="font-bold text-xl mb-2">{dish.name}</h3>
+    <p className="text-gray-500 text-[18px] mb-4 group-hover:text-white/90">
+      The Dish price
+    </p>
+    <p className="text-lg font-bold text-[#fc7819] group-hover:text-white">
+      ${dish.price}
+    </p>
+  </div>
+
+  {/* Hover Icons */}
+  <div className="absolute top-16 right-4 flex flex-col gap-3 opacity-0 translate-y-6 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 z-30">
+    <button
+      onClick={() => handelAddTOCard(dish)}
+      className="bg-white rounded-full p-2 shadow-md hover:bg-gray-200 transition"
+    >
+      <MdShoppingBasket size={18} />
+    </button>
+    <button
+      onClick={() => handleView(dish)}
+      className="bg-white rounded-full p-2 shadow-md hover:bg-gray-200 transition"
+    >
+      <FaEye size={18} />
+    </button>
+  </div>
+</div>
+
           ))}
         </div>
 

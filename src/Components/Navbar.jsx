@@ -9,7 +9,7 @@ import {
   FaArrowRight,
 } from "react-icons/fa";
 import { MdOutlineAccessTime } from "react-icons/md";
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../Provider/AuthProvider";
 import { toast } from "react-toastify";
 import "../Navbar.css";
@@ -26,7 +26,7 @@ const Navbar = () => {
     if (!user?._id) return;
     try {
       const response = await axios.get(
-        "http://localhost:5000/cardItems",
+        "https://resturent-management-server-three.vercel.app/cardItems",
         { params: { userId: user._id } }
       );
       if (response.data.success && Array.isArray(response.data.data)) {
@@ -121,14 +121,16 @@ const Navbar = () => {
                   wishList
                 </NavLink>
                 <NavLink to={"/aboutus"} className="hover:text-red-500">
-                  About Us +
+                  About Us 
                 </NavLink>
                 <NavLink to={"/contactus"} className="hover:text-red-500">
-                  Contact Us +
+                  Contact Us 
                 </NavLink>
-                <NavLink to={"/dashboard"} className="hover:text-red-500">
-                  dashboard
-                </NavLink>
+                {user && (
+                  <NavLink to={"/dashboard"} className="hover:text-red-500">
+                    dashboard
+                  </NavLink>
+                )}
               </div>
 
               {/* Right Icons */}
@@ -163,12 +165,12 @@ const Navbar = () => {
                     </li>
                   </>
                 ) : (
-                  <button
+                  <Link
                     to={"/login"}
                     className="bg-red-600 text-white px-4 py-2 text-sm flex items-center gap-1 hover:bg-red-700 transition"
                   >
                     Login <FaArrowRight />
-                  </button>
+                  </Link>
                 )}
               </div>
             </div>
@@ -249,14 +251,34 @@ const Navbar = () => {
                   Menus
                 </NavLink>
                 <NavLink to={"/aboutus"} className="hover:text-red-500">
-                  About Us +
+                  About Us 
                 </NavLink>
                 <NavLink to={"/contactus"} className="hover:text-red-500">
-                  Contact Us +
+                  Contact Us
                 </NavLink>
-                <NavLink to={"/dashboard"} className="hover:text-red-500">
-                  dashboard
-                </NavLink>
+                {user && (
+                  <NavLink to={"/dashboard"} className="hover:text-red-500">
+                    dashboard
+                  </NavLink>
+                )}
+
+                 {user ? (
+                  <>
+                   
+                    <li onClick={handelSignOut} className="list-none">
+                      <button className="bg-red-600 text-white px-4 py-2 text-sm flex items-center gap-1 hover:bg-red-700 transition">
+                        LogOut <FaArrowRight />
+                      </button>
+                    </li>
+                  </>
+                ) : (
+                  <Link
+                    to={"/login"}
+                    className="bg-red-600 w-[100px] text-white px-4 py-2 text-sm flex items-center gap-1 hover:bg-red-700 transition"
+                  >
+                    Login <FaArrowRight />
+                  </Link>
+                )}
           </nav>
         </div>
       </div>
