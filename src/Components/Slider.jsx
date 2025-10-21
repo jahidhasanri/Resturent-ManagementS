@@ -10,7 +10,7 @@ const slides = [
     subtitle: 'WELCOME FRESHEAT',
     title: 'CHICAGO DEEP BURGER KING',
     buttonText: 'ORDER NOW',
-    image: 'https://i.ibb.co/bMcjJRKF/burger-img.png',
+    image: '/images/burger img.png',
     tag: '50% OFF',
   },
   {
@@ -18,7 +18,7 @@ const slides = [
     subtitle: 'HOT DEAL',
     title: 'CHICAGO DEEP CHEESY PIZZA',
     buttonText: 'GRAB DEAL',
-    image: 'https://i.ibb.co/4RHJCWrK/pizza.png',
+    image: '/images/pizza.png',
     tag: 'BUY 1 GET 1',
   },
   {
@@ -26,7 +26,7 @@ const slides = [
     subtitle: 'SPICY COMBO MEAL',
     title: 'CHICAGO DEEP CHICKEN & FRIES',
     buttonText: 'ORDER NOW',
-    image: 'https://i.ibb.co/WW37Wyzv/chicken.png',
+    image: '/images/chicken.png',
     tag: '30% OFF',
   },
 ];
@@ -47,7 +47,7 @@ const Slider = () => {
           <div
             className="relative w-full h-full bg-contain  bg-center flex items-center justify-center text-white overflow-hidden"
              style={{
-              backgroundImage: `url('https://i.ibb.co/zH0qXsJ9/2515bc-da2fb336df7247eb92c72bed5a08a004-mv2.jpg')`
+              backgroundImage: `url('/images/bd-banner.avif')`
               
             }}
           >

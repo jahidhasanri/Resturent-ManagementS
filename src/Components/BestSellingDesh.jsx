@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 const BestSellingDesh = () => {
   const [dishes, setDishes] = useState([]);
   const [wishlist, setWishlist] = useState([]);
-  const { user } = useContext(AuthContext);
+  const { user,allDishes } = useContext(AuthContext);
   const navigate = useNavigate();
 
   // Modal State
@@ -19,18 +19,15 @@ const BestSellingDesh = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   // 🔹 Fetch all best selling dishes
-  useEffect(() => {
-    const fetchDishes = async () => {
-      try {
-        const response = await axios.get("https://resturent-management-server-three.vercel.app/allsdishes");
-        const bestSeller = response.data.filter((dish) => dish.isBestSeller);
-        setDishes(bestSeller);
-      } catch (error) {
-        console.error("Error fetching dishes:", error);
-      }
-    };
-    fetchDishes();
-  }, []);
+  
+       useEffect(() => {
+  if (allDishes && allDishes.length > 0) {
+    const bestSeller = allDishes.filter((dish) => dish.isBestSeller);
+    setDishes(bestSeller);
+  }
+}, [allDishes]);
+
+      
   // console.log(user?.uid);
 
   // 🔹 Fetch user's wishlist from backend
@@ -197,10 +194,11 @@ const BestSellingDesh = () => {
   {/* Image */}
   <div className="relative z-20 flex justify-center mt-10">
     <img
-      src={dish?.image}
-      alt={dish?.name}
-      className="w-[170px] h-[170px] rounded-full object-cover"
-    />
+  src={dish?.image}
+  alt={dish?.name}
+  loading="lazy"
+  className="w-[170px] h-[170px] rounded-full object-cover"
+/>
   </div>
 
   {/* Text */}
@@ -382,3 +380,8 @@ const QuantitySection = ({ selectedDish }) => {
 };
 
 export default BestSellingDesh;
+
+
+
+
+

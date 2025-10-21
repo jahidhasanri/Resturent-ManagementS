@@ -20,7 +20,7 @@ const Navbar = () => {
   const [cardItems, setCardItems] = useState([]);
   const [mobileMenu, setMobileMenu] = useState(false);
   const navigate = useNavigate();
-
+console.log(cardItems);
   // 🟢 Fetch Cart
   const fetchCartItems = async () => {
     if (!user?._id) return;
@@ -75,7 +75,7 @@ const Navbar = () => {
           <div className="relative w-[400px] bg-white hidden md:block">
             <div className="flex items-center justify-center h-full py-6 ml-[150px]">
               <img
-                src="https://i.ibb.co/BVdGNHP4/logo.png"
+                src="/images/logo.png"
                 alt="Logo"
                 className="h-14"
               />
@@ -182,7 +182,7 @@ const Navbar = () => {
           {/* Logo */}
           <div className="flex items-center gap-2">
             <img
-              src="https://i.ibb.co/BVdGNHP4/logo.png"
+              src="/images/logo.png"
               alt="Logo"
               className="h-10"
             />
@@ -233,7 +233,7 @@ const Navbar = () => {
           {/* Logo */}
           <div className="flex items-center gap-2 mb-6">
             <img
-              src="https://i.ibb.co/BVdGNHP4/logo.png"
+              src="/images/logo.png"
               alt="Logo"
               className="h-12"
             />

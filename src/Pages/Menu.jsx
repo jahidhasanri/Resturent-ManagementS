@@ -7,30 +7,23 @@ import { IoIosArrowDown } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 
 const Menu = () => {
-  const [allDishes, setDishes] = useState([]);
+ 
   const [filteredDishes, setFilteredDishes] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [sortType, setSortType] = useState("default");
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
   const dishesPerPage = 12;
-  const { user } = useContext(AuthContext);
+  const { user,allDishes } = useContext(AuthContext);
   console.log(user);
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
   // Fetch data
   useEffect(() => {
-    const fetchDishes = async () => {
-      try {
-        const response = await axios.get("https://resturent-management-server-three.vercel.app/allsdishes");
-        setDishes(response.data);
-        setFilteredDishes(response.data);
-      } catch (error) {
-        console.error("Error fetching dishes:", error);
-      }
-    };
-    fetchDishes();
-  }, []);
+  if (allDishes && allDishes.length > 0) {
+    setFilteredDishes(allDishes);
+  }
+}, [allDishes]);
 
   // Add to Cart with login check
   const handelAddTOCard = async (food) => {
@@ -243,12 +236,12 @@ const Menu = () => {
                   key={idx}
                   className="bg-white shadow-xl rounded-2xl text-center p-5"
                 >
-                  <div className="relative mx-auto w-[180px] h-[180px] pb-4 sm:w-[200px] sm:h-[200px]">
+                  <div className="relative mx-auto w-[180px] h-[200px] pb-4 sm:w-[200px] sm:h-[200px]">
                     <div className="absolute inset-0 border-4 border-dotted border-red-500 rounded-full animate-spin-slow"></div>
                     <img
                       src={food?.image}
                       alt={food?.name}
-                      className="w-full h-full object-cover rounded-full z-10 relative p-2"
+                      className="w-full h-[200px] object-cover rounded-full z-10 relative p-2"
                     />
                   </div>
                   <h2 className="text-lg font-bold mt-2">{food?.name}</h2>
@@ -315,3 +308,5 @@ const Menu = () => {
 };
 
 export default Menu;
+
+

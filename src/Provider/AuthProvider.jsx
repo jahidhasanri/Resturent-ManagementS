@@ -6,6 +6,7 @@ export const AuthContext= createContext(null)
 const AuthProvider = ({children}) => {
     const [user,SetUser]=useState(null);
     const [loader,SetLoader]=useState(true);
+     const [allDishes, setDishes] = useState([]);
  useEffect(() => {
   if (user?.email) {   
     const fetchUser = async () => {
@@ -19,6 +20,19 @@ const AuthProvider = ({children}) => {
     fetchUser();
   }
 }, [user?.email]);  
+
+ useEffect(() => {
+    const fetchDishes = async () => {
+      try {
+        const response = await axios.get("https://resturent-management-server-three.vercel.app/allsdishes");
+        setDishes(response.data);
+       
+      } catch (error) {
+        console.error("Error fetching dishes:", error);
+      }
+    };
+    fetchDishes();
+  }, []);
 
 // console.log(user);
 
@@ -55,7 +69,8 @@ const AuthProvider = ({children}) => {
         handelWithRegister,
         handelLogout,
         handleLoginwithEmail,
-        handleLoginWithGoogle
+        handleLoginWithGoogle,
+        allDishes
     }
 
 
