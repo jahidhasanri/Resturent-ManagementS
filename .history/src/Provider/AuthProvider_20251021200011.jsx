@@ -11,7 +11,7 @@ const AuthProvider = ({children}) => {
   if (user?.email) {   
     const fetchUser = async () => {
       try {
-        const response = await axios.get(`https://resturent-management-server-three.vercel.app/users?email=${user.email}`);
+        const response = await axios.get(`http://localhost:5000/users?email=${user.email}`);
         SetUser(response.data);   
       } catch (error) {
         console.error("Error fetching user:", error);
@@ -24,7 +24,7 @@ const AuthProvider = ({children}) => {
  useEffect(() => {
     const fetchDishes = async () => {
       try {
-        const response = await axios.get("https://resturent-management-server-three.vercel.app/allsdishes");
+        const response = await axios.get("http://localhost:5000/allsdishes");
         setDishes(response.data);
        
       } catch (error) {

@@ -10,7 +10,7 @@ export const CartProvider = ({ children, user }) => {
   const fetchCartItems = async () => {
     if (!user?._id) return;
     try {
-      const res = await axios.get("https://resturent-management-server-three.vercel.app/cardItems", {
+      const res = await axios.get("http://localhost:5000/cardItems", {
         params: { userId: user._id },
       });
       if (res.data.success) setCartItems(res.data.data);

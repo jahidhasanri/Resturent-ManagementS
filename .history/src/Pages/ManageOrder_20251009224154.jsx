@@ -3,7 +3,7 @@ import React from 'react';
 
 const ManageOrder = () => {
     const data = ()=>{
-       const alldata= axios.get("https://resturent-management-server-three.vercel.app/finalorder")
+       const alldata= axios.get("http://localhost:5000/finalorder")
     }
     console.log(alldata);
     return (

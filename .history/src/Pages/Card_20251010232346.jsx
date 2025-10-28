@@ -15,7 +15,7 @@ const Card = () => {
 
     const fetchCartItems = async () => {
       try {
-        const response = await axios.get(`https://resturent-management-server-three.vercel.app/cardItems`, {
+        const response = await axios.get(`http://localhost:5000/cardItems`, {
           params: { userId: user._id },
         });
         if (response.data.success) {
@@ -33,7 +33,7 @@ const Card = () => {
 
   const handleRemove = async (itemId) => {
     try {
-      await axios.delete(`https://resturent-management-server-three.vercel.app/cardItems/${itemId}`);
+      await axios.delete(`http://localhost:5000/cardItems/${itemId}`);
       setCardItems((prev) => prev.filter((item) => item._id !== itemId));
       toast.success("Item removed from cart successfully");
       window.dispatchEvent(new Event("cart-updated"));
@@ -49,7 +49,7 @@ const Card = () => {
           const newQuantity = Math.max(1, (item.quantity || 1) + delta);
           if (newQuantity !== (item.quantity || 1)) {
             axios
-              .patch(`https://resturent-management-server-three.vercel.app/cardItems/${item._id}`, {
+              .patch(`http://localhost:5000/cardItems/${item._id}`, {
                 quantity: newQuantity,
               })
               .catch((err) => {

@@ -13,7 +13,7 @@ const ManageUsers = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const res = await axios.get("https://resturent-management-server-three.vercel.app/allusers");
+        const res = await axios.get("http://localhost:5000/allusers");
         setUsers(res.data);
       } catch (err) {
         console.error(err);
@@ -35,7 +35,7 @@ const ManageUsers = () => {
 
     if (result.isConfirmed) {
       try {
-        await axios.delete(`https://resturent-management-server-three.vercel.app/users/${user._id}`);
+        await axios.delete(`http://localhost:5000/users/${user._id}`);
         setUsers(users.filter((u) => u._id !== user._id));
         Swal.fire({
           toast: true,

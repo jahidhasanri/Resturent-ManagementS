@@ -46,7 +46,7 @@ const Login = () => {
           image: result?.user?.photoURL
         };
 
-        axios.post("https://resturent-management-server-three.vercel.app/users", userInfo)
+        axios.post("http://localhost:5000/users", userInfo)
           .then(res => {
             console.log("User saved to DB:");
           })

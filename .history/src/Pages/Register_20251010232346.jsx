@@ -51,7 +51,7 @@ const Register = () => {
       });
 
       // 4. Save to your backend
-      await axios.post('https://resturent-management-server-three.vercel.app/users', {
+      await axios.post('http://localhost:5000/users', {
         name,
         email,
         image: imageUrl,

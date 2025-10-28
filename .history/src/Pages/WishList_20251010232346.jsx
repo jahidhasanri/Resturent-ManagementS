@@ -17,12 +17,12 @@ const WishList = () => {
       try {
         // Step 1: user এর wishlist
         const wishRes = await axios.get(
-          `https://resturent-management-server-three.vercel.app/wishes?userId=${user._id}`
+          `http://localhost:5000/wishes?userId=${user._id}`
         );
         setWishlist(wishRes.data);
 
         // Step 2: সব dishes
-        const dishRes = await axios.get(`https://resturent-management-server-three.vercel.app/allsdishes`);
+        const dishRes = await axios.get(`http://localhost:5000/allsdishes`);
         setAllDishes(dishRes.data);
 
         // Step 3: match করে filter
@@ -57,7 +57,7 @@ const WishList = () => {
 
     if (result.isConfirmed) {
       try {
-        await axios.delete(`https://resturent-management-server-three.vercel.app/wishes/${wishId}`);
+        await axios.delete(`http://localhost:5000/wishes/${wishId}`);
         const newWishlist = wishlist.filter((item) => item._id !== wishId);
         setWishlist(newWishlist);
 
@@ -85,7 +85,7 @@ const selectItem = {
 };
 console.log(selectItem);
 try {
-    const res = await axios.post('https://resturent-management-server-three.vercel.app/cardItem', selectItem);
+    const res = await axios.post('http://localhost:5000/cardItem', selectItem);
 
    if (res.data.success) {
       toast.success('Item added to cart successfully! 🛒');

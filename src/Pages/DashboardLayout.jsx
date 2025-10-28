@@ -90,15 +90,6 @@ const DashboardLayout = () => {
           {role ==="employee" && (
             <>
               <li>
-                  <NavLink to={'analytic'} className="hover:text-red-500 cursor-pointer text-[20px] font-semibold"><div className="flex gap-3 items-center"><FaBorderAll /> Analytic</div></NavLink>
-              </li>
-              <li>
-                  <NavLink to={'addDish'} className="hover:text-red-500 cursor-pointer text-[20px] font-semibold"><div className="flex gap-3 items-center"><MdManageHistory /> AddDishes</div></NavLink>
-              </li>
-              <li>
-                  <NavLink to={'manageDishes'} className="hover:text-red-500 cursor-pointer text-[20px] font-semibold"><div className="flex gap-3 items-center"><BiDish /> ManageDishes</div></NavLink>
-              </li>
-              <li>
                   <NavLink to={'manageOrders'} className="hover:text-red-500 cursor-pointer text-[20px] font-semibold"><div className="flex gap-3 items-center"><AiOutlineBorderlessTable /> ManageOrder</div></NavLink>
               </li>
                <li>
@@ -111,10 +102,10 @@ const DashboardLayout = () => {
   {role ==="user" && (
     <>
     <li>
-                  <NavLink   to={"userorder"} className="hover:text-red-500 cursor-pointer text-[20px] font-semibold"><div className="flex gap-3 items-center"><MdManageAccounts />  My Order</div></NavLink>
+                  <NavLink   to={"userorder"} className="hover:text-red-500 cursor-pointer text-[20px] text-white font-semibold"><div className="flex gap-3 items-center"><MdManageAccounts />  My Order</div></NavLink>
               </li>
            <li>
-                  <NavLink   to={"myProfile"} className="hover:text-red-500 cursor-pointer text-[20px] font-semibold"><div className="flex gap-3 items-center"><MdManageAccounts />  My Profile</div></NavLink>
+                  <NavLink   to={"myProfile"} className="hover:text-red-500 cursor-pointer text-[20px] text-white font-semibold"><div className="flex gap-3 items-center"><MdManageAccounts />  My Profile</div></NavLink>
               </li>
     </>
   )}

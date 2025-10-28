@@ -12,7 +12,7 @@ const ManageDishes = () => {
   useEffect(() => {
     const fetchDishes = async () => {
       try {
-        const response = await axios.get("https://resturent-management-server-three.vercel.app/allsdishes");
+        const response = await axios.get("http://localhost:5000/allsdishes");
         setAllDishes(response.data);
       } catch (error) {
         console.error("Error fetching dishes:", error);
@@ -35,7 +35,7 @@ const ManageDishes = () => {
   if (result.isConfirmed) {
     try {
       // Delete from DB
-      await axios.delete(`https://resturent-management-server-three.vercel.app/allsdishes/${dish._id}`);
+      await axios.delete(`http://localhost:5000/allsdishes/${dish._id}`);
       
       // Remove from state immediately
       setAllDishes(allDishes.filter(d => d._id !== dish._id));
@@ -78,7 +78,7 @@ const ManageDishes = () => {
 
   const handleUpdateSubmit = async (updatedDish) => {
     try {
-      await axios.put(`https://resturent-management-server-three.vercel.app/dishes/${updatedDish._id}`, updatedDish);
+      await axios.put(`http://localhost:5000/dishes/${updatedDish._id}`, updatedDish);
       setAllDishes(allDishes.map(d => d._id === updatedDish._id ? updatedDish : d));
       closeModal();
       Swal.fire('Updated!', `${updatedDish.name} has been updated.`, 'success');

@@ -3,12 +3,14 @@ import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
 
 const UserOrder = () => {
   const { user } = useContext(AuthContext);
   const [orders, setOrders] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [selectedOrder, setSelectedOrder] = useState(null);
+  const navigate = useNavigate();
 
   // Fetch Orders
   useEffect(() => {
@@ -20,7 +22,7 @@ const UserOrder = () => {
   const fetchOrders = async () => {
     try {
       const res = await axios.get(
-        `https://resturent-management-server-three.vercel.app/finalOrders?email=${user.email}`
+        `http://localhost:5000/finalOrders?email=${user.email}`
       );
       setOrders(res.data);
     } catch (error) {
@@ -35,29 +37,25 @@ const UserOrder = () => {
   };
 
   // Confirm Delete
-const confirmDelete = async () => {
-  try {
-    const res = await axios.delete(
-      `https://resturent-management-server-three.vercel.app/finalOrders/${selectedOrder._id}`
-    );
-
-    if (res.data.success) {
-      toast.success("Order cancelled successfully!");
-      setOrders((prev) =>
-        prev.filter((o) => o._id !== selectedOrder._id)
+  const confirmDelete = async () => {
+    try {
+      const res = await axios.delete(
+        `http://localhost:5000/finalOrders/${selectedOrder._id}`
       );
-    } else {
-      toast.error(res.data.message || "Failed to delete order!");
+
+      if (res.data.success) {
+        toast.success("Order cancelled successfully!");
+        setOrders((prev) => prev.filter((o) => o._id !== selectedOrder._id));
+      } else {
+        toast.error(res.data.message || "Failed to delete order!");
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Error deleting order!");
+    } finally {
+      setShowModal(false);
     }
-  } catch (error) {
-    console.error(error);
-    toast.error("Error deleting order!");
-  } finally {
-    setShowModal(false);
-  }
-};
-
-
+  };
 
   return (
     <div className="p-6 mt-24">
@@ -89,17 +87,27 @@ const confirmDelete = async () => {
                         className="w-16 h-16 rounded object-cover"
                       />
                     </td>
-                    
                   </tr>
                 ))}
                 <td className="p-3 border-b">{order.total}</td>
-                <td className="p-3 border-b capitalize text-green-600 font-bold">{order.paidstatus}</td>
+                <td className="p-3 border-b capitalize text-green-600 font-bold">
+                  {order.paidstatus}
+                </td>
                 <td className="p-3 border-b font-bold">{order.orderStatus}</td>
                 <td className="p-3 border-b">{order.tran_id}</td>
                 <td className="p-3 border-b text-center">
+                  <button
+                    onClick={() =>
+                      navigate(`/payment/success/${order.tran_id}`)
+                    }
+                    className="btn btn-primary mr-2"
+                  >
+                    Download Invoice
+                  </button>
+
                   {order.orderStatus === "Pending" ? (
                     <button
-                      className="bg-red-500 text-white px-4 py-1 rounded hover:bg-red-600"
+                      className="bg-red-500 btn text-white px-4 py-1 rounded hover:bg-red-600"
                       onClick={() => handleCancelClick(order)}
                     >
                       Cancel Order

@@ -86,7 +86,7 @@ const AddProduct = () => {
       const imageUrl = imgRes.data.data.url;
 
       // Step 2: Save dish to database
-      await axios.post("https://resturent-management-server-three.vercel.app/alldishes", {
+      await axios.post("http://localhost:5000/alldishes", {
         ...formData,
         image: imageUrl,
         customerReview: [],
