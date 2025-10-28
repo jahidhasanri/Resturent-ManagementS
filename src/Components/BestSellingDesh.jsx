@@ -327,6 +327,38 @@ const BestSellingDesh = () => {
                       : "Add to Wishlist"}
                   </button>
                 </div>
+
+                      {/* 🔹 Reviews Section (max 5 reviews) */}
+<div className="mt-8">
+  <h3 className="text-lg font-semibold mb-4">Customer Reviews</h3>
+  {selectedDish.customerReview && selectedDish.customerReview.length > 0 ? (
+    selectedDish.customerReview.slice(0, 5).map((rev, idx) => (
+      <div key={idx} className="flex gap-4 mb-4 border-b pb-3">
+        {/* User Image */}
+        <img
+          src={rev.userImage || "https://via.placeholder.com/50"}
+          alt={rev.userName}
+          className="w-12 h-12 rounded-full object-cover"
+        />
+        {/* Review Content */}
+        <div>
+          <div className="flex items-center gap-2">
+            <span className="font-semibold">{rev.userName}</span>
+            <span className="text-yellow-500">
+              {"★".repeat(Number(rev.rating))}
+              {"☆".repeat(5 - Number(rev.rating))}
+            </span>
+          </div>
+          <p className="text-gray-600">{rev.comment}</p>
+        </div>
+      </div>
+    ))
+  ) : (
+    <p className="text-gray-500">No reviews yet.</p>
+  )}
+</div>
+
+
               </div>
             </div>
           </div>

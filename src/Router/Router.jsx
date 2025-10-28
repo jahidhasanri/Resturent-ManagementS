@@ -26,6 +26,7 @@ import ManageOrder from "../Pages/ManageOrder";
 import MyProfile from "../Pages/MyProfile";
 import UserOrder from "../Pages/UserOrder";
 import PrivateRoute from "./PrivateRoute";
+import Review from "../Pages/Review";
 
 
 const router = createBrowserRouter([
@@ -125,6 +126,10 @@ const router = createBrowserRouter([
        {
         path:'userorder',
         element:<UserOrder></UserOrder>
+       },
+       {
+        path:'reviews',
+        element:<Review></Review>
        }
         ]
   }

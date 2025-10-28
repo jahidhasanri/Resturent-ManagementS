@@ -105,6 +105,9 @@ const DashboardLayout = () => {
                   <NavLink   to={"userorder"} className="hover:text-red-500 cursor-pointer text-[20px] text-white font-semibold"><div className="flex gap-3 items-center"><MdManageAccounts />  My Order</div></NavLink>
               </li>
            <li>
+                  <NavLink   to={"reviews"} className="hover:text-red-500 cursor-pointer text-[20px] text-white font-semibold"><div className="flex gap-3 items-center"><MdManageAccounts />Review Items</div></NavLink>
+              </li>
+           <li>
                   <NavLink   to={"myProfile"} className="hover:text-red-500 cursor-pointer text-[20px] text-white font-semibold"><div className="flex gap-3 items-center"><MdManageAccounts />  My Profile</div></NavLink>
               </li>
     </>
