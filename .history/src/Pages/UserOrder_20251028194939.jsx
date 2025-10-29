@@ -24,7 +24,7 @@ const UserOrder = () => {
   const fetchOrders = async () => {
     try {
       const res = await axios.get(
-        `http://localhost:5000/finalOrders?email=${user.email}`
+        `https://resturent-management-server-three.vercel.app/finalOrders?email=${user.email}`
       );
       setOrders(res.data);
     } catch (error) {
@@ -37,7 +37,7 @@ const UserOrder = () => {
     if (!rating || !comment) return toast.error("Please fill all fields");
 
     try {
-      const res = await axios.post("http://localhost:5000/addReview", {
+      const res = await axios.post("https://resturent-management-server-three.vercel.app/addReview", {
         productId: selectedItem.itemId,
         userId: user._id,
         userName: user.displayName || user.name,

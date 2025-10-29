@@ -48,7 +48,7 @@ const Menu = () => {
     };
 
     try {
-      const res = await axios.post("http://localhost:5000/cardItem", selectItem);
+      const res = await axios.post("https://resturent-management-server-three.vercel.app/cardItem", selectItem);
       if (res.data.success) {
         toast.success("Item added to cart successfully! 🛒");
         window.dispatchEvent(new Event("cart-updated"));

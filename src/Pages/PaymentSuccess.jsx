@@ -18,7 +18,7 @@ const PaymentSuccess = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/order/${tranId}`);
+        const res = await axios.get(`https://resturent-management-server-three.vercel.app/order/${tranId}`);
         setData(res.data);
       } catch (err) {
         console.error("Error fetching order:", err);
@@ -97,7 +97,7 @@ const subTotal = items?.reduce(
 
             <div className="relative w-full z-10 flex flex-col items-center justify-center">
               <img
-                src="/public/images/ChatGPT_Image_Aug_28__2025__12_17_00_PM-removebg-preview.png"
+                src="/images/ChatGPT_Image_Aug_28__2025__12_17_00_PM-removebg-preview.png"
                 alt="Logo"
                 className="h-12 sm:h-14"
               />
@@ -250,7 +250,7 @@ export default PaymentSuccess;
 //   useEffect(() => {
 //     if (!tranId) return;
 //     axios
-//       .get(`http://localhost:5000/order/${tranId}`)
+//       .get(`https://resturent-management-server-three.vercel.app/order/${tranId}`)
 //       .then((res) => setData(res.data))
 //       .catch((err) => console.error(err));
 //   }, [tranId]);

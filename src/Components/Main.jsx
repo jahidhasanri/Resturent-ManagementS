@@ -2,6 +2,7 @@ import React from 'react';
 import { Outlet } from 'react-router-dom';
 import Navbar from './Navbar';
 import Footer from './Footer';
+import GeminiChat from './GeminiChat';
 
 const Main = () => {
     return (
@@ -11,6 +12,7 @@ const Main = () => {
 
             <Outlet></Outlet>
             </div>
+            <GeminiChat></GeminiChat>
             <Footer></Footer>
         </div>
     );

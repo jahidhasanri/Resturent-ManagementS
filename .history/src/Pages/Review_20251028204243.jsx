@@ -22,7 +22,7 @@ console.log(user);
 
   const fetchOrders = async () => {
     try {
-      const res = await axios.get(`http://localhost:5000/finalOrders?email=${user.email}`);
+      const res = await axios.get(`https://resturent-management-server-three.vercel.app/finalOrders?email=${user.email}`);
       setOrders(res.data);
 
       // Collect all purchased items
@@ -59,7 +59,7 @@ console.log(user);
     
 
     try {
-      const res = await axios.post("http://localhost:5000/addReview", {
+      const res = await axios.post("https://resturent-management-server-three.vercel.app/addReview", {
         productId: selectedItem.itemId,
         userId: user._id,
         userName: user.displayName || user.name,

@@ -27,6 +27,7 @@ import MyProfile from "../Pages/MyProfile";
 import UserOrder from "../Pages/UserOrder";
 import PrivateRoute from "./PrivateRoute";
 import Review from "../Pages/Review";
+import GeminiChat from "../Components/GeminiChat";
 
 
 const router = createBrowserRouter([
@@ -43,6 +44,7 @@ const router = createBrowserRouter([
           path:'/login',
           element:<Login></Login>
         },
+        
        {
         path:'/register',
         element:<Register></Register>

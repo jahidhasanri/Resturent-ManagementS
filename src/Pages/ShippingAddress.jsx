@@ -17,7 +17,7 @@ const {user}=useContext(AuthContext);
 
   const fetchCartItems = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/cardItems`, {
+      const response = await axios.get(`https://resturent-management-server-three.vercel.app/cardItems`, {
         params: { userId: user._id },
       });
       if (response.data.success) {
@@ -75,10 +75,10 @@ useEffect(() => {
     };
 
     console.log(orderData);
-    const saveOrder = await axios.post("http://localhost:5000/orders", orderData);
+    const saveOrder = await axios.post("https://resturent-management-server-three.vercel.app/orders", orderData);
 
     if (saveOrder.data.success) {
-      await axios.delete(`http://localhost:5000/cardItemss`, {
+      await axios.delete(`https://resturent-management-server-three.vercel.app/cardItemss`, {
         params: { userId: user._id },
     });
     window.dispatchEvent(new Event("cart-updated"));

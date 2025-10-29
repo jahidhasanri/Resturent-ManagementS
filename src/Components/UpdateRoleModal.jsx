@@ -7,7 +7,7 @@ const UpdateRoleModal = ({ user, onClose, onRoleUpdate }) => {
 
   const handleSubmit = async () => {
     try {
-      await axios.put(`http://localhost:5000/users/${user._id}/role`, { role });
+      await axios.put(`https://resturent-management-server-three.vercel.app/users/${user._id}/role`, { role });
       Swal.fire({
         toast: true,
         position: "top-end",

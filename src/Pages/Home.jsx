@@ -9,6 +9,7 @@ import BestSellingDesh from '../Components/BestSellingDesh';
 import TodaySepcialFood from '../Components/TodaySepcialFood';
 import OurShfe from '../Components/OurShfe';
 import Testimonial from '../Components/Testimonial';
+import GeminiChat from '../Components/GeminiChat';
 
 
 
@@ -27,6 +28,7 @@ const Home = () => {
     <TodaySepcialFood></TodaySepcialFood>
     <OurShfe></OurShfe>
     <Testimonial></Testimonial> 
+    {/* <GeminiChat></GeminiChat> */}
      </div>
      
     );

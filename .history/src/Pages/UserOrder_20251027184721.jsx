@@ -23,7 +23,7 @@ const UserOrder = () => {
   const fetchOrders = async () => {
     try {
       const res = await axios.get(
-        `http://localhost:5000/finalOrders?email=${user.email}`
+        `https://resturent-management-server-three.vercel.app/finalOrders?email=${user.email}`
       );
       setOrders(res.data);
     } catch (error) {
@@ -41,7 +41,7 @@ const UserOrder = () => {
 const confirmDelete = async () => {
   try {
     const res = await axios.delete(
-      `http://localhost:5000/finalOrders/${selectedOrder._id}`
+      `https://resturent-management-server-three.vercel.app/finalOrders/${selectedOrder._id}`
     );
 
     if (res.data.success) {

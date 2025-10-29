@@ -21,7 +21,7 @@ const Review = () => {
 
   const fetchOrders = async () => {
     try {
-      const res = await axios.get(`http://localhost:5000/finalOrders?email=${user.email}`);
+      const res = await axios.get(`https://resturent-management-server-three.vercel.app/finalOrders?email=${user.email}`);
       setOrders(res.data);
 
       const items = [];
@@ -32,7 +32,7 @@ const Review = () => {
           for (const item of order.orders[0].items) {
             if (order.orderStatus === "Completed") {
               // fetch product details to check if user already reviewed
-              const productRes = await axios.get(`http://localhost:5000/dish/${item.itemId}`);
+              const productRes = await axios.get(`https://resturent-management-server-three.vercel.app/dish/${item.itemId}`);
               const product = productRes.data;
               const alreadyReviewed = product?.customerReview?.some(r => r.userId === user._id);
 
@@ -68,7 +68,7 @@ const Review = () => {
     }
 
     try {
-      const res = await axios.post("http://localhost:5000/addReview", {
+      const res = await axios.post("https://resturent-management-server-three.vercel.app/addReview", {
         productId: selectedItem.itemId,
         userId: user._id,
         userName: user.displayName || user.name,

@@ -1,18 +1,22 @@
 import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
+import { toast } from "react-toastify";
 
 const ShippingBilling = () => {
   const [orders, setOrders] = useState([]);
   const { user } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
+  const [couponCode, setCouponCode] = useState("");
+  const [discountApplied, setDiscountApplied] = useState(false);
+  const [discountAmount, setDiscountAmount] = useState(0);
 
   useEffect(() => {
     if (!user?._id) return;
 
     const fetchOrders = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/orderInfo`, {
+        const response = await axios.get(`https://resturent-management-server-three.vercel.app/orderInfo`, {
           params: { userId: user._id },
         });
 
@@ -36,16 +40,42 @@ const ShippingBilling = () => {
     (acc, item) => acc + Number(item.itemPrice || 0) * (item.quantity || 1),
     0
   );
-  const deliveryFee = 70;
-  const total = itemsTotal + deliveryFee;
+
+  const deliveryFee = 10;
+  const totalBeforeDiscount = itemsTotal + deliveryFee;
+  const totalAfterDiscount = itemsTotal - discountAmount + deliveryFee;
+
+  // Handle coupon
+  const handleApplyCoupon = () => {
+    if (discountApplied) {
+      toast.info("Coupon already applied!");
+      return;
+    }
+
+    if (couponCode.toLowerCase() === "habibi") {
+      const discount = itemsTotal*0.212; 
+      setDiscountAmount(discount);
+      setDiscountApplied(true);
+      toast.success(
+        `Coupon applied successfully! Discount: ৳${discount.toFixed(
+          2
+        )}. Total before: ৳${totalBeforeDiscount.toFixed(
+          2
+        )}, Now to pay: ৳${totalAfterDiscount.toFixed(2)}`
+      );
+    } else {
+      toast.error("Invalid coupon code!");
+    }
+  };
 
   const handlePayment = async () => {
     setLoading(true);
     try {
-      const response = await axios.post("http://localhost:5000/finalOrder", {
+      const response = await axios.post("https://resturent-management-server-three.vercel.app/finalOrder", {
         orders,
         user,
-        total,
+        total: totalAfterDiscount,
+        coupon: discountApplied ? couponCode : null,
       });
 
       if (response.data.url) {
@@ -53,6 +83,7 @@ const ShippingBilling = () => {
       }
     } catch (error) {
       console.error("Payment Error:", error);
+      toast.error("Payment failed!");
     } finally {
       setLoading(false);
     }
@@ -128,9 +159,7 @@ const ShippingBilling = () => {
                   className="w-20 h-20 object-cover rounded mb-2 sm:mb-0"
                 />
                 <div className="flex-1 text-center sm:text-left">
-                  <h4 className="font-medium text-gray-800">
-                    {item.itemName}
-                  </h4>
+                  <h4 className="font-medium text-gray-800">{item.itemName}</h4>
                   <p className="text-xs md:text-sm text-gray-500">
                     {item.brand || "No Brand"}
                   </p>
@@ -160,10 +189,19 @@ const ShippingBilling = () => {
           <div className="flex mt-2 space-x-2">
             <input
               type="text"
-              placeholder="Enter Store/Daraz Code"
+              placeholder="Enter your coupon code"
               className="flex-1 border rounded px-2 py-1 text-sm"
+              value={couponCode}
+              onChange={(e) => setCouponCode(e.target.value)}
+              disabled={discountApplied}
             />
-            <button className="bg-blue-500 text-white px-3 rounded text-sm">
+            <button
+              className={`bg-blue-500 text-white px-3 rounded text-sm ${
+                discountApplied ? "opacity-50 cursor-not-allowed" : ""
+              }`}
+              onClick={handleApplyCoupon}
+              disabled={discountApplied}
+            >
               APPLY
             </button>
           </div>
@@ -179,15 +217,21 @@ const ShippingBilling = () => {
         <div className="border-t pt-2 text-xs md:text-sm text-gray-700 space-y-1">
           <div className="flex justify-between">
             <span>Items Total ({allItems.length} Items)</span>
-            <span>৳ {itemsTotal}</span>
+            <span>৳ {itemsTotal.toFixed(2)}</span>
           </div>
+          {discountApplied && (
+            <div className="flex justify-between text-green-600">
+              <span>Discount ({couponCode})</span>
+              <span>-৳ {discountAmount.toFixed(2)}</span>
+            </div>
+          )}
           <div className="flex justify-between">
             <span>Delivery Fee</span>
-            <span>৳ {deliveryFee}</span>
+            <span>৳ {deliveryFee.toFixed(2)}</span>
           </div>
           <div className="flex justify-between font-bold text-orange-600 border-t pt-1">
             <span>Total:</span>
-            <span>৳ {total}</span>
+            <span>৳ {totalAfterDiscount.toFixed(2)}</span>
           </div>
           <p className="text-[10px] md:text-xs text-gray-500">
             VAT included, where applicable

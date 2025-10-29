@@ -20,7 +20,7 @@ const Menu = () => {
   useEffect(() => {
     const fetchDishes = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/allsdishes");
+        const response = await axios.get("https://resturent-management-server-three.vercel.app/allsdishes");
         setDishes(response.data);
         setFilteredDishes(response.data);
       } catch (error) {
@@ -42,7 +42,7 @@ const Menu = () => {
     };
 
     try {
-      const res = await axios.post("http://localhost:5000/cardItem", selectItem);
+      const res = await axios.post("https://resturent-management-server-three.vercel.app/cardItem", selectItem);
 
       if (res.data.success) {
         toast.success("Item added to cart successfully! 🛒");

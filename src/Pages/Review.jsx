@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../Provider/AuthProvider";
 import axios from "axios";
 import { toast } from "react-toastify";
+import StarRatings from "react-star-ratings"; // ✅ Import star ratings
 import "react-toastify/dist/ReactToastify.css";
 
 const Review = () => {
@@ -10,11 +11,10 @@ const Review = () => {
   const [allItems, setAllItems] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
-  const [rating, setRating] = useState("");
+  const [rating, setRating] = useState(0); // ⭐ default 0
   const [comment, setComment] = useState("");
   const [reviewedItems, setReviewedItems] = useState([]);
-console.log(user);
-  // 🔹 Fetch all orders
+
   useEffect(() => {
     if (user?.email) {
       fetchOrders();
@@ -23,10 +23,11 @@ console.log(user);
 
   const fetchOrders = async () => {
     try {
-      const res = await axios.get(`http://localhost:5000/finalOrders?email=${user.email}`);
+      const res = await axios.get(
+        `https://resturent-management-server-three.vercel.app/finalOrders?email=${user.email}`
+      );
       setOrders(res.data);
 
-      // Collect all purchased items
       const items = [];
       res.data.forEach((order) => {
         if (order?.orders?.[0]?.items?.length > 0) {
@@ -47,20 +48,18 @@ console.log(user);
     }
   };
 
-  // 🔹 Submit review
   const handleSubmitReview = async () => {
     if (!rating || rating < 1 || rating > 5) {
-    toast.error("Rating must be between 1 and 5!");
-    return;
-  }
-  if (!comment) {
-    toast.error("Please write a comment!");
-    return;
-  }
-    
+      toast.error("Rating must be between 1 and 5!");
+      return;
+    }
+    if (!comment) {
+      toast.error("Please write a comment!");
+      return;
+    }
 
     try {
-      const res = await axios.post("http://localhost:5000/addReview", {
+      const res = await axios.post("https://resturent-management-server-three.vercel.app/addReview", {
         productId: selectedItem.itemId,
         userId: user._id,
         userName: user.displayName || user.name,
@@ -71,24 +70,23 @@ console.log(user);
 
       if (res.data.success) {
         toast.success("Review submitted successfully!");
-         setReviewedItems((prev) => [...prev, selectedItem.itemId]);
+        setReviewedItems((prev) => [...prev, selectedItem.itemId]);
         setShowModal(false);
-        setRating("");
+        setRating(0);
         setComment("");
-    
       } else {
         toast.error(res.data.message);
-        setShowModal(false)
+        setShowModal(false);
       }
     } catch (error) {
       console.error(error);
       toast.error("You have already reviewed this product.");
-      setShowModal(false)
+      setShowModal(false);
     }
   };
 
   return (
-    <div className="mt-24 p-6">
+    <div className="mt-4 p-6">
       <h2 className="text-2xl font-bold mb-4">My Purchased Items</h2>
 
       {allItems.length > 0 ? (
@@ -117,21 +115,22 @@ console.log(user);
                 <td className="p-3 border-b">${item.itemPrice}</td>
                 <td className="p-3 border-b text-center">
                   {item.orderStatus === "Completed" ? (
-                   <button
-  disabled={reviewedItems.includes(item.itemId)}
-  onClick={() => {
-    setSelectedItem(item);
-    setShowModal(true);
-  }}
-  className={`px-3 py-1 rounded text-white ${
-    reviewedItems.includes(item.itemId)
-      ? "bg-gray-400 cursor-not-allowed"
-      : "bg-blue-600 hover:bg-blue-700"
-  }`}
->
-  {reviewedItems.includes(item.itemId) ? "Reviewed" : "Review"}
-</button>
-
+                    <button
+                      disabled={reviewedItems.includes(item.itemId)}
+                      onClick={() => {
+                        setSelectedItem(item);
+                        setShowModal(true);
+                      }}
+                      className={`px-3 py-1 rounded text-white ${
+                        reviewedItems.includes(item.itemId)
+                          ? "bg-gray-400 cursor-not-allowed"
+                          : "bg-blue-600 hover:bg-blue-700"
+                      }`}
+                    >
+                      {reviewedItems.includes(item.itemId)
+                        ? "Reviewed"
+                        : "Review"}
+                    </button>
                   ) : (
                     <span className="text-gray-400">Pending</span>
                   )}
@@ -148,19 +147,22 @@ console.log(user);
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center">
           <div className="bg-white p-6 rounded-lg shadow-lg w-96">
-            <h2 className="text-lg font-semibold mb-4 text-center">Write a Review</h2>
+            <h2 className="text-lg font-semibold mb-4 text-center">
+              Write a Review
+            </h2>
 
-            <label className="block font-medium mb-2">Rating (1–5)</label>
-            <input
-              type="number"
-              min="1"
-              max="5"
-              value={rating}
-              onChange={(e) => setRating(e.target.value)}
-              className="border p-2 w-full rounded mb-3"
+            <label className="block font-medium mb-2">Rating</label>
+            <StarRatings
+              rating={rating}
+              starRatedColor="orange"
+              changeRating={(newRating) => setRating(newRating)}
+              numberOfStars={5}
+              starDimension="30px"
+              starSpacing="3px"
+              name="rating"
             />
 
-            <label className="block font-medium mb-2">Comment</label>
+            <label className="block font-medium mb-2 mt-3">Comment</label>
             <textarea
               value={comment}
               onChange={(e) => setComment(e.target.value)}

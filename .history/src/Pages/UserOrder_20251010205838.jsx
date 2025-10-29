@@ -6,7 +6,7 @@ const UserOrder = () => {
       const { user } = useContext(AuthContext);
     const fetchOrders = async () => {
   try {
-    const res = await axios.get(`http://localhost:5000/finalOrders?email=${user.email}`);
+    const res = await axios.get(`https://resturent-management-server-three.vercel.app/finalOrders?email=${user.email}`);
     console.log(res.data);
   } catch (error) {
     console.error(error);
