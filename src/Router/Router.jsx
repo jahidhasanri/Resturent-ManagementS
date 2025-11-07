@@ -29,6 +29,9 @@ import PrivateRoute from "./PrivateRoute";
 import Review from "../Pages/Review";
 import GeminiChat from "../Components/GeminiChat";
 import Faq from "../Pages/Faq";
+import { useContext } from "react";
+import { AuthContext } from "../Provider/AuthProvider";
+import MyCurrentOrder from "../Pages/MyCurrentOrder";
 
 
 const router = createBrowserRouter([
@@ -103,8 +106,8 @@ const router = createBrowserRouter([
         element:<PrivateRoute><DashboardLayout></DashboardLayout></PrivateRoute>,
         children:[
            {
-        index: true, 
-        element: <Navigate to="analytic" replace />
+        index: true,
+        element: <DashboardRedirect />
       },
       {
         path: "analytic",
@@ -131,6 +134,10 @@ const router = createBrowserRouter([
         element:<MyProfile></MyProfile>
        },
        {
+        path:'usercurrentOrder',
+        element:<MyCurrentOrder></MyCurrentOrder>
+       },
+       {
         path:'userorder',
         element:<UserOrder></UserOrder>
        },
@@ -141,4 +148,14 @@ const router = createBrowserRouter([
         ]
   }
 ]);
+
+function DashboardRedirect() {
+  const { user } = useContext(AuthContext);
+  
+  if (user?.role === "admin") {
+    return <Navigate to="/dashboard/analytic" replace />;
+  } else {
+    return <Navigate to="/dashboard/usercurrentOrder" replace />;
+  }
+}
 export default router;
