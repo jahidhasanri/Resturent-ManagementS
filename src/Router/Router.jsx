@@ -28,6 +28,7 @@ import UserOrder from "../Pages/UserOrder";
 import PrivateRoute from "./PrivateRoute";
 import Review from "../Pages/Review";
 import GeminiChat from "../Components/GeminiChat";
+import Faq from "../Pages/Faq";
 
 
 const router = createBrowserRouter([
@@ -57,6 +58,10 @@ const router = createBrowserRouter([
        {
         path:'/aboutus',
         element:<AboutUs></AboutUs>
+       },
+       {
+        path:'/faq',
+        element:<Faq></Faq>
        },
        {
         path:'wishlist',

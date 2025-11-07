@@ -4,6 +4,8 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { AuthContext } from '../Provider/AuthProvider';
 import { toast } from 'react-toastify';
 import axios from 'axios';
+import loginAnimation from '../json/Login.json'
+import Lottie from 'lottie-react';
 
 const Login = () => {
   const { handleLoginwithEmail,handleLoginWithGoogle } = useContext(AuthContext);
@@ -16,7 +18,7 @@ const Login = () => {
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
-
+    console.log(email,password);
     handleLoginwithEmail(email, password)
       .then((result) => {
         if (result?.user) {
@@ -68,56 +70,56 @@ const Login = () => {
   }
 
   return (
-   <div className="container mx-auto my-10 px-4 sm:px-6 md:px-8">
-  <div className="flex flex-col lg:flex-row xl:flex-row items-center gap-6 bg-gray-600 rounded-lg overflow-hidden">
+   <div className="container mx-auto lg:w-8/12 my-10 px-4 sm:px-6 md:px-8">
+  <div className="flex flex-col lg:flex-row xl:flex-row items-center gap-6 bg-[#ebeffa] rounded-lg overflow-hidden">
     
-    {/* Image */}
-    <div className="w-full lg:w-1/2 xl:w-1/2">
-      <img
-        src="../../public/images/different-asian-dishes-restaurante.jpg"
-        className="w-full h-56 sm:h-72 md:h-96 lg:h-[600px] xl:h-[600px] object-cover rounded-md"
-        alt="Food"
-      />
-    </div>
-
-    {/* Form */}
-    <div className="w-full lg:w-1/2 xl:w-1/2 p-4 sm:p-6 md:p-10 mr-3 bg-white flex flex-col justify-center">
-      <h1 className="text-3xl sm:text-4xl font-bold text-center mb-6">Login now!</h1>
+     {/* Form */}
+    <div className="w-full lg:w-1/2 xl:w-1/2 p-4 sm:p-6 md:p-10 mr-3 bg-slate-200 flex flex-col justify-center">
+      <h1 className="text-2xl sm:text-xl text-[#db2525] font-bold text-center mb-6">WELCOME BACK TO FRESHEAT</h1>
+      <h3 className="text-3xl sm:text-2xl font-bold text-center mb-6">LOGIN NOW!</h3>
       <form onSubmit={handelLogin} className="flex flex-col gap-4">
-        <div className="form-control w-full">
-          <label className="label">
-            <span className="label-text font-medium">Email</span>
+        <div className=" w-full">
+          <div>
+            <label className="label">
+            <span className="label-text font-medium mb-1">Email</span>
           </label>
-          <input
+          </div>
+          <div>
+            <input
             type="email"
             name="email"
-            placeholder="Email"
-            className="input input-bordered w-full"
+            placeholder="Email Address"
+            className="input input-bordered w-full lg:w-9/12 bg-white border-gray-300"
             required
           />
+          </div>
         </div>
 
-        <div className="form-control w-full">
+        <div className=" w-full">
+          <div>
           <label className="label">
-            <span className="label-text font-medium">Password</span>
+            <span className="label-text font-medium mb-1">Password</span>
           </label>
+          </div>
+          <div>
           <input
             type="password"
             name="password"
-            placeholder="Password"
-            className="input input-bordered w-full"
+            placeholder="Enter Password"
+            className="input input-bordered w-full lg:w-9/12 bg-white border-gray-300 "
             required
           />
+          </div>
           <label className="label">
-            <Link to="/forgetpassword" className="label-text-alt link link-hover">
+            <Link to="/forgetpassword" className="label-text-alt link link-hover mt-2">
               Forgot password?
             </Link>
           </label>
         </div>
 
-        <button className="btn btn-primary w-full mt-2 sm:w-3/4 md:w-2/3 lg:w-1/2 xl:w-1/2 mx-auto">Login</button>
+        <button className="btn btn-primary w-full mt-2 sm:w-3/4 md:w-2/3 lg:w-1/2 xl:w-1/2 ">Login</button>
 
-        <p className="text-center mt-4 text-sm">
+        <p className=" mt-4 text-sm">
           Don't have an account?{' '}
           <Link to="/register" className="text-red-500 border-b-2">
             Register
@@ -126,7 +128,7 @@ const Login = () => {
       </form>
 
       {/* Google Login */}
-      <div className="mt-6 w-full flex justify-center">
+      <div className="mt-6 w-full flex ">
         <button
           onClick={handelLoginwithGoogle}
           className="btn btn-outline btn-secondary flex items-center justify-center gap-2 w-full sm:w-3/4 md:w-2/3 lg:w-1/2 xl:w-1/2"
@@ -135,6 +137,13 @@ const Login = () => {
         </button>
       </div>
     </div>
+
+    {/* Image */}
+   <div className="w-full lg:w-1/2 xl:w-1/2 flex justify-center items-center p-4">
+          <Lottie animationData={loginAnimation} loop={true} style={{ width: 500, height: 400 }} />
+        </div>
+
+   
   </div>
 </div>
 

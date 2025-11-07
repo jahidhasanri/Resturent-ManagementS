@@ -123,6 +123,9 @@ console.log(cardItems);
                 <NavLink to={"/aboutus"} className="hover:text-red-500">
                   About Us 
                 </NavLink>
+                <NavLink to={"/faq"} className="hover:text-red-500">
+                  FAQ 
+                </NavLink>
                 <NavLink to={"/contactus"} className="hover:text-red-500">
                   Contact Us 
                 </NavLink>
