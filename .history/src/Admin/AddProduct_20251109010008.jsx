@@ -14,10 +14,11 @@ const AddProduct = () => {
     quantity: "",
     price: "",
     isBestSeller: false,
-    category: "", // ✅ new field
+    category: "",
   });
 
   const [preview, setPreview] = useState(null);
+  const [loading, setLoading] = useState(false); // ✅ loading state
 
   const handleChange = (e) => {
     const { name, value, type, checked, files } = e.target;
@@ -70,7 +71,10 @@ const AddProduct = () => {
       return;
     }
 
+    setLoading(true); // ✅ start loading
+
     try {
+      // Step 1: Upload image to imgbb
       const imgData = new FormData();
       imgData.append("image", formData.image);
 
@@ -81,16 +85,16 @@ const AddProduct = () => {
 
       const imageUrl = imgRes.data.data.url;
 
+      // Step 2: Save dish to database
       await axios.post("https://resturent-management-server-three.vercel.app/alldishes", {
         ...formData,
         image: imageUrl,
         customerReview: [],
       });
 
-      setTimeout(() => {
-        toast.success("Dish added successfully!");
-      }, 1000);
+      toast.success("✅ Dish added successfully!");
 
+      // Step 3: Reset form instantly
       setFormData({
         name: "",
         image: "",
@@ -102,11 +106,11 @@ const AddProduct = () => {
         category: "",
       });
       setPreview(null);
-
-      // navigate("/");
     } catch (err) {
       console.error(err);
-      toast.error("Dish registration failed. Please try again.");
+      toast.error("❌ Dish registration failed. Please try again.");
+    } finally {
+      setLoading(false); // ✅ stop loading
     }
   };
 
@@ -114,6 +118,7 @@ const AddProduct = () => {
     <div className="bg-gray-400 min-h-screen flex justify-center items-center py-10 px-4">
       <div className="w-full max-w-3xl bg-white shadow-lg rounded-xl p-6 sm:p-8 md:p-10">
         <h2 className="text-2xl font-bold mb-8 text-center">Add New Dish</h2>
+
         <form onSubmit={handleSubmit} className="space-y-4">
           <input
             type="text"
@@ -185,7 +190,7 @@ const AddProduct = () => {
             required
           />
 
-          {/* ✅ New Category Dropdown */}
+          {/* ✅ Category Dropdown */}
           <select
             name="category"
             value={formData.category}
@@ -199,6 +204,7 @@ const AddProduct = () => {
             <option value="Dessert">Dessert</option>
             <option value="Main Course">Main Course</option>
             <option value="Snacks">Snacks</option>
+            <option value="Salad">Snacks</option>
           </select>
 
           <label className="flex items-center gap-2">
@@ -213,9 +219,12 @@ const AddProduct = () => {
 
           <button
             type="submit"
-            className="w-full sm:w-48 mx-auto block bg-red-600 text-white py-2 rounded hover:bg-red-800 transition"
+            disabled={loading}
+            className={`w-full sm:w-48 mx-auto block ${
+              loading ? "bg-gray-500 cursor-not-allowed" : "bg-red-600 hover:bg-red-800"
+            } text-white py-2 rounded transition`}
           >
-            Add Dish
+            {loading ? "Uploading..." : "Add Dish"}
           </button>
         </form>
       </div>

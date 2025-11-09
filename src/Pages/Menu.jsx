@@ -187,7 +187,7 @@ const Menu = () => {
               Categories
             </h3>
             <div className="mt-3 flex flex-wrap gap-2">
-              {["All", "Fast Food", "Drinks", "Dessert", "Main Course", "Snacks"].map(
+              {["All", "Fast Food", "Drinks", "Dessert", "Main Course", "Snacks","Salad"].map(
                 (cat, idx) => (
                   <span
                     key={idx}

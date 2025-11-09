@@ -204,6 +204,7 @@ const AddProduct = () => {
             <option value="Dessert">Dessert</option>
             <option value="Main Course">Main Course</option>
             <option value="Snacks">Snacks</option>
+            <option value="Salad">Snacks</option>
           </select>
 
           <label className="flex items-center gap-2">
