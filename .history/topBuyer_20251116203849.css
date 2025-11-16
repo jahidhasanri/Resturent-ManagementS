@@ -1,0 +1,49 @@
+/* Card wrapper */
+.animated-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+}
+
+/* Outer animated border layer */
+.moving-border {
+  position: absolute;
+  inset: 0;
+  padding: 3px;
+  border-radius: 16px;
+  background: conic-gradient(
+    #ff6b6b,
+    #f06595,
+    #845ef7,
+    #5c7cfa,
+    #339af0,
+    #22b8cf,
+    #20c997,
+    #51cf66,
+    #94d82d,
+    #fcc419,
+    #ff922b,
+    #ff6b6b
+  );
+  animation: spinBorder 4s linear infinite;
+  z-index: 1;
+}
+
+/* Inner white mask */
+.animated-card::after {
+  content: "";
+  position: absolute;
+  inset: 4px;
+  background: white;
+  border-radius: 13px;
+  z-index: 2;
+}
+
+@keyframes spinBorder {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

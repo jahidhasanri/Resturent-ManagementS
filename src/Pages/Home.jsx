@@ -10,6 +10,7 @@ import TodaySepcialFood from '../Components/TodaySepcialFood';
 import OurShfe from '../Components/OurShfe';
 import Testimonial from '../Components/Testimonial';
 import GeminiChat from '../Components/GeminiChat';
+import TopBuyers from '../Components/TopBuyers';
 
 
 
@@ -20,14 +21,15 @@ const Home = () => {
     // }
     return (
      <div>
-        <Slider></Slider>
-    <BestFood></BestFood>
+         <Slider></Slider>
+     <BestFood></BestFood>
     <Display></Display>
     <AboutUs></AboutUs>
     <BestSellingDesh></BestSellingDesh>
+    <TopBuyers></TopBuyers>
     <TodaySepcialFood></TodaySepcialFood>
     <OurShfe></OurShfe>
-    <Testimonial></Testimonial> 
+   <Testimonial></Testimonial>
     {/* <GeminiChat></GeminiChat> */}
      </div>
      

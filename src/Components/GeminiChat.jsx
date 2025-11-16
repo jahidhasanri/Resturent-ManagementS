@@ -73,7 +73,7 @@ const GeminiChat = () => {
 
   return (
     <div
-      className="fixed bottom-6 right-6 z-[9999] flex flex-col items-end"
+      className="fixed bottom-6 right-6 z-[9999] flex flex-col items-end "
     >
       {/* Toggle Button */}
       <button
@@ -86,7 +86,7 @@ const GeminiChat = () => {
 
       {/* Chat Window */}
       {isOpen && (
-        <div className="w-80 sm:w-96 h-[70vh] mt-4 border rounded-2xl p-4 bg-white shadow-2xl flex flex-col">
+        <div className="w-80 sm:w-96 h-[70vh] mt-4 border rounded-2xl p-4 bg-white shadow-2xl flex flex-col pl-[30px]">
           <h3 className="text-xl font-semibold text-center mb-3 text-indigo-700">
             🤖 RestoBot
           </h3>

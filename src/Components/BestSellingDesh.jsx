@@ -146,7 +146,7 @@ const BestSellingDesh = () => {
 
   return (
     <div className="bg-[#f5f2eb]">
-      <div className="container mx-auto pt-[127px] pb-[117px]">
+      <div className="container mx-auto pt-[87px] pb-[87px]">
         <h2 className="text-xl font-semibold mb-4 text-center text-[#fc7819]">
           POPULAR DISHES
         </h2>
@@ -246,124 +246,141 @@ const BestSellingDesh = () => {
 
       {/* 🔹 Modal */}
       {isModalOpen && selectedDish && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-          <div className="bg-white rounded-lg shadow-lg p-6 lg:w-[900px] relative">
-            {/* Close Button */}
+  <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 p-2">
+   <div className="
+  bg-white rounded-lg shadow-lg p-4 sm:p-6 w-full max-w-[950px] relative
+  max-h-[85vh] overflow-y-auto
+  sm:max-h-[85vh] sm:overflow-y-auto
+  md:max-h-[85vh] md:overflow-y-auto
+">
+
+      {/* Close Button */}
+      <button
+        onClick={handleClose}
+        className="absolute top-3 right-3 text-gray-500 hover:text-gray-700 text-xl"
+      >
+        ✖
+      </button>
+
+      {/* Content Wrapper */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-center">
+
+        {/* LEFT IMAGE AREA */}
+        <div className="flex justify-center items-center bg-[#fefaf6] rounded-lg p-4 sm:p-6">
+          <div className="relative mx-auto w-[220px] h-[220px] sm:w-[300px] sm:h-[300px] lg:w-[330px] lg:h-[330px] pb-4">
+            <div className="absolute inset-0 border-4 border-dotted border-red-500 rounded-full animate-spin-slow"></div>
+
+            <img
+              src={selectedDish.image}
+              alt={selectedDish.name}
+              className="w-[200px] h-[200px] sm:w-[280px] sm:h-[280px] lg:w-[310px] lg:h-[310px] object-cover rounded-full mt-[10px] ml-[10px]"
+            />
+          </div>
+        </div>
+
+        {/* RIGHT CONTENT AREA */}
+        <div className="flex flex-col justify-start">
+
+          {/* Title + Price */}
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mt-6">
+            <h2 className="text-2xl font-bold">{selectedDish.name}</h2>
+            <p className="text-2xl font-bold text-[#fc7819]">
+              ${selectedDish.price}
+            </p>
+          </div>
+
+          {/* Reviews Stars */}
+          <div className="mt-2">
+            <span className="text-yellow-500">
+              {"★".repeat(selectedDish.review || 0)}
+              {"☆".repeat(5 - (selectedDish.review || 0))}
+            </span>
+            <p className="text-sm text-gray-500 mt-2">
+              ({selectedDish.customerReview?.length || 0} customer reviews)
+            </p>
+          </div>
+
+          {/* Description */}
+          <p className="text-gray-600 mt-4 text-justify">
+            {selectedDish.details ||
+              "Aliquam hendrerit a augue insu suscipit. Etiam aliquam massa quis des mauris commodo venenatis ligula commodo leez sed blandit convallis."}
+          </p>
+
+          <p className="mt-5 font-medium">
+            Available quantity: {selectedDish.quantity}
+          </p>
+
+          {/* Quantity Component */}
+          <QuantitySection selectedDish={selectedDish} />
+
+          {/* Buttons */}
+          <div className="flex flex-wrap items-center gap-4 mt-8">
+
             <button
-              onClick={handleClose}
-              className="absolute top-3 right-3 text-gray-500 hover:text-gray-700"
+              onClick={() => handelAddTOCard(selectedDish)}
+              className="bg-red-600 text-white px-5 py-2 rounded hover:bg-red-700 flex items-center gap-2 w-full sm:w-auto justify-center"
             >
-              ✖
+              <MdShoppingBasket /> Add to Cart
             </button>
 
-            {/* Content Wrapper */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-              {/* Left: Image */}
-              <div className="flex justify-center items-center bg-[#fefaf6] rounded-lg p-6">
-                <div className="relative mx-auto w-[330px] h-[330px] pb-4">
-                  <div className="absolute inset-0 border-4 border-dotted border-red-500 rounded-full animate-spin-slow"></div>
-                  <img
-                    src={selectedDish.image}
-                    alt={selectedDish.name}
-                    className="w-[310px] h-[310px] object-cover rounded-full mt-[10px] ml-[10px]"
-                  />
-                </div>
-              </div>
-
-              {/* Right: Info */}
-              <div className="flex flex-col justify-start">
-                {/* Title + Price */}
-                <div className="flex items-center justify-between">
-                  <h2 className="text-2xl font-bold">{selectedDish.name}</h2>
-                  <p className="text-2xl font-bold text-[#fc7819]">
-                    ${selectedDish.price}
-                  </p>
-                </div>
-
-                {/* 🔹 Reviews */}
-                <div className="mt-2">
-                  <span className="text-yellow-500">
-                    {"★".repeat(selectedDish.review || 0)}
-                    {"☆".repeat(5 - (selectedDish.review || 0))}
-                  </span>
-                  <p className="text-sm text-gray-500 mt-2">
-                    ({selectedDish.customerReview?.length || 0} customer reviews)
-                  </p>
-                </div>
-
-                {/* Description */}
-                <p className="text-gray-600 mt-4">
-                  {selectedDish.details ||
-                    "Aliquam hendrerit a augue insu suscipit. Etiam aliquam massa quis des mauris commodo venenatis ligula commodo leez sed blandit convallis."}
-                </p>
-                <p className="mt-5">
-                  Available quantity: {selectedDish.quantity}
-                </p>
-
-                {/* 🔹 Quantity + Buttons */}
-                <QuantitySection selectedDish={selectedDish} />
-
-                <div className="flex items-center gap-4 mt-10">
-                  <button
-                    onClick={() => handelAddTOCard(selectedDish)}
-                    className="bg-red-600 text-white px-5 py-2 rounded hover:bg-red-700 flex items-center gap-2"
-                  >
-                    <MdShoppingBasket /> Add to Cart
-                  </button>
-
-                  {/* ✅ Wishlist button (fixed) */}
-                  <button
-                    onClick={() => handelWish(selectedDish)}
-                    disabled={wishlist.includes(selectedDish._id)}
-                    className={`px-5 py-2 rounded flex items-center gap-2 ${
-                      wishlist.includes(selectedDish._id)
-                        ? "bg-gray-300 cursor-not-allowed text-gray-600"
-                        : "bg-[#fc7819] text-white hover:bg-orange-600"
-                    }`}
-                  >
-                    <FaHeart />{" "}
-                    {wishlist.includes(selectedDish._id)
-                      ? "In Wishlist"
-                      : "Add to Wishlist"}
-                  </button>
-                </div>
-
-                      {/* 🔹 Reviews Section (max 5 reviews) */}
-<div className="mt-8">
-  <h3 className="text-lg font-semibold mb-4">Customer Reviews</h3>
-  {selectedDish.customerReview && selectedDish.customerReview.length > 0 ? (
-    selectedDish.customerReview.slice(0, 5).map((rev, idx) => (
-      <div key={idx} className="flex gap-4 mb-4 border-b pb-3">
-        {/* User Image */}
-        <img
-          src={rev.userImage || "https://via.placeholder.com/50"}
-          alt={rev.userName}
-          className="w-12 h-12 rounded-full object-cover"
-        />
-        {/* Review Content */}
-        <div>
-          <div className="flex items-center gap-2">
-            <span className="font-semibold">{rev.userName}</span>
-            <span className="text-yellow-500">
-              {"★".repeat(Number(rev.rating))}
-              {"☆".repeat(5 - Number(rev.rating))}
-            </span>
+            <button
+              onClick={() => handelWish(selectedDish)}
+              disabled={wishlist.includes(selectedDish._id)}
+              className={`px-5 py-2 rounded flex items-center gap-2 w-full sm:w-auto justify-center ${
+                wishlist.includes(selectedDish._id)
+                  ? "bg-gray-300 cursor-not-allowed text-gray-600"
+                  : "bg-[#fc7819] text-white hover:bg-orange-600"
+              }`}
+            >
+              <FaHeart />
+              {wishlist.includes(selectedDish._id)
+                ? "In Wishlist"
+                : "Add to Wishlist"}
+            </button>
           </div>
-          <p className="text-gray-600">{rev.comment}</p>
+
+          {/* Reviews Section */}
+          <div className="mt-8">
+            <h3 className="text-lg font-semibold mb-4">Customer Reviews</h3>
+
+            {selectedDish.customerReview &&
+            selectedDish.customerReview.length > 0 ? (
+              selectedDish.customerReview.slice(0, 5).map((rev, idx) => (
+                <div
+                  key={idx}
+                  className="flex gap-4 mb-4 border-b pb-3"
+                >
+                  <img
+                    src={rev.userImage || "https://via.placeholder.com/50"}
+                    alt={rev.userName}
+                    className="w-10 h-10 sm:w-12 sm:h-12 rounded-full object-cover"
+                  />
+
+                  <div>
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <span className="font-semibold">{rev.userName}</span>
+                      <span className="text-yellow-500">
+                        {"★".repeat(Number(rev.rating))}
+                        {"☆".repeat(5 - Number(rev.rating))}
+                      </span>
+                    </div>
+                    <p className="text-gray-600 text-sm sm:text-base">
+                      {rev.comment}
+                    </p>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <p className="text-gray-500">No reviews yet.</p>
+            )}
+          </div>
+
         </div>
       </div>
-    ))
-  ) : (
-    <p className="text-gray-500">No reviews yet.</p>
-  )}
-</div>
+    </div>
+  </div>
+)}
 
-
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 };

@@ -82,7 +82,7 @@ const Slider = () => {
                   <p className="text-yellow-400 text-xl md:text-2xl lg:text-[30px]">
                     {slide.subtitle}
                   </p>
-                  <h1 className="text-3xl md:text-5xl lg:text-7xl font-bold">
+                  <h1 className="text-3xl md:text-5xl xl:text-7xl font-bold">
                     {slide.title}
                   </h1>
                   <button className="bg-red-600 hover:bg-red-700 text-white px-6 py-3 mt-4 uppercase rounded shadow text-sm md:text-base">

@@ -10,7 +10,7 @@ const Footer = () => {
         <img
           src="/images/437-4378461_left-vignette-burger-png-lettuce-leaf.png"
           alt=""
-          className="w-[100px] sm:w-[120px] absolute lx:mt-[80px]  md:mt-[200px] mt-[300px] animate-float"
+          className="w-[100px] sm:w-[120px] ml-[-20px] absolute lx:mt-[80px]  md:mt-[200px] mt-[300px] animate-float"
         />
       </div>
 
@@ -18,7 +18,7 @@ const Footer = () => {
         <img
           src="/images/footerShape1_4.webp"
           alt=""
-          className="w-[100px] sm:w-[120px] absolute right-0 top-0"
+          className="w-[100px] sm:w-[120px] absolute right-[-24px]  top-0"
         />
       </div>
 

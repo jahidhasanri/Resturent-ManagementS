@@ -184,11 +184,12 @@ console.log(cardItems);
         <div className="xl:hidden flex items-center justify-between px-4 py-3 bg-white shadow-md">
           {/* Logo */}
           <div className="flex items-center gap-2">
-            <img
+          <Link to={'/'}>
+           <img
               src="/images/logo.png"
               alt="Logo"
               className="h-10"
-            />
+            /></Link>
           </div>
 
           {/* Right Side Icons */}
@@ -235,11 +236,13 @@ console.log(cardItems);
 
           {/* Logo */}
           <div className="flex items-center gap-2 mb-6">
+            <Link to={'/'}>
             <img
               src="/images/logo.png"
               alt="Logo"
               className="h-12"
             />
+            </Link>
           </div>
 
           {/* Menu Links */}

@@ -49,12 +49,12 @@ const foods = [
 
 const Slider = () => {
   return (
-   <div className='bg-[#f5f2eb] relative pt-24 pb-10'>
+   <div className='bg-[#f5f2eb] relative pt-16 pb-12'>
      <h5 className='text-[#fa812a] text-lg text-center'>BEST FOOD</h5>
-                <h1 className='text-[36px] font-bold text-center'>Popular Food Items</h1>
+                <h1 className='text-[26px] lg:text-[36px] font-bold text-center mt-3'>Popular Food Items</h1>
                 <img src="/images/pizza slice.png" className=' w-[100px] lg:w-[200px] absolute top-10 lg:top-20 right-0 animate-float' alt="" />
              <img src="/images/bestFoodItemsShape1_1.png" className='absolute w-[100px] lg:w-[150px] lg:bottom-[-100px] xl:bottom-[-1px] left-0 bottom-0 animate-float lg:mb-20' alt="" />
-     <div className="max-w-6xl mx-auto my-5 lg:my-10 ">
+     <div className="max-w-6xl mx-auto my-5  ">
        
       <Swiper
         modules={[Autoplay]}
@@ -64,9 +64,10 @@ const Slider = () => {
         loop={true}
         speed={1500} 
         breakpoints={{
-          640: { slidesPerView: 2 },
-          768: { slidesPerView: 3 },
-          1024: { slidesPerView: 4 },
+          450: { slidesPerView: 2 },
+          768: { slidesPerView: 2 },
+          1024: { slidesPerView: 3 },
+          1440: { slidesPerView: 4 },
         }}
       >
         {foods.map((food, idx) => (

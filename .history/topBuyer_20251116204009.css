@@ -1,0 +1,86 @@
+/* ------------------------
+   moving rainbow border card
+   ------------------------ */
+
+.animated-card {
+  /* border thickness controlled by padding */
+  padding: 4px; /* change this value to make border thicker/thinner */
+  border-radius: 14px; /* outer radius */
+  position: relative;
+  overflow: visible;
+  display: block;
+  background: transparent;
+  /* set a min-height so cards look consistent (optional) */
+  min-height: 220px;
+}
+
+/* rotating gradient ring under the padding area */
+.animated-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;               /* fills outer box including padding area */
+  border-radius: inherit;
+  z-index: 0;
+  background: conic-gradient(
+    from 0deg,
+    #ff6b6b,
+    #f06595,
+    #845ef7,
+    #5c7cfa,
+    #339af0,
+    #22b8cf,
+    #20c997,
+    #51cf66,
+    #94d82d,
+    #fcc419,
+    #ff922b,
+    #ff6b6b
+  );
+  /* make sure gradient only shows in the padding (acts like border) */
+  /* mask-out the center so inner white shows - using padding-box & content-box mask */
+  -webkit-mask: 
+    linear-gradient(#fff,#fff) content-box, 
+    linear-gradient(#fff,#fff);
+  -webkit-mask-composite: xor; /* for webkit */
+  mask: 
+    linear-gradient(#fff,#fff) content-box, 
+    linear-gradient(#fff,#fff);
+  mask-composite: exclude; /* modern */
+  /* animate rotation */
+  animation: spinBorder 4s linear infinite;
+  transform-origin: 50% 50%;
+  pointer-events: none;
+}
+
+/* The inner white card (visible area) */
+.card-inner {
+  position: relative;
+  z-index: 2; /* above the ::before gradient */
+  background: #ffffff;
+  border-radius: calc(14px - 4px); /* inner radius = outer minus padding */
+  width: 100%;
+  height: 100%;
+  box-shadow: 0 8px 24px rgba(16, 24, 40, 0.08);
+  overflow: hidden;
+}
+
+/* ensure contents inside have normal stacking */
+.card-inner > .p-6,
+.card-inner img,
+.card-inner h3,
+.card-inner p {
+  position: relative;
+  z-index: 3;
+}
+
+/* animation keyframe */
+@keyframes spinBorder {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* optio*
