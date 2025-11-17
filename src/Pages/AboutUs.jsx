@@ -16,7 +16,9 @@ const AboutUs = () => {
             ABOUT US
             </h1>
             </div>
-            <Display></Display>
+           <div className='mt-8'>
+             <Display></Display>
+           </div>
             <TodaySepcialFood></TodaySepcialFood>
         </div>
     );

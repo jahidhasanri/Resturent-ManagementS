@@ -21,10 +21,15 @@ const UserOrder = () => {
 
   const fetchOrders = async () => {
     try {
-      const res = await axios.get(
+      const response = await axios.get(
         `https://resturent-management-server-three.vercel.app/finalOrders?email=${user.email}`
       );
-      setOrders(res.data);
+      const sortedOrders = response.data.sort(
+        (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+      );
+
+      setOrders(sortedOrders);
+      
     } catch (error) {
       console.error("Error fetching orders:", error);
     }

@@ -8,11 +8,17 @@ const ManageDishes = () => {
   const [selectedDish, setSelectedDish] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  // Pagination States
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage =10;
+
   // Fetch dishes
   useEffect(() => {
     const fetchDishes = async () => {
       try {
-        const response = await axios.get("https://resturent-management-server-three.vercel.app/allsdishes");
+        const response = await axios.get(
+          "https://resturent-management-server-three.vercel.app/allsdishes"
+        );
         setAllDishes(response.data);
       } catch (error) {
         console.error("Error fetching dishes:", error);
@@ -21,51 +27,48 @@ const ManageDishes = () => {
     fetchDishes();
   }, []);
 
-  // Delete dish with SweetAlert
+  // Delete dish
   const handleDelete = async (dish) => {
-  const result = await Swal.fire({
-    title: 'Are you sure?',
-    text: `Do you want to delete "${dish.name}"?`,
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonText: 'Yes, delete it!',
-    cancelButtonText: 'Cancel',
-  });
+    const result = await Swal.fire({
+      title: 'Are you sure?',
+      text: `Do you want to delete "${dish.name}"?`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'Cancel',
+    });
 
-  if (result.isConfirmed) {
-    try {
-      // Delete from DB
-      await axios.delete(`https://resturent-management-server-three.vercel.app/allsdishes/${dish._id}`);
-      
-      // Remove from state immediately
-      setAllDishes(allDishes.filter(d => d._id !== dish._id));
+    if (result.isConfirmed) {
+      try {
+        await axios.delete(
+          `https://resturent-management-server-three.vercel.app/allsdishes/${dish._id}`
+        );
 
-      // Show success toast
-      Swal.fire({
-        toast: true,
-        position: 'top-end',
-        icon: 'success',
-        title: `"${dish.name}" has been deleted.`,
-        showConfirmButton: false,
-        timer: 2000,
-        timerProgressBar: true,
-      });
-    } catch (error) {
-      console.error("Delete failed:", error);
-      Swal.fire({
-        toast: true,
-        position: 'top-end',
-        icon: 'error',
-        title: 'Delete failed. Try again.',
-        showConfirmButton: false,
-        timer: 2000,
-        timerProgressBar: true,
-      });
+        setAllDishes(allDishes.filter(d => d._id !== dish._id));
+
+        Swal.fire({
+          toast: true,
+          position: 'top-end',
+          icon: 'success',
+          title: `"${dish.name}" has been deleted.`,
+          showConfirmButton: false,
+          timer: 2000,
+        });
+      } catch (error) {
+        console.error("Delete failed:", error);
+        Swal.fire({
+          toast: true,
+          position: 'top-end',
+          icon: 'error',
+          title: 'Delete failed. Try again.',
+          showConfirmButton: false,
+          timer: 2000,
+        });
+      }
     }
-  }
-};
+  };
 
-  // Update dish
+  // Update modal open
   const handleUpdate = (dish) => {
     setSelectedDish(dish);
     setIsModalOpen(true);
@@ -76,10 +79,18 @@ const ManageDishes = () => {
     setIsModalOpen(false);
   };
 
+  // Submit update
   const handleUpdateSubmit = async (updatedDish) => {
     try {
-      await axios.put(`https://resturent-management-server-three.vercel.app/dishes/${updatedDish._id}`, updatedDish);
-      setAllDishes(allDishes.map(d => d._id === updatedDish._id ? updatedDish : d));
+      await axios.put(
+        `https://resturent-management-server-three.vercel.app/dishes/${updatedDish._id}`,
+        updatedDish
+      );
+
+      setAllDishes(
+        allDishes.map((d) => (d._id === updatedDish._id ? updatedDish : d))
+      );
+
       closeModal();
       Swal.fire('Updated!', `${updatedDish.name} has been updated.`, 'success');
     } catch (error) {
@@ -88,10 +99,20 @@ const ManageDishes = () => {
     }
   };
 
+  // ⬇ Pagination Logic
+  const totalPages = Math.ceil(allDishes.length / itemsPerPage);
+  const indexOfLastDish = currentPage * itemsPerPage;
+  const indexOfFirstDish = indexOfLastDish - itemsPerPage;
+  const currentDishes = allDishes.slice(indexOfFirstDish, indexOfLastDish);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
   return (
     <div className="container mx-auto p-4">
+
       <h1 className="text-2xl font-bold mb-4">Manage Dishes</h1>
 
+      {/* TABLE */}
       <div className="overflow-x-auto">
         <table className="w-full table-auto border border-gray-300">
           <thead className="bg-gray-200">
@@ -104,17 +125,21 @@ const ManageDishes = () => {
             </tr>
           </thead>
           <tbody>
-            {allDishes.map(dish => (
+            {currentDishes.map((dish) => (
               <tr key={dish._id} className="text-center">
                 <td className="p-2 border">
-                  <img src={dish.image} alt={dish.name} className="w-16 h-16 object-cover mx-auto rounded" />
+                  <img
+                    src={dish.image}
+                    alt={dish.name}
+                    className="w-16 h-16 object-cover mx-auto rounded"
+                  />
                 </td>
                 <td className="p-2 border">{dish.name}</td>
                 <td className="p-2 border">${dish.price}</td>
                 <td className="p-2 border">{dish.quantity}</td>
-                <td className="p-2 border  justify-center gap-2">
+                <td className="p-2 border">
                   <button
-                    className="bg-blue-500 text-white px-3 py-1 md:mr-4 mb-2 md:mb-0 rounded hover:bg-blue-600"
+                    className="bg-blue-500 text-white px-3 py-1 md:mr-4 rounded hover:bg-blue-600"
                     onClick={() => handleUpdate(dish)}
                   >
                     Update
@@ -132,12 +157,46 @@ const ManageDishes = () => {
         </table>
       </div>
 
+      {/* PAGINATION */}
+      <div className="flex justify-center mt-6 space-x-2">
+
+        {/* Prev Button */}
+        <button
+          disabled={currentPage === 1}
+          onClick={() => paginate(currentPage - 1)}
+          className="px-3 py-1 bg-gray-300 rounded disabled:opacity-50"
+        >
+          Prev
+        </button>
+
+        {/* Page Numbers */}
+        {[...Array(totalPages)].map((_, index) => (
+          <button
+            key={index + 1}
+            onClick={() => paginate(index + 1)}
+            className={`px-3 py-1 rounded ${
+              currentPage === index + 1
+                ? "bg-blue-500 text-white"
+                : "bg-gray-300"
+            }`}
+          >
+            {index + 1}
+          </button>
+        ))}
+
+        {/* Next Button */}
+        <button
+          disabled={currentPage === totalPages}
+          onClick={() => paginate(currentPage + 1)}
+          className="px-3 py-1 bg-gray-300 rounded disabled:opacity-50"
+        >
+          Next
+        </button>
+
+      </div>
+
       {isModalOpen && selectedDish && (
-        <Modal
-          dish={selectedDish}
-          onClose={closeModal}
-          onSubmit={handleUpdateSubmit}
-        />
+        <Modal dish={selectedDish} onClose={closeModal} onSubmit={handleUpdateSubmit} />
       )}
     </div>
   );

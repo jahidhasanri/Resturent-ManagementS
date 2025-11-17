@@ -13,17 +13,26 @@ const ManageOrder = () => {
   const ordersPerPage = 11;
 
   // ✅ Fetch all orders
-  useEffect(() => {
-    const fetchOrders = async () => {
-      try {
-        const response = await axios.get("https://resturent-management-server-three.vercel.app/finalorder");
-        setOrders(response.data);
-      } catch (error) {
-        console.error("Error fetching orders:", error);
-      }
-    };
-    fetchOrders();
-  }, []);
+ useEffect(() => {
+  const fetchOrders = async () => {
+    try {
+      const response = await axios.get(
+        "https://resturent-management-server-three.vercel.app/finalorder"
+      );
+
+      // Sort orders by createdAt (earliest first)
+      const sortedOrders = response.data.sort(
+        (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+      );
+
+      setOrders(sortedOrders);
+    } catch (error) {
+      console.error("Error fetching orders:", error);
+    }
+  };
+  fetchOrders();
+}, []);
+
 
   // ✅ Get color by status
   const getStatusColor = (status) => {

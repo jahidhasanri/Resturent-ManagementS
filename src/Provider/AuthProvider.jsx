@@ -7,6 +7,34 @@ const AuthProvider = ({children}) => {
     const [user,SetUser]=useState(null);
     const [loader,SetLoader]=useState(true);
      const [allDishes, setDishes] = useState([]);
+      const [users, setUsers] = useState([]);
+  const [orders, setOrders] = useState([]);
+
+
+  useEffect(() => {
+    const fetchOrders = async () => {
+      try {
+        const response = await axios.get("https://resturent-management-server-three.vercel.app/finalorder");
+        setOrders(response.data);
+      } catch (error) {
+        console.error("Error fetching orders:", error);
+      }
+    };
+    fetchOrders();
+  }, []);
+
+       useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const res = await axios.get("https://resturent-management-server-three.vercel.app/allusers");
+        setUsers(res.data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    fetchUsers();
+  }, []);
+
  useEffect(() => {
   if (user?.email) {   
     const fetchUser = async () => {
@@ -70,7 +98,9 @@ const AuthProvider = ({children}) => {
         handelLogout,
         handleLoginwithEmail,
         handleLoginWithGoogle,
-        allDishes
+        allDishes,
+        users,
+        orders
     }
 
 

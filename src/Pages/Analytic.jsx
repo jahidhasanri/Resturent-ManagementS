@@ -9,8 +9,8 @@ import DonutChart2 from "../Chart/Donutchart2";
 import Layout3 from "../Chart/Layout3";
 
 const Analytic = () => {
-  const { user } = useContext(AuthContext);
-
+  const { user,users,orders } = useContext(AuthContext);
+  
   return (
     <div className="bg-[#12121e] min-h-screen">
       <div className="py-10 xl:px-32">
@@ -37,7 +37,7 @@ const Analytic = () => {
             <div className="bg-[#1c1c2e] w-[310px] xl:w-[418px] 2xl:w-[310px] mx-auto rounded-xl p-6 flex justify-between h-[165px]">
               <div>
                 <h4 className="text-gray-400 text-sm mb-3">Users</h4>
-              <p className="text-white text-3xl font-bold mb-3">201</p>
+              <p className="text-white text-3xl font-bold mb-3">{users?.length}</p>
               <p className="text-green-400 text-xs">
                 ↑ 8.2% since last month
               </p>
@@ -64,7 +64,7 @@ const Analytic = () => {
         <div className="bg-[#1c1c2e] w-[310px] xl:w-[418px] 2xl:w-[310px] mx-auto rounded-xl p-6 flex justify-between h-[165px]">
               <div className="">
               <h4 className="text-gray-400 text-sm mb-3">Approved</h4>
-              <p className="text-white text-3xl font-bold mb-3">36</p>
+              <p className="text-white text-3xl font-bold mb-3">{users.length-1}</p>
               <p className="text-green-400 text-xs ">
                 ↑ 3.4% since last month
               </p>
@@ -88,7 +88,7 @@ const Analytic = () => {
           {/* order (Complete Card) */}
           <div className="bg-[#1c1c2e] rounded-xl p-6 w-[310px] xl:w-[418px] 2xl:w-[310px] mx-auto items-center justify-center h-[346px]">
             <h4 className="text-gray-400 text-sm mb-3">Orders</h4>
-            <p className="text-white text-3xl font-bold">4,890</p>
+            <p className="text-white text-3xl font-bold">{orders?.length}</p>
            <DonutChart></DonutChart>
             <div className="flex gap-4 mt-3 text-gray-300 text-xs">
               <p><span className="text-yellow-400">●</span> 62% Done </p>

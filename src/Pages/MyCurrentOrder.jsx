@@ -27,7 +27,10 @@ const MyCurrentOrder = () => {
        const pendingOrders = res.data.filter(
         (order) => order.orderStatus === "Pending"
       );
-      setOrders(pendingOrders);
+      const sortedOrders = pendingOrders.sort(
+      (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+    );
+      setOrders(sortedOrders);
     } catch (error) {
       console.error("Error fetching orders:", error);
     }

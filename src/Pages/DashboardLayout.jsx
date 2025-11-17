@@ -1,17 +1,20 @@
 import { NavLink, Outlet } from "react-router";
 import { FaBorderAll } from "react-icons/fa";
-import { MdManageHistory } from "react-icons/md";
-import { useContext } from "react";
-import { AuthContext } from "../Provider/AuthProvider";
-import { MdManageAccounts } from "react-icons/md";
+import { MdManageHistory, MdManageAccounts } from "react-icons/md";
 import { BiDish } from "react-icons/bi";
 import { AiOutlineBorderlessTable } from "react-icons/ai";
+import { useContext } from "react";
+import { AuthContext } from "../Provider/AuthProvider";
+
 const DashboardLayout = () => {
   const { user } = useContext(AuthContext);
   const role = user?.role;
+
   return (
     <div className="drawer lg:drawer-open">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
+
+      {/* Page Content */}
       <div className="drawer-content bg flex flex-col">
         {/* Navbar for small devices */}
         <div className="navbar bg-[#f5f2eb] lg:hidden w-full">
@@ -39,7 +42,7 @@ const DashboardLayout = () => {
           <div className="mx-2 flex-1 px-2">Dashboard</div>
         </div>
 
-        {/* Page content */}
+        {/* Outlet */}
         <div className="bg">
           <Outlet />
         </div>
@@ -47,12 +50,23 @@ const DashboardLayout = () => {
 
       {/* Sidebar */}
       <div className="drawer-side shadow-2xl">
-        <label
-          htmlFor="my-drawer-2"
-          aria-label="close sidebar"
-          className="drawer-overlay"
-        ></label>
-        <ul className="menu bg-bar p-4 w-80 min-h-full bg-[#1d1d29] text-base-content">
+
+        {/* ❗X Close Button (Mobile/Tablet Only) */}
+        <div className="lg:hidden absolute right-4 top-4 z-50">
+          <label
+            htmlFor="my-drawer-2"
+            className="btn btn-sm btn-circle bg-red-500 text-white"
+          >
+            ✕
+          </label>
+        </div>
+
+        {/* Drawer overlay */}
+        <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
+
+        <ul className="menu p-4 w-80 min-h-full bg-[#1d1d29] text-base-content">
+
+          {/* Logo */}
           <li>
             <NavLink className="mt-5 font-semibold" to="/">
               <img
@@ -62,7 +76,8 @@ const DashboardLayout = () => {
               />
             </NavLink>
           </li>
-          {/* admin menu */}
+
+          {/* Admin Menu */}
           {role === "admin" && (
             <>
               <li>
@@ -75,17 +90,18 @@ const DashboardLayout = () => {
                   </div>
                 </NavLink>
               </li>
+
               <li>
                 <NavLink
                   to={"manageUsers"}
                   className="hover:text-red-500 cursor-pointer text-[20px] font-semibold"
                 >
                   <div className="flex gap-3 items-center">
-                    <MdManageHistory />
-                    ManageUsers
+                    <MdManageHistory /> ManageUsers
                   </div>
                 </NavLink>
               </li>
+
               <li>
                 <NavLink
                   to={"addDish"}
@@ -96,6 +112,7 @@ const DashboardLayout = () => {
                   </div>
                 </NavLink>
               </li>
+
               <li>
                 <NavLink
                   to={"manageDishes"}
@@ -106,6 +123,7 @@ const DashboardLayout = () => {
                   </div>
                 </NavLink>
               </li>
+
               <li>
                 <NavLink
                   to={"manageOrders"}
@@ -116,30 +134,7 @@ const DashboardLayout = () => {
                   </div>
                 </NavLink>
               </li>
-              <li>
-                <NavLink
-                  to={"myProfile"}
-                  className="hover:text-red-500 cursor-pointer text-[20px] font-semibold"
-                >
-                  <div className="flex gap-3 items-center">
-                    <MdManageAccounts /> My Profile
-                  </div>
-                </NavLink>
-              </li>
-            </>
-          )}
-          {role === "employee" && (
-            <>
-              <li>
-                <NavLink
-                  to={"manageOrders"}
-                  className="hover:text-red-500 cursor-pointer text-[20px] font-semibold"
-                >
-                  <div className="flex gap-3 items-center">
-                    <AiOutlineBorderlessTable /> ManageOrder
-                  </div>
-                </NavLink>
-              </li>
+
               <li>
                 <NavLink
                   to={"myProfile"}
@@ -153,6 +148,34 @@ const DashboardLayout = () => {
             </>
           )}
 
+          {/* Employee Menu */}
+          {role === "employee" && (
+            <>
+              <li>
+                <NavLink
+                  to={"manageOrders"}
+                  className="hover:text-red-500 cursor-pointer text-[20px] font-semibold"
+                >
+                  <div className="flex gap-3 items-center">
+                    <AiOutlineBorderlessTable /> ManageOrder
+                  </div>
+                </NavLink>
+              </li>
+
+              <li>
+                <NavLink
+                  to={"myProfile"}
+                  className="hover:text-red-500 cursor-pointer text-[20px] font-semibold"
+                >
+                  <div className="flex gap-3 items-center">
+                    <MdManageAccounts /> My Profile
+                  </div>
+                </NavLink>
+              </li>
+            </>
+          )}
+
+          {/* User Menu */}
           {role === "user" && (
             <>
               <li>
@@ -165,6 +188,7 @@ const DashboardLayout = () => {
                   </div>
                 </NavLink>
               </li>
+
               <li>
                 <NavLink
                   to={"userorder"}
@@ -175,17 +199,18 @@ const DashboardLayout = () => {
                   </div>
                 </NavLink>
               </li>
+
               <li>
                 <NavLink
                   to={"reviews"}
                   className="hover:text-red-500 cursor-pointer text-[20px] text-white font-semibold"
                 >
                   <div className="flex gap-3 items-center">
-                    <MdManageAccounts />
-                    Review Items
+                    <MdManageAccounts /> Review Items
                   </div>
                 </NavLink>
               </li>
+
               <li>
                 <NavLink
                   to={"myProfile"}
